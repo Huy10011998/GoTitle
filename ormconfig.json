@@ -1,0 +1,15 @@
+{
+   "type": "react-native",
+   "name": "default",
+   "database": "gotitle.db",
+   "location": "default",
+   "entities": [],
+   "migrations": [],
+   "migrationsRun": true,
+   "cli": {
+      "entitiesDir": "src/entities",
+      "migrationsDir": "src/database/migrations",
+      "subscribersDir": "src/subscribers"
+   },
+   "synchronize": false
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Right of Way"
+  },
+  {
+    "id": 2,
+    "name": "General Easement"
+  },
+  {
+    "id": 3,
+    "name": "Drainage Easement"
+  },
+  {
+    "id": 4,
+    "name": "Sanitary Sewer Easement"
+  },
+  {
+    "id": 5,
+    "name": "Electric Utility Easement"
+  },
+  {
+    "id": 6,
+    "name": "Right of Flight"
+  },
+  {
+    "id": 7,
+    "name": "Construction Easement"
+  }
+]

@@ -1,0 +1,3299 @@
+[
+  {
+    "id": "110",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "La guardia, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [],
+    "mortgageList": [],
+    "easementList": [],
+    "lienList": [],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": []
+  },
+  {
+    "id": "111",
+    "locationName": "La guardia, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "La Guardia, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "112",
+    "locationName": "El Torno, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "113",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "114",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "115",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "116",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "117",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "118",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "119",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "120",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  },
+  {
+    "id": "121",
+    "locationName": "Vaca Fria Julio, Santa Cruz de la Sierra, Bolivia",
+    "dateSearch": "2018-07-10 00:00:00",
+    "dateEffective": "2018-07-13 00:00:00",
+    "apartment": "12",
+    "searchType": "commercial",
+    "searchTypeDetail": "update",
+    "searchTypeDetailValue": null,
+    "parcel": "30",
+    "section": 23,
+    "type": "subdivision",
+    "condoName": null,
+    "district": "Santa Cruz",
+    "gmd": "30",
+    "landLot": "21",
+    "township": 12,
+    "range": null,
+    "zones": {
+      "ne": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "nw": {
+        "nw": true,
+        "ne": true,
+        "sw": true,
+        "se": true
+      },
+      "se": {
+        "nw": true,
+        "ne": false,
+        "sw": false,
+        "se": true
+      },
+      "sw": {
+        "nw": false,
+        "ne": false,
+        "sw": false,
+        "se": false
+      }
+    },
+    "lot": "200",
+    "block": "3",
+    "phase": "20",
+    "pod": "13",
+    "unit": "20",
+    "subdivisionSection": null,
+    "interestCommon": null,
+    "parking": null,
+    "garage": null,
+    "storage": null,
+    "wine": null,
+    "platList": [
+      {
+        "id": 1,
+        "book": "1",
+        "page": "3"
+      }
+    ],
+    "floorPlanList": [],
+    "longLegal": "This is a long description about the legal info.",
+    "chainTitleType": "current_owner",
+    "note": "My Notes",
+    "price": 500,
+    "certifiedByUser": false,
+    "status": "published",
+    "lastTitleStep": "finalize",
+    "salesCount": 0,
+    "owner": {
+      "id": 3,
+      "name": "Ariel",
+      "lastName": "Ayaviri",
+      "email": "aayaviri@mailinator.com",
+      "lastActive": null,
+      "emailNotificationsActive": true,
+      "roles": [
+        {
+          "id": 2,
+          "name": "Basic",
+          "key": "basic",
+          "permissions": [
+            {
+              "id": 1,
+              "name": "search_titles"
+            },
+            {
+              "id": 3,
+              "name": "post_titles"
+            },
+            {
+              "id": 4,
+              "name": "list_search_jobs"
+            },
+            {
+              "id": 6,
+              "name": "post_search_job"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "id": 3,
+        "companyName": null,
+        "w9Policy": null,
+        "errorsInsurance": null,
+        "location": null
+      },
+      "profileImage": null,
+      "userSetting": {
+        "id": 3,
+        "dwollaCustomer": null,
+        "dwollaFundingSource": null,
+        "lastDigitsBankAccount": null,
+        "locations": []
+      }
+    },
+    "documentList": [],
+    "location": {
+      "id": 2,
+      "name": "Vaca Fria Jun\u00edn, Santa Cruz de la Sierra, Bolivia",
+      "placeId": "ChIJ5-USUQzo8ZMRFIzvBezzr_8",
+      "streetNumber": null,
+      "city": "Santa Cruz de la Sierra",
+      "state": "Departamento de Santa Cruz",
+      "countryCode": "BO",
+      "country": "Bolivia",
+      "postCode": null,
+      "district": "",
+      "latitude": "-17.78277120",
+      "longitude": "-63.18309190"
+    },
+    "deedList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-20 00:00:00",
+        "deedBook": 3,
+        "deedPage": 3,
+        "grantor": "Me",
+        "grantee": "You",
+        "deedType": {
+          "id": 1,
+          "name": "Warranty Deed"
+        }
+      }
+    ],
+    "mortgageList": [
+      {
+        "id": 2,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Me",
+        "grantee": "You",
+        "amountBorrowed": 500,
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "3",
+            "transferred": "Somebody"
+          }
+        ],
+        "reRecordedList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "2"
+          }
+        ],
+        "subordinatedList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "2"
+          }
+        ],
+        "uccList": [
+          {
+            "id": 1,
+            "deedBook": "2",
+            "deedPage": "4"
+          }
+        ],
+        "deedType": {
+          "id": 2,
+          "name": "Quitclaim Deed"
+        }
+      }
+    ],
+    "easementList": [
+      {
+        "id": 1,
+        "deedDate": "2018-07-10 00:00:00",
+        "recDate": "2018-07-25 00:00:00",
+        "deedBook": 3,
+        "deedPage": 4,
+        "grantor": "Thomas",
+        "grantee": "Martha",
+        "easementType": {
+          "id": 2,
+          "name": "General Easement"
+        }
+      }
+    ],
+    "lienList": [
+      {
+        "id": 2,
+        "lienor": "abcd",
+        "debtor": "nones",
+        "book": 3,
+        "page": 4,
+        "amount": 200,
+        "deedList": [
+          {
+            "id": 1,
+            "book": "3",
+            "page": "4"
+          }
+        ],
+        "transferList": [
+          {
+            "id": 1,
+            "deedBook": "3",
+            "deedPage": "4",
+            "transferred": "Thomas"
+          }
+        ],
+        "lienType": {
+          "id": 2,
+          "name": "M & M"
+        }
+      }
+    ],
+    "covenant": {
+      "id": 2,
+      "type": "not_subject",
+      "deedBook": 30,
+      "deedPage": 2,
+      "dateRecorded": "2018-07-10 00:00:00",
+      "reRecordedList": [
+        {
+          "id": 1,
+          "deedBook": "14",
+          "deedPage": "2"
+        }
+      ],
+      "supplementedList": [
+        {
+          "id": 1,
+          "deedBook": "44",
+          "deedPage": "3"
+        }
+      ],
+      "amendedList": [
+        {
+          "id": 1,
+          "deedBook": "30",
+          "deedPage": "2"
+        }
+      ]
+    },
+    "rating": [
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type1",
+          "label": "Completed Info"
+        }
+      },
+      {
+        "like": "1",
+        "disLike": "0",
+        "type": {
+          "key": "type2",
+          "label": "Valid Info"
+        }
+      }
+    ]
+  }
+]

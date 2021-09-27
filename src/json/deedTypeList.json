@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Warranty Deed"
+  },
+  {
+    "id": 2,
+    "name": "Quitclaim Deed"
+  },
+  {
+    "id": 3,
+    "name": "Administrator's Deed"
+  },
+  {
+    "id": 4,
+    "name": "Executor's Deed"
+  },
+  {
+    "id": 5,
+    "name": "Executrix's Deed"
+  },
+  {
+    "id": 6,
+    "name": "Deed of Gift"
+  },
+  {
+    "id": 7,
+    "name": "General Warranty Deed"
+  },
+  {
+    "id": 8,
+    "name": "Limited Warranty Deed"
+  },
+  {
+    "id": 9,
+    "name": "Special Warranty Deed"
+  },
+  {
+    "id": 10,
+    "name": "Limited And Special Warranty Deed"
+  },
+  {
+    "id": 11,
+    "name": "Deed in Lieu of Foreclosure"
+  },
+  {
+    "id": 12,
+    "name": "Foreclosure Deed"
+  },
+  {
+    "id": 13,
+    "name": "Deed under Power"
+  },
+  {
+    "id": 14,
+    "name": "Trustee's Deed"
+  },
+  {
+    "id": 15,
+    "name": "Tax Deed"
+  },
+  {
+    "id": 16,
+    "name": "Order Deed"
+  },
+  {
+    "id": 17,
+    "name": "Deed of Assent"
+  },
+  {
+    "id": 18,
+    "name": "Years Support"
+  },
+  {
+    "id": 19,
+    "name": "Limited Trustee's Deed"
+  },
+  {
+    "id": 20,
+    "name": "Deed Of Trust"
+  },
+  {
+    "id": 21,
+    "name": "Security Deed"
+  }
+]

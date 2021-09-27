@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "code": "not_subject",
+    "name": "Not subject to HOA/COA"
+  },
+  {
+    "id": 2,
+    "code": "protective",
+    "name": "Subject to Protective Covenants"
+  },
+  {
+    "id": 3,
+    "code": "condominium",
+    "name": "Subject to Condominium Declarations"
+  }
+]
