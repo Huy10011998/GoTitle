@@ -71,7 +71,7 @@ export class TitleTest {
         await this.createEasements(testTitle);
 
         await this.createLiens(testTitle);
-
+        
         await this.createMiscs(testTitle);
 
         await this.createPlats(testTitle);

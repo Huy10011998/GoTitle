@@ -15,11 +15,19 @@ export const styles = StyleSheet.create({
     containerFlat: {
         flex: 1,
         padding: 15,
-        backgroundColor: Palette.gray,
+        // backgroundColor: Palette.gray,
     },
-
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
+    },
     formControl: {
+        marginLeft: 10,
+        marginRight: 10,
         flex: 1,
+        height: 50,
         backgroundColor: "transparent"
     },
     formDatePicker: {
@@ -30,13 +38,18 @@ export const styles = StyleSheet.create({
     formLabel: {
         marginTop: 5,
         marginLeft: 10,
-        color: Palette.primary
+        color: Palette.dark,
+        fontWeight: 'bold'
     },
     formRow: {
         flexDirection: "row",
         alignItems: "center",
         marginTop: 0,
+
         marginVertical: 5,
+    },
+    formText:{
+        paddingTop: 5
     },
     groupRow: {
         flexDirection: 'row',
@@ -46,7 +59,8 @@ export const styles = StyleSheet.create({
         paddingRight: 10,
     },
     card: {
-        marginBottom: 15
+        marginBottom: 15,
+        borderRadius: 12,
     },
     title: {
         marginBottom: 10,
@@ -85,7 +99,8 @@ export const styles = StyleSheet.create({
     },
     titleInput: {
         fontSize: 13,
-        color: '#48b1ff',
+        color: '#003A6F',
+        fontWeight: 'bold'
     },
     formColumn: {
         flexDirection: "column",
@@ -117,7 +132,8 @@ export const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     screenButton: {
-        padding: 10
+        padding: 8,
+        borderRadius: 12
     }
 
 });
@@ -132,7 +148,7 @@ export const styleTitleInfo = StyleSheet.create({
     containerFlat: {
         flex: 1,
         paddingVertical: 15,
-        backgroundColor: Palette.gray,
+        // backgroundColor: Palette.gray,
     },
     avatarIcon: {
         marginTop: 14,

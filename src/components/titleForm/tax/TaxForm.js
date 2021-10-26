@@ -3,7 +3,6 @@ import {
     ScrollView,
     Text,
     View,
-    TouchableOpacity,
     SafeAreaView,
     KeyboardAvoidingView, Platform
 } from "react-native";
@@ -21,6 +20,10 @@ import {TaxRepository, DbImageRepository} from 'src/repositories/index';
 import {Tax, DeedType, DbImage} from 'src/entities/index';
 import SyncService from 'src/services/SyncService';
 import ModalSave from 'src/components/reusable/ModalSave';
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 
 
 const moment = require("moment");
@@ -78,16 +81,33 @@ class TaxForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -287,94 +307,178 @@ class TaxForm extends Component {
                             <Card style={ styles.card }>
                                 <Card.Content>
                                     <View style={ styles.formRow }>
-                                        <Text style={[styles.formLabel, {marginLeft: 0}]}>County Taxes</Text>
+                                        <Text style={[styles.formLabel, {marginLeft: 0}]}>County Taxes:</Text>
                                     </View>
 
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="County"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpTax.county }
-                                            onChangeText={ (county) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.county = county;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                placeholder="County"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpTax.county }
+                                                onChangeText={ (county) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.county = county;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Tax Year"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpTax.taxYear }
-                                            onChangeText={ (taxYear) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.taxYear = taxYear;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                placeholder="Tax Year"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpTax.taxYear }
+                                                onChangeText={ (taxYear) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.taxYear = taxYear;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Taxpayer Name"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpTax.taxpayerName }
-                                            onChangeText={ (taxpayerName) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.taxpayerName = taxpayerName;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                placeholder="Taxpayer Name"
+                                                style={styles.formControl}
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                value={ this.state.tmpTax.taxpayerName }
+                                                onChangeText={ (taxpayerName) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.taxpayerName = taxpayerName;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>    
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Assessed Value $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.assessedValue ? String(this.state.tmpTax.assessedValue) : null}
-                                            onChangeText={ (assessedValue) => {
-                                                let {tmpTax} = this.state;
-                                                tmpTax.assessedValue = assessedValue;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Assessed Value $"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.assessedValue ? String(this.state.tmpTax.assessedValue) : null}
+                                                onChangeText={ (assessedValue) => {
+                                                    let {tmpTax} = this.state;
+                                                    tmpTax.assessedValue = assessedValue;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Parcel ID"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpTax.parcelId }
-                                            onChangeText={ (parcelId) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.parcelId = parcelId;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                placeholder="Parcel ID"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpTax.parcelId }
+                                                onChangeText={ (parcelId) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.parcelId = parcelId;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Amount Paid $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.amountPaid ? String(this.state.tmpTax.amountPaid) : null}
-                                            onChangeText={ (amountPaid) => {
-                                                let {tmpTax} = this.state;
-                                                tmpTax.amountPaid = amountPaid;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                placeholder="Amount Paid $"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.amountPaid ? String(this.state.tmpTax.amountPaid) : null}
+                                                onChangeText={ (amountPaid) => {
+                                                    let {tmpTax} = this.state;
+                                                    tmpTax.amountPaid = amountPaid;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
                                     <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                         <Text style={styles.formLabel}>
-                                            Date Paid
+                                            Date Paid:
                                         </Text>
                                     </View>
                                     <DatePicker
@@ -399,23 +503,37 @@ class TaxForm extends Component {
                                     />
 
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Amount Owed $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.amountOwned ? String(this.state.tmpTax.amountOwned) : null}
-                                            onChangeText={ (amountOwned) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.amountOwned = amountOwned;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Amount Owed $"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.amountOwned ? String(this.state.tmpTax.amountOwned) : null}
+                                                onChangeText={ (amountOwned) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.amountOwned = amountOwned;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
                                     <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                         <Text style={styles.formLabel}>
-                                            Date Due
+                                            Date Due:
                                         </Text>
                                     </View>
                                     <DatePicker
@@ -445,55 +563,96 @@ class TaxForm extends Component {
                                 <Card.Content>
                                     <View style={styles.formRow}>
                                         <Text style={[styles.formLabel, {marginLeft: 0}]}>
-                                            Municipal Taxes
+                                            Municipal Taxes:
                                         </Text>
                                     </View>
 
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Municipality"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpTax.municipality }
-                                            onChangeText={ (municipality) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.municipality = municipality;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                placeholder="Municipality"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpTax.municipality }
+                                                onChangeText={ (municipality) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.municipality = municipality;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Account Number"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpTax.accountNumber }
-                                            onChangeText={ (accountNumber) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.accountNumber = accountNumber;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Account Number"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpTax.accountNumber }
+                                                onChangeText={ (accountNumber) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.accountNumber = accountNumber;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Amount Paid$"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.municipalAmountPaid ? String(this.state.tmpTax.municipalAmountPaid) : null}
-                                            onChangeText={ (municipalAmountPaid) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.municipalAmountPaid = municipalAmountPaid;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                placeholder="Amount Paid $"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.municipalAmountPaid ? String(this.state.tmpTax.municipalAmountPaid) : null}
+                                                onChangeText={ (municipalAmountPaid) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.municipalAmountPaid = municipalAmountPaid;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
                                     <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                         <Text style={styles.formLabel}>
-                                            Date Paid
+                                            Date Paid:
                                         </Text>
                                     </View>
                                     <DatePicker
@@ -518,23 +677,37 @@ class TaxForm extends Component {
                                     />
 
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Amount Owed $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.municipalAmountOwned ? String(this.state.tmpTax.municipalAmountOwned) : null}
-                                            onChangeText={ (municipalAmountOwned) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.municipalAmountOwned = municipalAmountOwned;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Amount Owed $"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.municipalAmountOwned ? String(this.state.tmpTax.municipalAmountOwned) : null}
+                                                onChangeText={ (municipalAmountOwned) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.municipalAmountOwned = municipalAmountOwned;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
                                     <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                         <Text style={styles.formLabel}>
-                                            Date Due
+                                            Date Due:
                                         </Text>
                                     </View>
                                     <DatePicker
@@ -559,16 +732,30 @@ class TaxForm extends Component {
                                     />
 
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Tax Year"
-                                            style={styles.formControl}
-                                            value={this.state.tmpTax.municipalTaxYear}
-                                            onChangeText={ (municipalTaxYear) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.municipalTaxYear = municipalTaxYear;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                placeholder="Tax Year"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={this.state.tmpTax.municipalTaxYear}
+                                                onChangeText={ (municipalTaxYear) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.municipalTaxYear = municipalTaxYear;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
                                 </Card.Content>
                             </Card>
@@ -577,50 +764,92 @@ class TaxForm extends Component {
                                 <Card.Content>
                                     <View style={styles.formRow}>
                                         <Text style={[styles.formLabel, {marginLeft: 0}]}>
-                                            Services
+                                            Services:
                                         </Text>
                                     </View>
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Water $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.water ? String(this.state.tmpTax.water) : null}
-                                            onChangeText={ (water) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.water = water;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Water $"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.water ? String(this.state.tmpTax.water) : null}
+                                                onChangeText={ (water) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.water = water;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Sewer $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.sewer ? String(this.state.tmpTax.sewer) : null}
-                                            onChangeText={ (sewer) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.sewer = sewer;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Sewer $"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.sewer ? String(this.state.tmpTax.sewer) : null}
+                                                onChangeText={ (sewer) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.sewer = sewer;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
-                                    <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Sanitation $"
-                                            placeholder="$"
-                                            style={styles.formControl}
-                                            keyboardType="numeric"
-                                            value={this.state.tmpTax.sanitation ? String(this.state.tmpTax.sanitation) : null}
-                                            onChangeText={ (sanitation) => {
-                                                let tmpTax = {...this.state.tmpTax};
-                                                tmpTax.sanitation = sanitation;
-                                                this.setState({tmpTax: tmpTax});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow,styles.formText]}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Sanitation $"
+                                                style={styles.formControl}
+                                                keyboardType="numeric"
+                                                value={this.state.tmpTax.sanitation ? String(this.state.tmpTax.sanitation) : null}
+                                                onChangeText={ (sanitation) => {
+                                                    let tmpTax = {...this.state.tmpTax};
+                                                    tmpTax.sanitation = sanitation;
+                                                    this.setState({tmpTax: tmpTax});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
                                 </Card.Content>
                             </Card>
@@ -629,7 +858,7 @@ class TaxForm extends Component {
                                 <Card.Content>
                                     <View style={styles.formRow}>
                                         <Text style={[styles.formLabel, {marginLeft: 0}]}>
-                                            Tax Documents
+                                            Tax Documents:
                                         </Text>
                                     </View>
                                     <View style={styles.formRow}>
@@ -638,31 +867,46 @@ class TaxForm extends Component {
                                         }}>
                                             <Icon name="insert-drive-file" size={40} color={Palette.secondary}/>
                                         </TouchableOpacity>
-                                        <TextInput
-                                            style={styles.formControl}
-                                            label="Document Description"
-                                            value={this.state.tmpTax.documentDescription}
-                                            onChangeText={ (documentDescription) => {
-                                                this.setState((prevState) => {
-                                                    return {
-                                                        ...prevState,
-                                                        tmpTax: {
-                                                            ...prevState.tmpTax,
-                                                            documentDescription: documentDescription
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                style={styles.formControl}
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                placeholder="Document Description"
+                                                value={this.state.tmpTax.documentDescription}
+                                                onChangeText={ (documentDescription) => {
+                                                    this.setState((prevState) => {
+                                                        return {
+                                                            ...prevState,
+                                                            tmpTax: {
+                                                                ...prevState.tmpTax,
+                                                                documentDescription: documentDescription
+                                                            }
                                                         }
+                                                    });
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
                                                     }
-                                                });
-                                            }}
-
-                                        />
+                                                }}
+                                            />
+                                        </View>
                                     </View>
                                     <Button
+                                        labelStyle={{fontWeight: 'bold'}}
                                         icon="camera-outline"
                                         mode="contained"
+                                        uppercase={false}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Tax Documents</Button>
+                                        style={{marginVertical: 10, height: 50, borderWidth: 1, borderRadius: 12, justifyContent: 'center'}}>Add Tax Documents</Button>
 
                                     { (this.state.showModal) ?
                                         <ModalSave
@@ -696,8 +940,10 @@ class TaxForm extends Component {
                             </Card>
 
                         </View>
-                        <View style={[styles.formBottomButton, {marginTop: 10}]}>
+                        <View style={[styles.formBottomButton]}>
                             <Button style={styles.screenButton}
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase={false}
                                     mode="contained"
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : (this.state.tmpTax.id) ? 'Save Document' : 'Add Tax Info to Title'}</Button>
                         </View>

@@ -4,7 +4,8 @@ import {
     Text,
     View,
     SafeAreaView,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {NavigationEvents} from 'react-navigation';
 import {Header} from "react-navigation-stack";
@@ -31,6 +32,24 @@ import SyncService from 'src/services/SyncService';
 const moment = require("moment");
 const covenantTypeList = require('src/json/covenantTypeList');
 import ModalSave from 'src/components/reusable/ModalSave';
+import photoStarScreen from '../../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={styles.imageStartScreen}
+            imageStyle={styles.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class CovenantsForm extends Component {
 
@@ -92,16 +111,33 @@ class CovenantsForm extends Component {
             ),
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity  onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -499,7 +535,7 @@ class CovenantsForm extends Component {
     render() {
 
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <NavigationEvents
                     onDidFocus={payload => {
                         if (!this.state.isShowGallery) {
@@ -512,7 +548,7 @@ class CovenantsForm extends Component {
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', }}
                         keyboardShouldPersistTaps="handled">
 
                         <View style={ styles.containerFlat }>
@@ -620,7 +656,7 @@ class CovenantsForm extends Component {
                                                 }
                                                 <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                                     <Text style={[styles.formLabel]}>
-                                                        Instrument Date
+                                                        Instrument Date:
                                                     </Text>
                                                 </View>
                                                 <DatePicker
@@ -646,7 +682,7 @@ class CovenantsForm extends Component {
 
                                                 <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                                     <Text style={styles.formLabel}>
-                                                        Date Recorded
+                                                        Date Recorded:
                                                     </Text>
                                                 </View>
                                                 <DatePicker
@@ -683,7 +719,7 @@ class CovenantsForm extends Component {
                                             <Card.Content>
                                                 <View style={ styles.formRow }>
                                                     <Text style={styles.formLabel}>
-                                                        Deed Book + Page
+                                                        Deed Book + Page:
                                                     </Text>
                                                 </View>
                                                 <View style={styles.formRow}>
@@ -698,23 +734,25 @@ class CovenantsForm extends Component {
                                                         onImagePress={item => this.showGallery()}/>
                                                 </View>
                                                 <Button
+                                                    labelStyle={{fontWeight: 'bold'}}
                                                     icon="camera-outline"
                                                     mode="contained"
+                                                    uppercase={false}
                                                     onPress={() => {
                                                         this.showGallery();
                                                     }}
-                                                    style={{marginVertical: 10}}>Add Page Images</Button>
+                                                    style={{marginVertical: 10, height: 50, borderRadius: 12, borderWidth: 1, justifyContent: 'center'}}>Add Page Images</Button>
                                             </Card.Content>
                                         </Card>
 
                                         <Card style={ styles.card }>
                                             <Card.Content>
                                                 <View style={ styles.formRow }>
-                                                    <Text style={styles.formLabel}>Revised</Text>
+                                                    <Text style={styles.formLabel}>Revised:</Text>
                                                 </View>
                                                 {this.state.tmpRevisedList.map((value, index) => {
                                                     return <View>
-                                                        <View style={[(index <= 0) ? {marginRight: 30} : null]}>
+                                                        <View style={[(index <= 0) ? {marginRight: 0} : null]}>
                                                             <View style={styles.formRow}>
                                                                 <BookPageForm
                                                                     item={value}
@@ -739,10 +777,12 @@ class CovenantsForm extends Component {
                                                         <Button
                                                             icon="camera-outline"
                                                             mode="contained"
+                                                            labelStyle={{fontWeight: 'bold'}}
+                                                            uppercase={false}
                                                             onPress={() => {
                                                                 this.showGalleryRevised(index)
                                                             }}
-                                                            style={{marginVertical: 10}}>Add Images</Button>
+                                                            style={{marginVertical: 10,height: 50, borderRadius: 12, borderWidth: 1, justifyContent: 'center'}}>Add Images</Button>
                                                         <Divider/>
 
                                                     </View>;
@@ -805,15 +845,17 @@ class CovenantsForm extends Component {
                             /> : null
 
                         }
-                        <View style={styles.formBottomButton}>
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
                             <Button style={styles.screenButton}
                                     mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase={false}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : 'Continue'}</Button>
                         </View>
 
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage>
         );
     }
 }

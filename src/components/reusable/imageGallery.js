@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TouchableOpacity, FlatList, SafeAreaView, Image} from 'react-native';
+import {StyleSheet, View, FlatList, SafeAreaView, Image} from 'react-native';
 import {Button, Headline} from 'react-native-paper';
 import {styles} from "src/Style/app.style";
 import {Palette} from "src/Style/app.theme";
@@ -7,6 +7,8 @@ import ImageViewer from 'src/components/reusable/ImageViewer';
 import {generateCompletePathHomeImages} from 'src/utils/FileStorage';
 import {DbImage} from 'src/entities/index';
 
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
 const moment = require("moment");
 
 export default class ImageGallery extends Component {
@@ -38,6 +40,40 @@ export default class ImageGallery extends Component {
         this.cancelCamera = this.cancelCamera.bind(this);
         this.loadImageList();
     }
+
+    static navigationOptions = ({navigation: {goBack}}) => {
+        return {
+            headerLeft: (
+                (Platform.OS == "ios") ?
+
+                <TouchableOpacity  onPress={() => goBack()}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={() => goBack()}/>
+            ),
+        }
+    };
 
     updateImage(objImage, index) {
         let {dbImageList, dbImageData} = this.state;
@@ -201,8 +237,10 @@ export default class ImageGallery extends Component {
                     }
                     <View styles={styles.formBottomButton}>
                         <Button
-                            style={{margin: 20}}
+                            style={{margin: 20, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}
                             mode="contained"
+                            uppercase={false}
+                            labelStyle={{fontWeight: 'bold'}}
                             icon="camera-outline"
                             onPress={() => {
                                 this.showImagePicker();

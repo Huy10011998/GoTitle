@@ -12,6 +12,9 @@ import ModalSave from 'src/components/reusable/ModalSave';
 import {TitleRepository, TitleDetailRepository} from 'src/repositories/index';
 import {ENDPOINT} from 'react-native-dotenv';
 
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 export default class DoubleCheck extends Component {
     constructor(props) {
         super(props);
@@ -48,19 +51,35 @@ export default class DoubleCheck extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity   onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -154,7 +173,7 @@ export default class DoubleCheck extends Component {
                         <View style={ styles.containerFlat }>
                             <Card style={styles.card}>
                                 <Card.Content>
-                                    <Text style={{fontSize: 12}}>
+                                    <Text style={{fontSize: 13, fontWeight: 'bold', color: '#000'}}>
                                         Certify that you´ve researched the following records:
                                     </Text>
                                     <TouchableRipple
@@ -265,7 +284,9 @@ export default class DoubleCheck extends Component {
                                             <Button
                                                 icon={this.state.previewFlag ? null : "file-outline"}
                                                 mode="contained"
-                                                style={{marginVertical: 10}}
+                                                labelStyle={{fontWeight: 'bold'}}
+                                                uppercase={false}
+                                                style={{marginVertical: 10, height: 50, borderRadius: 12, borderWidth: 1, justifyContent: 'center'}}
                                                 onPress={() => this.openDocument()}>
                                                 {this.state.previewFlag ? 'Syncing...' : 'Preview Your Title'}
                                             </Button>
@@ -303,8 +324,10 @@ export default class DoubleCheck extends Component {
 
 
                         <View style={styles.formBottomButton}>
-                            <Button styles={styles.screenButton}
+                            <Button style={[styles.screenButton, {height: 50, borderRadius: 12, borderWidth: 1, justifyContent: 'center'}]}
                                     mode="contained"
+                                    uppercase={false}
+                                    labelStyle={{fontWeight: 'bold'}}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : 'Continue'}</Button>
                         </View>
                     </ScrollView>

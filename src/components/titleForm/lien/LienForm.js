@@ -4,10 +4,10 @@ import {
     Text,
     View,
     SafeAreaView,
-    TouchableOpacity,
     StyleSheet,
     FlatList,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {Header} from "react-navigation-stack";
 import {Button, Card, IconButton, TextInput, withTheme, Dialog, Portal} from "react-native-paper";
@@ -23,6 +23,24 @@ import SyncService from 'src/services/SyncService';
 import ModalSave from 'src/components/reusable/ModalSave';
 
 const moment = require("moment");
+
+import photoStarScreen from '../../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesLien.imageStartScreen}
+            imageStyle={stylesLien.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class LienForm extends Component {
 
@@ -86,16 +104,33 @@ class LienForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity  onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -342,13 +377,13 @@ class LienForm extends Component {
     render() {
         const {masterDocList} = this.state;
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                       behavior={Platform.OS == "ios" ? "padding" : null}
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                         keyboardShouldPersistTaps="handled">
                         <View style={ styles.containerFlat }>
                             <Card style={ styles.card }>
@@ -357,11 +392,11 @@ class LienForm extends Component {
                                         {
                                             (this.state.deedType && this.state.deedType.scope == 'master') ?
                                                 <Text style={styles.formLabel}>
-                                                    Lien Type
+                                                    Lien Type:
                                                 </Text>
                                                 :
                                                 <Text style={styles.formLabel}>
-                                                    Master Document
+                                                    Master Document:
                                                 </Text>
                                         }
                                     </View>
@@ -395,46 +430,97 @@ class LienForm extends Component {
                                                     />
 
                                                 </View>
-
-                                                <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Lienor / Plaintiff"
-                                                        style={styles.formControl}
-                                                        value={ this.state.tmpLien.lienor }
-                                                        onChangeText={ (lienor) => {
-                                                            let tmpLien = {...this.state.tmpLien};
-                                                            tmpLien.lienor = lienor;
-                                                            this.setState({tmpLien: tmpLien});
-                                                        }}
-                                                    />
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Lienor / Plaintiff:</Text>
                                                 </View>
-
-                                                < View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Debtor / Defendant"
-                                                        style={styles.formControl}
-                                                        value={ this.state.tmpLien.debtor }
-                                                        onChangeText={ (debtor) => {
-                                                            let tmpLien = {...this.state.tmpLien};
-                                                            tmpLien.debtor = debtor;
-                                                            this.setState({tmpLien: tmpLien});
-                                                        }}
-                                                    />
-                                                </View>
-
+                                               
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Lien Amount $"
-                                                        placeholder="$"
-                                                        style={styles.formControl}
-                                                        keyboardType="numeric"
-                                                        value={this.state.tmpLien.amount ? String(this.state.tmpLien.amount) : null}
-                                                        onChangeText={ (amount) => {
-                                                            let tmpLien = {...this.state.tmpLien};
-                                                            tmpLien.amount = amount;
-                                                            this.setState({tmpLien: tmpLien});
-                                                        }}
-                                                    />
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=""
+                                                            backgroundColor="#fff"      
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            style={styles.formControl}
+                                                            value={ this.state.tmpLien.lienor }
+                                                            onChangeText={ (lienor) => {
+                                                                let tmpLien = {...this.state.tmpLien};
+                                                                tmpLien.lienor = lienor;
+                                                                this.setState({tmpLien: tmpLien});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </View>
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Debtor / Defendant:</Text>
+                                                </View>
+                                                
+                                                <View style={styles.formRow}>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=""
+                                                            backgroundColor="#fff"      
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            style={styles.formControl}
+                                                            value={ this.state.tmpLien.debtor }
+                                                            onChangeText={ (debtor) => {
+                                                                let tmpLien = {...this.state.tmpLien};
+                                                                tmpLien.debtor = debtor;
+                                                                this.setState({tmpLien: tmpLien});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </View>
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Lien Amount $:</Text>
+                                                </View>
+                                               
+                                                <View style={styles.formRow}>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=""
+                                                            backgroundColor="#fff"      
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            placeholder=""
+                                                            style={styles.formControl}
+                                                            keyboardType="numeric"
+                                                            value={this.state.tmpLien.amount ? String(this.state.tmpLien.amount) : null}
+                                                            onChangeText={ (amount) => {
+                                                                let tmpLien = {...this.state.tmpLien};
+                                                                tmpLien.amount = amount;
+                                                                this.setState({tmpLien: tmpLien});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
                                             </View>
                                             : <View>
@@ -490,6 +576,7 @@ class LienForm extends Component {
 
                                                                     <View style={{marginTop: 100}}>
                                                                         <Button
+                                                                            labelStyle={{fontWeight: 'bold'}}
                                                                             style={stylesLien.button}
                                                                             color={Palette.light}
                                                                             mode="contained"
@@ -544,14 +631,23 @@ class LienForm extends Component {
                                                         tmpLien.assignedTransferred = assignedTransferred;
                                                         this.setState({tmpLien: tmpLien});
                                                     }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
                                                 />
                                             </View>
                                             : null
                                     }
 
                                     <View style={ styles.formRow }>
-                                        <Text style={styles.formLabel}>
-                                            Lien Book + Page
+                                        <Text style={[styles.formLabel, {paddingTop: 10}]}>
+                                            Lien Book + Page:
                                         </Text>
                                     </View>
                                     <View style={styles.formRow}>
@@ -567,11 +663,13 @@ class LienForm extends Component {
                                     </View>
                                     <Button
                                         icon="camera-outline"
+                                        labelStyle={{fontWeight: 'bold'}}
                                         mode="contained"
+                                        uppercase= {false}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Page Images</Button>
+                                        style={{marginVertical: 10, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}>Add Page Images</Button>
                                     { (this.state.showModal) ?
                                         <ModalSave
                                             visible={this.state.showModal}
@@ -604,14 +702,16 @@ class LienForm extends Component {
                             </Card>
 
                         </View>
-                        <View style={styles.formBottomButton}>
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
                             <Button style={styles.screenButton}
                                     mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase= {false}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag?'Saving...':(this.state.tmpLien.id) ? 'Save Document' : 'Add Document to Title'}</Button>
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage>
         );
     }
 }
@@ -657,4 +757,10 @@ const stylesLien = StyleSheet.create({
         color: Palette.primary,
         textAlign: 'center'
     },
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
+    }
 });

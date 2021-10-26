@@ -35,30 +35,60 @@ export default class BookPageForm extends Component {
                 }}>
                     <ImageThumbnail image={this.props.item.image}/>
                 </TouchableOpacity>
-
-                <TextInput
-                    style={[styles.formControl, {marginRight: 5}]}
-                    label="Book"
-                    value={ this.props.item[this.props.bookName] ? String(this.props.item[this.props.bookName]) : null }
-                    onChangeText={(book) => {
-                        let newItem = {...this.props.item};
-                        newItem[this.props.bookName] = book;
-                        this.props.onChange(newItem);
-                    }}
-                />
-                <TextInput
-                    style={[styles.formControl, {marginLeft: 5}]}
-                    label="Page"
-                    value={ this.props.item[this.props.pageName] ? String(this.props.item[this.props.pageName]) : null }
-                    onChangeText={(page) => {
-                        let newItem = {...this.props.item};
-                        newItem[this.props.pageName] = page;
-                        this.props.onChange(newItem);
-                    }}
-                />
+                <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                    <TextInput
+                        style={[styles.formControl, {marginRight: 10}]}
+                        label=""
+                        backgroundColor="#fff"
+                        mode= "flat"
+                        underlineColor="none"
+                        placeholder="Book"
+                        value={ this.props.item[this.props.bookName] ? String(this.props.item[this.props.bookName]) : null }
+                        onChangeText={(book) => {
+                            let newItem = {...this.props.item};
+                            newItem[this.props.bookName] = book;
+                            this.props.onChange(newItem);
+                        }}
+                        theme={{
+                            colors: {
+                                placeholder: Palette.graytextinput,
+                                text: Palette.graytextinput,
+                                primary: Palette.primary,
+                                underlineColor: 'transparent',
+                                background: '#F2F2F2'
+                            }
+                        }}
+                    />
+                </View>
+                <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary,marginLeft: 10}}>
+                    <TextInput
+                        style={[styles.formControl, {marginLeft:10}]}
+                        label=""
+                        backgroundColor="#fff"
+                        mode= "flat"
+                        underlineColor="none"
+                        placeholder="Page"
+                        value={ this.props.item[this.props.pageName] ? String(this.props.item[this.props.pageName]) : null }
+                        onChangeText={(page) => {
+                            let newItem = {...this.props.item};
+                            newItem[this.props.pageName] = page;
+                            this.props.onChange(newItem);
+                        }}
+                        theme={{
+                            colors: {
+                                placeholder: Palette.graytextinput,
+                                text: Palette.graytextinput,
+                                primary: Palette.primary,
+                                underlineColor: 'transparent',
+                                background: '#F2F2F2'
+                            }
+                        }}
+                    />  
+                </View>
                 {
                     this.props.removeButton ?
-                        <DeleteIconButton onPress={() => {
+                        <DeleteIconButton 
+                            onPress={() => {
                             this.props.onRemove({...this.props.item});
                         }}/> : null
                 }

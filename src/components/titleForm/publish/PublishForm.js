@@ -25,6 +25,9 @@ import NetInfo from "@react-native-community/netinfo";
 import ModalSave from 'src/components/reusable/ModalSave';
 import {ENDPOINT} from 'react-native-dotenv';
 
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 export default class PublishForm extends Component {
 
     constructor(props) {
@@ -89,16 +92,33 @@ export default class PublishForm extends Component {
             ),
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity  onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -550,7 +570,7 @@ export default class PublishForm extends Component {
                                 justifyContent: 'space-between',
                                 marginBottom: 10
                             }}>
-                                <Text style={{color: '#003A6F', flex: 1, margin: 10}}>
+                                <Text style={{color: '#003A6F', flex: 1, margin: 10, fontWeight: 'bold'}}>
                                     I certify that this information is complete and accurate. I understand that
                                     any
                                     and
@@ -597,137 +617,264 @@ export default class PublishForm extends Component {
                                                 />
                                             </View>
                                         </View>
-                                        <View>
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label="Company Name"
-                                                value={this.state.tmpCustomer.companyName}
-                                                editable={this.state.overWrite}
-                                                onChangeText={(companyName) => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpCustomer: {
-                                                                ...prevState.tmpCustomer,
-                                                                companyName: companyName
-                                                            }
-                                                        }
-                                                    });
-                                                }}
-                                            />
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label="File Number"
-                                                value={this.state.tmpCustomer.fileNumber ? String(this.state.tmpCustomer.fileNumber) : ''}
-                                                editable={this.state.overWrite}
-                                                onChangeText={(fileNumber) => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpCustomer: {
-                                                                ...prevState.tmpCustomer,
-                                                                fileNumber: fileNumber
-                                                            }
-                                                        }
-                                                    });
-                                                }}
-                                            />
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label="Client Name"
-                                                value={this.state.tmpCustomer.name}
-                                                editable={this.state.overWrite}
-                                                onChangeText={(name) => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpCustomer: {
-                                                                ...prevState.tmpCustomer,
-                                                                name: name
-                                                            }
-                                                        }
-                                                    });
-                                                }}
-                                            />
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label="Client File Number "
-                                                value={this.state.tmpCustomer.companyFileNumber}
-                                                editable={this.state.overWrite}
-                                                onChangeText={(companyFileNumber) => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpCustomer: {
-                                                                ...prevState.tmpCustomer,
-                                                                companyFileNumber: companyFileNumber
-                                                            }
-                                                        }
-                                                    });
-                                                }}
-                                            />
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label="Client Address"
-                                                value={this.state.tmpCustomer.clientAddress}
-                                                editable={this.state.overWrite}
-                                                onChangeText={(clientAddress) => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpCustomer: {
-                                                                ...prevState.tmpCustomer,
-                                                                clientAddress: clientAddress
-                                                            }
-                                                        }
-                                                    });
-                                                }}
-                                            />
+
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Company Name:</Text>
                                         </View>
-                                        <TextInput
-                                            label="Email Address"
-                                            keyboardType="email-address"
-                                            textContentType="emailAddress"
-                                            autoCapitalize="none"
-                                            disabled={!this.state.tmpTitle.certifiedByUser}
-                                            style={styles.formControl}
-                                            value={(this.state.tmpCustomer ? this.state.tmpCustomer.email : null)}
-                                            error={this.state.hasEmailError}
-                                            onChangeText={(email) => {
-                                                this.setState((prevState) => {
-                                                    return {
-                                                        ...prevState,
-                                                        tmpCustomer: {...prevState.tmpCustomer, email: email},
-                                                        hasEmailError: false
-                                                    }
-                                                });
-                                            }}
-                                        >
-                                        </TextInput>
-                                        <View style={styles.formRow}>
+                                        <View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    style={styles.formControl}
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={this.state.tmpCustomer.companyName}
+                                                    editable={this.state.overWrite}
+                                                    onChangeText={(companyName) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpCustomer: {
+                                                                    ...prevState.tmpCustomer,
+                                                                    companyName: companyName
+                                                                }
+                                                            }
+                                                        });
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>File Number:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    style={styles.formControl}
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={this.state.tmpCustomer.fileNumber ? String(this.state.tmpCustomer.fileNumber) : ''}
+                                                    editable={this.state.overWrite}
+                                                    onChangeText={(fileNumber) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpCustomer: {
+                                                                    ...prevState.tmpCustomer,
+                                                                    fileNumber: fileNumber
+                                                                }
+                                                            }
+                                                        });
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Client Name:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    style={styles.formControl}
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={this.state.tmpCustomer.name}
+                                                    editable={this.state.overWrite}
+                                                    onChangeText={(name) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpCustomer: {
+                                                                    ...prevState.tmpCustomer,
+                                                                    name: name
+                                                                }
+                                                            }
+                                                        });
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Client File Number:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    style={styles.formControl}
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={this.state.tmpCustomer.companyFileNumber}
+                                                    editable={this.state.overWrite}
+                                                    onChangeText={(companyFileNumber) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpCustomer: {
+                                                                    ...prevState.tmpCustomer,
+                                                                    companyFileNumber: companyFileNumber
+                                                                }
+                                                            }
+                                                        });
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Client Address:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    style={styles.formControl}
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={this.state.tmpCustomer.clientAddress}
+                                                    editable={this.state.overWrite}
+                                                    onChangeText={(clientAddress) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpCustomer: {
+                                                                    ...prevState.tmpCustomer,
+                                                                    clientAddress: clientAddress
+                                                                }
+                                                            }
+                                                        });
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                        </View>
+
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Email Address:</Text>
+                                        </View>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
                                             <TextInput
-                                                label="Amount to bill this client"
-                                                keyboardType="numeric"
+                                                label=""
+                                                keyboardType="email-address"
+                                                textContentType="emailAddress"
+                                                autoCapitalize="none"
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
                                                 disabled={!this.state.tmpTitle.certifiedByUser}
                                                 style={styles.formControl}
-                                                error={this.state.hasClientPriceError}
-                                                value={this.state.tmpTitleDetail.clientPrice ? String(this.state.tmpTitleDetail.clientPrice) : ""}
-                                                onChangeText={clientPrice => {
-                                                    let tmpTitleDetail = this.state.tmpTitleDetail;
-                                                    tmpTitleDetail.clientPrice = clientPrice;
-                                                    this.setState({
-                                                        tmpTitleDetail: tmpTitleDetail,
-                                                        hasClientPriceError: false
+                                                value={(this.state.tmpCustomer ? this.state.tmpCustomer.email : null)}
+                                                error={this.state.hasEmailError}
+                                                onChangeText={(email) => {
+                                                    this.setState((prevState) => {
+                                                        return {
+                                                            ...prevState,
+                                                            tmpCustomer: {...prevState.tmpCustomer, email: email},
+                                                            hasEmailError: false
+                                                        }
                                                     });
                                                 }}
-                                            >
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}>
                                             </TextInput>
+                                        </View>
+
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Amount to bill this client:</Text>
+                                        </View>
+                                        <View style={styles.formRow}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    keyboardType="numeric"
+                                                    disabled={!this.state.tmpTitle.certifiedByUser}
+                                                    style={styles.formControl}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                    error={this.state.hasClientPriceError}
+                                                    value={this.state.tmpTitleDetail.clientPrice ? String(this.state.tmpTitleDetail.clientPrice) : ""}
+                                                    onChangeText={clientPrice => {
+                                                        let tmpTitleDetail = this.state.tmpTitleDetail;
+                                                        tmpTitleDetail.clientPrice = clientPrice;
+                                                        this.setState({
+                                                            tmpTitleDetail: tmpTitleDetail,
+                                                            hasClientPriceError: false
+                                                        });
+                                                    }}>
+                                                </TextInput>
+                                            </View>
+
                                             <Icon name="attach-money" size={30} color={Palette.successLight}/>
                                         </View>
+
                                         <View style={{flex: 1, flexDirection: "row", align: 'center', marginTop: 10}}>
                                             <Button
-                                                style={{flex: 1, marginHorizontal: 5}}
+                                                style={{flex: 1,borderRadius: 12, height: 50, justifyContent: 'center', borderWidth: 1}}
                                                 mode="contained"
+                                                labelStyle={{fontWeight: 'bold'}}
                                                 uppercase={false}
                                                 disabled={this.state.tmpTitle.certifiedByUser && !this.state.showMessage ? false : true}
                                                 onPress={() => {
@@ -736,8 +883,9 @@ export default class PublishForm extends Component {
                                                 {this.state.previewFlag ? 'Syncing...' : 'Preview Receipt'}
                                             </Button>
                                             <Button
-                                                style={{flex: 1, marginHorizontal: 5}}
+                                                style={{flex: 1, borderRadius: 12, height: 50, justifyContent: 'center', borderWidth: 1, marginLeft: 10}}
                                                 mode="contained"
+                                                labelStyle={{fontWeight: 'bold'}}
                                                 uppercase={false}
                                                 disabled={(this.state.tmpTitle.certifiedByUser && !this.state.showMessage) ? false : true}
                                                 onPress={() => {
@@ -781,23 +929,37 @@ export default class PublishForm extends Component {
                             <Card style={styles.card}>
                                 <Card.Content>
                                     <View style={[styles.formColumn, {marginTop: 0}]}>
-                                        <Title style={styles.titleInput}>
-                                            Wholesale Price
-                                        </Title>
-                                        <View style={styles.formRow}>
-                                            <TextInput
-                                                label="Resale price on the Exchange"
-                                                keyboardType="numeric"
-                                                editable={this.state.tmpTitle.certifiedByUser ? true : false}
-                                                style={styles.formControl}
-                                                value={this.state.tmpTitle.price ? String(this.state.tmpTitle.price) : ""}
-                                                onChangeText={price => {
-                                                    let tmpTitle = this.state.tmpTitle;
-                                                    tmpTitle.price = price;
-                                                    this.setState({tmpTitle: tmpTitle});
-                                                }}
-                                            >
-                                            </TextInput>
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Wholesale Price:</Text>
+                                        </View>
+                                            <View style={styles.formRow}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    placeholder="Resale price on the Exchange"
+                                                    keyboardType="numeric"
+                                                    editable={this.state.tmpTitle.certifiedByUser ? true : false}
+                                                    style={styles.formControl}
+                                                    value={this.state.tmpTitle.price ? String(this.state.tmpTitle.price) : ""}
+                                                    onChangeText={price => {
+                                                        let tmpTitle = this.state.tmpTitle;
+                                                        tmpTitle.price = price;
+                                                        this.setState({tmpTitle: tmpTitle});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                >
+                                                </TextInput>
+                                            </View>
                                             <Icon name="attach-money" size={30}
                                                   color={Palette.successLight}/>
                                         </View>
@@ -830,8 +992,9 @@ export default class PublishForm extends Component {
                                         }
 
                                         <View style={{marginTop: 10}}>
-                                            <Button style={{flex: 1, marginHorizontal: 5}}
+                                            <Button style={{flex: 1, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}
                                                     mode="contained"
+                                                    labelStyle={{fontWeight: 'bold'}}
                                                     uppercase={false}
                                                     disabled={this.state.tmpTitle.certifiedByUser && !this.state.showMessage ? false : true}
                                                     onPress={() => this.publishTitle()}>{this.state.saveFlag ? 'Syncing...' : (this.state.tmpTitle.status == "published" ? "Update" : "Publish To Exchange")}</Button>
@@ -867,10 +1030,14 @@ export default class PublishForm extends Component {
                                                     </View>
                                                 </Dialog.Content>
                                                 <Dialog.Actions>
-                                                    <Button onPress={() => {
+                                                    <Button 
+                                                        labelStyle={{fontWeight: 'bold'}}
+                                                        onPress={() => {
                                                         this.sendNotification()
                                                     }}>Send</Button>
-                                                    <Button onPress={() => {
+                                                    <Button 
+                                                        labelStyle={{fontWeight: 'bold'}}
+                                                        onPress={() => {
                                                         this.setState({showModelNotify: false})
                                                     }}>Cancel</Button>
                                                 </Dialog.Actions>

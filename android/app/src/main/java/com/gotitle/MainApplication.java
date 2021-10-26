@@ -5,6 +5,8 @@ import androidx.multidex.MultiDexApplication;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.art.ARTPackage;
+import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import iyegoroff.imagefilterkit.ImageFilterKitPackage;
 import com.oblador.vectoricons.VectorIconsPackage;

@@ -66,7 +66,7 @@ class FormDeedBookPage extends Component {
                                 label="Transferred/Assigned to which lender:"
                                 style={styles.formControl}
                                 value={item.transferred}
-                                onChangeText={(transferred) => {
+                                onChangeText={(transferred) => {sadasdasdasd
                                     let newState = {...this.state};
                                     newState.bookPageList[key].transferred = transferred;
                                     this.setState(newState);

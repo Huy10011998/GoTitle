@@ -45,6 +45,7 @@ import BuildMyTitle from 'src/components/BuildMyTitle/buildMyTitle';
 import ImageGallery from 'src/components/reusable/imageGallery';
 import ImageViewer from 'src/components/reusable/ImageViewer';
 import Camera from 'src/components/reusable/camera';
+import style from "react-native-datepicker/style";
 
 const AuthNavigator = createStackNavigator(
     {
@@ -60,7 +61,8 @@ const AuthNavigator = createStackNavigator(
             screen: ForgotPassword,
             navigationOptions: {}
         },
-    }, {
+    }, 
+    {
         initialRouteName: 'Login',
         headerMode: 'none',
         navigationOptions: {
@@ -75,13 +77,7 @@ const TitleNavigator = createStackNavigator(
             screen: TitleList,
             navigationOptions: {
                 headerShown: false
-            }
-        },
-        NewTitle: {
-            screen: OrderForm,
-            navigationOptions: {
-                title: "Order Form"
-            }
+            },
         },
         TitleDetail: {
             screen: TitleInfo,
@@ -158,10 +154,15 @@ const TitleNavigator = createStackNavigator(
         StartScreen: {
             screen: StartScreen,
             navigationOptions: {
-                headerShown: false
+                title:'Go Title'
             }
         },
-
+        NewTitle: {
+            screen: OrderForm,
+            navigationOptions: {
+                title: "Order Form",
+            },       
+        },
         continueTitle: {
             screen: ContinueTitle,
             navigationOptions: {
@@ -210,7 +211,8 @@ const TitleNavigator = createStackNavigator(
         TitleCovenant: TitleCovenant,
         TitleNote: TitleNote,
 
-    }, {
+    }, 
+    {
         initialRouteName: 'StartScreen',
         defaultNavigationOptions: {
             headerStyle: {
@@ -218,7 +220,7 @@ const TitleNavigator = createStackNavigator(
             },
             headerTitleStyle: {},
             headerTintColor: Palette.light,
-            headerBackTitle: "Back"
+            headerBackTitle: "Back",
         }
     }
 );
@@ -243,10 +245,10 @@ export const createAppContainer = (signedIn = false) => {
             },
             AppNav: {
                 screen: AppNavigator
-            }
+            },
         },
         {
-            initialRouteName: signedIn ? "AppNav" : "AuthNav"
+            initialRouteName: signedIn ? "AuthNav" : "AppNav"
         }
     );
 

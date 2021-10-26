@@ -9,26 +9,33 @@ const {width: WIDTH} = Dimensions.get('window');
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
+        // alignItems: 'center',
+        paddingHorizontal: 30,
     },
     groupForm: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-
+        marginTop: 10,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: Palette.primary
     },
-    logo: {
-        flex: 1,
-        resizeMode: 'contain',
-        width: 200,
-        height: null,
+    groupButton: {
+        paddingVertical: 8,
+    },
+    groupCardButton: {
+        borderRadius: 18, 
+        borderWidth: 1, 
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     input: {
         flex: 1,
-        width: WIDTH - 55,
-        // marginHorizontal: 25,
+        marginLeft: 10,
+        marginRight: 10,
+        height: 50
+        // width: WIDTH - 55,
+        // marginRight: 20,
     },
     loginButtonCont: {
         paddingTop: 10,
@@ -62,22 +69,36 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'center',
-
     },
     iconView: {
         width: '10%',
     },
     titleRegister: {
+       textAlign: 'center',
         padding: 10,
-        color: Palette.primary,
-        fontSize: 40,
+        color: Palette.dark,
+        fontSize: 30,
         fontWeight: '700',
     },
     titleSecond: {
         textAlign: 'center',
         fontSize: 17,
-        padding: 10,
+        paddingTop: 20,
         justifyContent: 'center',
-        color: '#000000'
-    }
+        color: Palette.graytextinput
+    },
+    logo: {
+        flex: 1,
+        resizeMode: 'contain',
+        width: '30%',
+    },
+    styleImage: {
+        alignItems: 'center',     
+    },
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
+    },
 });

@@ -4,10 +4,10 @@ import {
     Text,
     View,
     SafeAreaView,
-    TouchableOpacity,
     StyleSheet,
     FlatList,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {Header} from "react-navigation-stack";
 import {Button, Card, IconButton, TextInput, withTheme, Dialog, Portal} from "react-native-paper";
@@ -25,6 +25,24 @@ import SyncService from 'src/services/SyncService';
 import ModalSave from 'src/components/reusable/ModalSave';
 
 const moment = require("moment");
+
+import photoStarScreen from '../../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesMortgage.imageStartScreen}
+            imageStyle={stylesMortgage.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class MortgageForm extends Component {
 
@@ -89,16 +107,33 @@ class MortgageForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -354,15 +389,14 @@ class MortgageForm extends Component {
     render() {
         const {masterDocList} = this.state;
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                       behavior={Platform.OS == "ios" ? "padding" : null}
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                         keyboardShouldPersistTaps="handled">
-
                         <View style={ styles.containerFlat }>
                             <Card style={ styles.card }>
                                 <Card.Content>
@@ -370,11 +404,11 @@ class MortgageForm extends Component {
                                         {
                                             (this.state.deedType && this.state.deedType.scope == 'master') ?
                                                 <Text style={styles.formLabel}>
-                                                    Deed Type
+                                                    Deed Type:
                                                 </Text>
                                                 :
                                                 <Text style={styles.formLabel}>
-                                                    Master Document
+                                                    Master Document:
                                                 </Text>
                                         }
                                     </View>
@@ -410,7 +444,7 @@ class MortgageForm extends Component {
 
                                                 <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                                     <Text style={styles.formLabel}>
-                                                        Deed Date
+                                                        Deed Date:
                                                     </Text>
                                                 </View>
                                                 <DatePicker
@@ -436,7 +470,7 @@ class MortgageForm extends Component {
 
                                                 <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                                     <Text style={styles.formLabel}>
-                                                        Date Recorded
+                                                        Date Recorded:
                                                     </Text>
                                                 </View>
                                                 <DatePicker
@@ -459,46 +493,98 @@ class MortgageForm extends Component {
                                                         this.setState({tmpMortgage: tmpMortgage});
                                                     }}
                                                 />
-
-                                                <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Grantor"
-                                                        style={styles.formControl}
-                                                        value={ this.state.tmpMortgage.grantor }
-                                                        onChangeText={ (grantor) => {
-                                                            let tmpMortgage = {...this.state.tmpMortgage};
-                                                            tmpMortgage.grantor = grantor;
-                                                            this.setState({tmpMortgage: tmpMortgage});
-                                                        }}
-                                                    />
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Grantor:</Text>
                                                 </View>
-
-                                                < View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Grantee"
-                                                        style={styles.formControl}
-                                                        value={ this.state.tmpMortgage.grantee }
-                                                        onChangeText={ (grantee) => {
-                                                            let tmpMortgage = {...this.state.tmpMortgage};
-                                                            tmpMortgage.grantee = grantee;
-                                                            this.setState({tmpMortgage: tmpMortgage});
-                                                        }}
-                                                    />
-                                                </View>
-
+                                               
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Amount Borrowed $"
-                                                        placeholder="$"
-                                                        style={styles.formControl}
-                                                        keyboardType="numeric"
-                                                        value={this.state.tmpMortgage.amountBorrowed ? String(this.state.tmpMortgage.amountBorrowed) : null}
-                                                        onChangeText={ (amountBorrowed) => {
-                                                            let tmpMortgage = {...this.state.tmpMortgage};
-                                                            tmpMortgage.amountBorrowed = amountBorrowed;
-                                                            this.setState({tmpMortgage: tmpMortgage});
-                                                        }}
-                                                    />
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=""
+                                                            backgroundColor="#fff"
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            style={styles.formControl}
+                                                            value={ this.state.tmpMortgage.grantor }
+                                                            onChangeText={ (grantor) => {
+                                                                let tmpMortgage = {...this.state.tmpMortgage};
+                                                                tmpMortgage.grantor = grantor;
+                                                                this.setState({tmpMortgage: tmpMortgage});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </View>
+                                                                
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Grantee:</Text>
+                                                </View>
+                                               
+                                                <View style={styles.formRow}>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=""
+                                                            backgroundColor="#fff"
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            style={styles.formControl}
+                                                            value={ this.state.tmpMortgage.grantee }
+                                                            onChangeText={ (grantee) => {
+                                                                let tmpMortgage = {...this.state.tmpMortgage};
+                                                                tmpMortgage.grantee = grantee;
+                                                                this.setState({tmpMortgage: tmpMortgage});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </View>
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Amount Borrowed $:</Text>
+                                                </View>
+                                               
+                                                <View style={styles.formRow}>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=""
+                                                            placeholder=""
+                                                            backgroundColor="#fff"
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            style={styles.formControl}
+                                                            keyboardType="numeric"
+                                                            value={this.state.tmpMortgage.amountBorrowed ? String(this.state.tmpMortgage.amountBorrowed) : null}
+                                                            onChangeText={ (amountBorrowed) => {
+                                                                let tmpMortgage = {...this.state.tmpMortgage};
+                                                                tmpMortgage.amountBorrowed = amountBorrowed;
+                                                                this.setState({tmpMortgage: tmpMortgage});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
                                             </View>
                                             : <View>
@@ -556,6 +642,8 @@ class MortgageForm extends Component {
                                                                     <Button
                                                                         style={stylesMortgage.button}
                                                                         color={Palette.light}
+                                                                        uppercase={false}
+                                                                        labelStyle={{fontWeight: 'bold'}}
                                                                         mode="contained"
                                                                         onPress={() => {
                                                                             this.closeDialog();
@@ -600,23 +688,37 @@ class MortgageForm extends Component {
                                         (this.state.deedType.code === 'assignment_transferred') ?
                                             <View>
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label="Assigned / Transferred to"
-                                                        style={styles.formControl}
-                                                        value={this.state.tmpMortgage.assignedTransfer ? String(this.state.tmpMortgage.assignedTransfer) : null}
-                                                        onChangeText={ (assignedTransfer) => {
-                                                            let tmpMortgage = {...this.state.tmpMortgage};
-                                                            tmpMortgage.assignedTransfer = assignedTransfer;
-                                                            this.setState({tmpMortgage: tmpMortgage});
-                                                        }}
-                                                    />
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, justifyContent: 'center'}}>
+                                                        <TextInput
+                                                            placeholder="Assigned / Transferred to"
+                                                            style={styles.formControl}
+                                                            backgroundColor="#fff"
+                                                            mode= "flat"
+                                                            underlineColor="none"
+                                                            value={this.state.tmpMortgage.assignedTransfer ? String(this.state.tmpMortgage.assignedTransfer) : null}
+                                                            onChangeText={ (assignedTransfer) => {
+                                                                let tmpMortgage = {...this.state.tmpMortgage};
+                                                                tmpMortgage.assignedTransfer = assignedTransfer;
+                                                                this.setState({tmpMortgage: tmpMortgage});
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
                                             </View>
                                             : null
                                     }
-                                    <View style={ styles.formRow }>
+                                    <View style={ [styles.formRow, {paddingTop: 10}] }>
                                         <Text style={styles.formLabel}>
-                                            Deed Book + Page
+                                            Deed Book + Page:
                                         </Text>
                                     </View>
                                     <View style={styles.formRow}>
@@ -634,10 +736,13 @@ class MortgageForm extends Component {
                                     <Button
                                         icon="camera-outline"
                                         mode="contained"
+                                        labelStyle={{fontWeight: 'bold'}}
+                                        uppercase= {false}
+                                        labelStyle={{fontWeight: 'bold'}}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Page Images</Button>
+                                        style={{marginVertical: 10, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}>Add Page Images</Button>
                                     { (this.state.showModal) ?
                                         <ModalSave
                                             visible={this.state.showModal}
@@ -670,14 +775,16 @@ class MortgageForm extends Component {
                             </Card>
 
                         </View>
-                        <View style={styles.formBottomButton}>
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
                             <Button style={styles.screenButton}
                                     mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase= {false}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : (this.state.tmpMortgage.id) ? 'Save Document' : 'Add Document to Title'}</Button>
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage> 
         );
     }
 }
@@ -724,4 +831,10 @@ const stylesMortgage = StyleSheet.create({
         color: Palette.primary,
         textAlign: 'center'
     },
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
+    }
 });

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ScrollView, Text, View, StyleSheet, KeyboardAvoidingView, Platform} from "react-native";
+import {ScrollView, Text, View, StyleSheet, KeyboardAvoidingView, Platform, ImageBackground} from "react-native";
 import {Header} from "react-navigation-stack";
 import DatePicker from "react-native-datepicker";
 import {
@@ -18,6 +18,8 @@ import {
 import {StackActions} from "react-navigation";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import AntIcon from "react-native-vector-icons/AntDesign";
+import FeatherIcon from "react-native-vector-icons/Feather"
 import {styles} from "src/Style/app.style";
 import {Palette} from "src/Style/app.theme";
 import {getManager, getConnection, getCustomRepository} from "typeorm";
@@ -36,8 +38,22 @@ import {
     CustomerRepository
 } from 'src/repositories/index';
 
+import photoStarScreen from '../../../images/bg.jpg'
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesOrderForm.imageStartScreen}
+            imageStyle={stylesOrderForm.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 class OrderForm extends Component {
-
     constructor(props) {
         super(props);
         this.locationNameRef = React.createRef();
@@ -100,17 +116,38 @@ class OrderForm extends Component {
         return {
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
+
+                <TouchableOpacity onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View style={styles.iconView}>
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                         <Text style={{color: '#fff', fontSize: 17}}>
+                                                 Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
                     <IconButton
-                        icon="arrow-left" color="white" size={25}
+                        icon="arrow-left" color="white" size={30}
                         onPress={navigation.getParam('showModalSave')}/>
             )
         }
     };
+
+
 
     addTextInputSeller = () => {
         let tmpSellerList = this.state.tmpSellerList;
@@ -433,772 +470,1010 @@ class OrderForm extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
-                                  behavior={Platform.OS == "ios" ? "padding" : null}
-                                  enabled={Platform.OS == "ios" ? true : false}
-                                  keyboardVerticalOffset={Header.HEIGHT + 20}>
-                <ScrollView contentContainerStyle={{flexGrow: 1}}
-                            keyboardShouldPersistTaps="handled">
-                    <View style={styles.containerFlat}>
+            <BackgroundImage>
+                    <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
+                                    behavior={Platform.OS == "ios" ? "padding" : null}
+                                    enabled={Platform.OS == "ios" ? true : false}
+                                    keyboardVerticalOffset={Header.HEIGHT + 20}>
+                    <ScrollView contentContainerStyle={{flexGrow: 1}}
+                                keyboardShouldPersistTaps="handled">
+                        <View style={styles.containerFlat}>
 
-                        {
-                            (this.state.showMessage) ?
-                                <Card style={stylesOrderForm.cards}>
-                                    <Card.Content>
-                                        <View style={{flex: 1, flexDirection: 'row'}}>
-                                            <IconButton
-                                                icon="alert"
-                                                color="white"
-                                            />
-                                            <Text style={{textAlign: 'justify', color: '#fff', marginVertical: 15}}>
-                                                Connect to internet to verify Address
-                                            </Text>
+                            {
+                                (this.state.showMessage) ?
+                                    <Card style={stylesOrderForm.cards}>
+                                        <Card.Content>
+                                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                                <IconButton
+                                                    icon="alert"
+                                                    color="white"
+                                                />
+                                                <Text style={{textAlign: 'justify', color: '#fff', marginVertical: 15}}>
+                                                    Connect to internet to verify Address
+                                                </Text>
 
 
-                                        </View>
-                                    </Card.Content>
-                                </Card> : null
-                        }
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
-                                    <Text style={styles.formLabel}>Nearest Map Address</Text>
-                                </View>
-                                <GooglePlacesAutocomplete
-                                    ref={this.locationNameRef}
-                                    placeholder=""
-                                    minLength={3} // minimum length of text to search
-                                    autoFocus={false}
-                                    fetchDetails={true}
-                                    // keyboardShouldPersistTaps="handled"
-                                    listViewDisplayed={this.state.listViewDisplayed}
-                                    onPress={(data, details = null) => {
-                                        let {tmpTitle} = this.state;
-                                        let location = tmpTitle.location;
-                                        if (!location) location = {name:''};
-                                        if (tmpTitle.legalAddress == null || tmpTitle.legalAddress.trim().length == 0 || tmpTitle.location.name == tmpTitle.legalAddress) {
-                                            tmpTitle.legalAddress=data.description;
-                                        }
-                                        tmpTitle.location = {
-                                            ...location,
-                                            name: data.description,
-                                            placeId: data.place_id,
-                                            country: this.getAddressType(details, {country: 'long_name'}),
-                                            countryCode: this.getAddressType(details, {country: 'short_name'}),
-                                            city: this.getAddressType(details, {locality: 'long_name'}),
-                                            state: this.getAddressType(details, {administrative_area_level_1: 'short_name'}),
-                                            district: this.getAddressType(details, {administrative_area_level_2: 'short_name'}),
-                                            latitude: details.geometry.location.lat,
-                                            longitude: details.geometry.location.lng
-                                        };
-                                        this.setState({tmpTitle: tmpTitle, listViewDisplayed: 'false'});
-                                    }}
-                                    textInputProps={{
-                                        onChangeText: (name) => {
-                                            this.setState((prevState) => {
-                                                return {
-                                                    ...prevState,
-                                                    tmpLocationName: name,
-                                                    listViewDisplayed: 'auto'
-                                                };
-                                            });
-                                        },
-                                        onBlur: () => {
-                                            this.setState((prevState) => {
-                                                this.locationNameRef?.current?.setAddressText(prevState.tmpTitle.location && prevState.tmpTitle.location.name ? prevState.tmpTitle.location.name : '')
-                                                return {
-                                                    ...prevState,
-                                                    listViewDisplayed: 'false',
-                                                    tmpLocationName: prevState.tmpTitle.location?prevState.tmpTitle.location.name:''
-                                                };
-                                            });
-                                        }
-                                    }}
-                                    styles={this.props.theme.formGooglePlace}
-                                    query={{
-                                        key: 'AIzaSyASJsWPNP8YL4Ni95gPQchanpWkUkleWJo',
-                                        language: 'en', // language of the results
-                                        components: 'country:US'
-                                    }}
-                                />
-                                <Divider style={{backgroundColor:Palette.darkGray}}/>
-                                <TextInput
-                                    style={styles.formControl}
-                                    label="Legal Address"
-                                    value={this.state.tmpTitle.legalAddress}
-                                    onChangeText={(legalAddress) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpTitle: {
-                                                    ...prevState.tmpTitle,
-                                                    legalAddress: legalAddress
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                                <TextInput
-                                    style={styles.formControl}
-                                    label='State'
-                                    value={this.state.tmpTitle.location ? this.state.tmpTitle.location.state : null}
-                                    disabled={false}
-                                    editable={false}
-                                    onChangeText={(text) => {
-                                    }}
-                                />
-                                <TextInput
-                                    style={styles.formControl}
-                                    label='County'
-                                    value={this.state.tmpTitle.location ? this.state.tmpTitle.location.district : null}
-                                    disabled={false}
-                                    editable={false}
-                                    onChangeText={(text) => {
-                                    }}
-                                />
-                                <View style={{flexDirection: "row"}}>
-                                    <TextInput
-                                        style={stylesOrderForm.formControl}
-                                        label='Condo/Unit/Apartment'
-                                        value={this.state.tmpTitle.apartment}
-                                        onChangeText={(apartment) => {
-                                            this.setState((prevState) => {
-                                                return {
-                                                    ...prevState,
-                                                    tmpTitle: {...prevState.tmpTitle, apartment: apartment}
-                                                }
-                                            });
-                                        }}
-                                    />
-                                </View>
-                            </Card.Content>
-                        </Card>
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <TextInput
-                                    style={styles.formControl}
-                                    label="Company Name"
-                                    value={this.state.tmpCustomer.companyName}
-                                    onChangeText={(companyName) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpCustomer: {
-                                                    ...prevState.tmpCustomer,
-                                                    companyName: companyName
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                                <TextInput
-                                    style={styles.formControl}
-                                    label="File Number"
-                                    value={this.state.tmpCustomer.fileNumber ? String(this.state.tmpCustomer.fileNumber) : ''}
-                                    onChangeText={(fileNumber) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpCustomer: {
-                                                    ...prevState.tmpCustomer,
-                                                    fileNumber: fileNumber
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                                <TextInput
-                                    style={styles.formControl}
-                                    label="Client Name"
-                                    value={this.state.tmpCustomer.name}
-                                    onChangeText={(name) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpCustomer: {
-                                                    ...prevState.tmpCustomer,
-                                                    name: name
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                                <TextInput
-                                    style={styles.formControl}
-                                    label="Client File Number "
-                                    value={this.state.tmpCustomer.companyFileNumber}
-                                    onChangeText={(companyFileNumber) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpCustomer: {
-                                                    ...prevState.tmpCustomer,
-                                                    companyFileNumber: companyFileNumber
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                                <TextInput
-                                    style={styles.formControl}
-                                    label="Client Address"
-                                    value={this.state.tmpCustomer.clientAddress}
-                                    onChangeText={(clientAddress) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpCustomer: {
-                                                    ...prevState.tmpCustomer,
-                                                    clientAddress: clientAddress
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                            </Card.Content>
-
-                        </Card>
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <TextTitle>
-                                    Buyers:
-                                </TextTitle>
-                                {this.state.tmpBuyerList.map((values, index) => {
-                                    return <View style={[(index <= 0) ? {marginRight: 30} : null]}>
-                                        <View style={stylesOrderForm.formRow}>
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label={"Buyer " + (index + 1)}
-                                                value={this.state.tmpBuyerList[index].name}
-                                                onChangeText={(name) => {
-                                                    let tmpBuyerList = this.state.tmpBuyerList;
-                                                    let tmpBuyer = tmpBuyerList[index];
-                                                    tmpBuyer.name = name;
-                                                    tmpBuyerList[index] = tmpBuyer;
-                                                    this.setState((prevState) => {
-                                                        return {...prevState, tmpBuyerList: tmpBuyerList}
-                                                    });
-                                                }}
-                                            />
-                                            {
-                                                (index > 0) ?
-                                                    <View>
-                                                        <TouchableRipple
-                                                            onPress={() => this.removeTextInputBuyer(index)}>
-                                                            <Icon name="remove-circle-outline" size={30}
-                                                                  color="red"/>
-                                                        </TouchableRipple>
-                                                    </View>
-                                                    : null
-
-                                            }
-                                        </View>
-                                    </View>;
-                                })}
-                                <Button
-                                    style={stylesOrderForm.ButtonOrderForm}
-                                    mode="contained"
-                                    onPress={() => this.addTextInputBuyer(this.state.textInputBuyer.length)}>
-                                    Add more buyers
-                                </Button>
-                            </Card.Content>
-
-                        </Card>
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <TextTitle>
-                                    Sellers:
-                                </TextTitle>
-
-                                {this.state.tmpSellerList.map((value, index) => {
-                                    return <View style={[(index <= 0) ? {marginRight: 30} : null]}>
-                                        <View style={stylesOrderForm.formRow}>
-                                            <TextInput
-                                                style={styles.formControl}
-                                                label={"Seller " + (index + 1)}
-                                                value={this.state.tmpSellerList[index].name}
-                                                onChangeText={(name) => {
-                                                    let tmpSellerList = this.state.tmpSellerList;
-                                                    let tmpSeller = tmpSellerList[index];
-                                                    tmpSeller.name = name;
-                                                    tmpSellerList[index] = tmpSeller;
-
-                                                    this.setState((prevState) => {
-                                                        return {...prevState, tmpSellerList: tmpSellerList}
-                                                    });
-                                                }}
-                                            />
-                                            {
-                                                (index > 0) ?
-                                                    <View>
-                                                        <TouchableRipple
-                                                            onPress={() => this.removeTextInputSeller(index)}>
-                                                            <Icon name="remove-circle-outline" size={30}
-                                                                  color="red"/>
-                                                        </TouchableRipple>
-                                                    </View>
-                                                    : null
-
-                                            }
-                                        </View>
-                                    </View>;
-                                })}
-                                <Button
-                                    style={stylesOrderForm.ButtonOrderForm}
-                                    mode="contained"
-                                    onPress={() => this.addTextInputSeller(this.state.textInputSeller.length)}>
-                                    Add more sellers
-                                </Button>
-
-                            </Card.Content>
-                        </Card>
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <Text style={{marginBottom: 10}}>Search Type :</Text>
-                                <View style={{flexDirection: "row"}}>
-                                    <View style={{flex: 1}}>
-                                        <TouchableRipple
-                                            style={{alignItems: 'center'}}
-                                            onPress={() => {
-                                                this.setState((prevState) => {
-                                                    return {
-                                                        ...prevState,
-                                                        tmpTitle: {...prevState.tmpTitle, searchType: 'commercial'}
-                                                    }
-                                                });
-                                            }}>
-                                            <View
-                                                style={{alignItems: 'center'}}>
-                                                <Paragraph>Commercial</Paragraph>
-                                                <View pointerEvents="none">
-                                                    <RadioButton
-                                                        value="commercial"
-                                                        color={Colors.blue100}
-                                                        status={
-                                                            this.state.tmpTitle.searchType === 'commercial' ? 'checked' : 'unchecked'
-                                                        }
-                                                    />
-                                                </View>
                                             </View>
-                                        </TouchableRipple>
-                                    </View>
+                                        </Card.Content>
+                                    </Card> : null
+                            }
 
-                                    <View style={{flex: 1}}>
-                                        <TouchableRipple
-                                            style={{alignItems: 'center'}}
-                                            onPress={() => {
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Nearest Map Address:</Text>
+                                    </View>
+                                    
+                                    {/* <View style={{borderRadius: 12,borderWidth: 1, borderColor: Palette.primary,height: 52}}> */}
+                                        <View>
+                                            <GooglePlacesAutocomplete
+                                                ref={this.locationNameRef}
+                                                placeholder=""
+                                                
+                                                minLength={3} // minimum length of text to search
+                                                autoFocus={false}
+                                                fetchDetails={true}
+                                                // keyboardShouldPersistTaps="handled"
+                                                listViewDisplayed={this.state.listViewDisplayed}
+                                                onPress={(data, details = null) => {
+                                                    let {tmpTitle} = this.state;
+                                                    let location = tmpTitle.location;
+                                                    if (!location) location = {name:''};
+                                                    if (tmpTitle.legalAddress == null || tmpTitle.legalAddress.trim().length == 0 || tmpTitle.location.name == tmpTitle.legalAddress) {
+                                                        tmpTitle.legalAddress=data.description;
+                                                    }
+                                                    tmpTitle.location = {
+                                                        ...location,
+                                                        name: data.description,
+                                                        placeId: data.place_id,
+                                                        country: this.getAddressType(details, {country: 'long_name'}),
+                                                        countryCode: this.getAddressType(details, {country: 'short_name'}),
+                                                        city: this.getAddressType(details, {locality: 'long_name'}),
+                                                        state: this.getAddressType(details, {administrative_area_level_1: 'short_name'}),
+                                                        district: this.getAddressType(details, {administrative_area_level_2: 'short_name'}),
+                                                        latitude: details.geometry.location.lat,
+                                                        longitude: details.geometry.location.lng
+                                                    };
+                                                    this.setState({tmpTitle: tmpTitle, listViewDisplayed: 'false'});
+                                                }}
+                                                textInputProps={{
+                                                    onChangeText: (name) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpLocationName: name,
+                                                                listViewDisplayed: 'auto'
+                                                            };
+                                                        });
+                                                    },
+                                                    onBlur: () => {
+                                                        this.setState((prevState) => {
+                                                            this.locationNameRef?.current?.setAddressText(prevState.tmpTitle.location && prevState.tmpTitle.location.name ? prevState.tmpTitle.location.name : '')
+                                                            return {
+                                                                ...prevState,
+                                                                listViewDisplayed: 'false',
+                                                                tmpLocationName: prevState.tmpTitle.location?prevState.tmpTitle.location.name:''
+                                                            };
+                                                        });
+                                                    }
+                                                }}
+                                                styles={[this.props.theme.formGooglePlace, {paddingLeft: 10}]}
+                                                query={{
+                                                    key: 'AIzaSyASJsWPNP8YL4Ni95gPQchanpWkUkleWJo',
+                                                    language: 'en', // language of the results
+                                                    components: 'country:US'
+                                                }}
+                                            />
+                                        </View>
+                                    {/* </View> */}
+                                    {/* <Divider style={{backgroundColor:Palette.darkGray}}/> */}
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Legal Address:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, justifyContent: 'center'}}>
+                                        <TextInput
+                                            style={[styles.formControl, {marginBottom: 10}]}
+                                            label=""
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpTitle.legalAddress}
+                                            onChangeText={(legalAddress) => {
                                                 this.setState((prevState) => {
                                                     return {
                                                         ...prevState,
-                                                        tmpTitle: {...prevState.tmpTitle, searchType: 'residential'}
+                                                        tmpTitle: {
+                                                            ...prevState.tmpTitle,
+                                                            legalAddress: legalAddress
+                                                        }
                                                     }
                                                 });
                                             }}
-                                        >
-                                            <View style={{alignItems: 'center'}}>
-                                                <Paragraph>Residential</Paragraph>
-                                                <View pointerEvents="none">
-                                                    <RadioButton
-                                                        value="residential"
-                                                        color={Colors.blue100}
-                                                        status={
-                                                            this.state.tmpTitle.searchType === 'residential' ? 'checked' : 'unchecked'
-                                                        }
-                                                    />
-                                                </View>
-                                            </View>
-                                        </TouchableRipple>
-                                    </View>
-                                </View>
-
-                                <TouchableRipple
-                                    onPress={() => this.ShowHideComponentUpdate()}>
-                                    <View style={styles.groupRow}>
-                                        <Paragraph>Update</Paragraph>
-                                        <View pointerEvents="none">
-                                            <RadioButton
-                                                value="update"
-                                                color={Colors.blue100}
-                                                status={
-                                                    this.state.tmpTitle.searchTypeDetail === 'update' ? 'checked' : 'unchecked'
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
                                                 }
-                                            />
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>State:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                    <TextInput
+                                        style={styles.formControl}
+                                        label=''
+                                        backgroundColor="#fff"
+                                        mode= "flat"
+                                        underlineColor="none"
+                                        value={this.state.tmpTitle.location ? this.state.tmpTitle.location.state : null}
+                                        disabled={false}
+                                        editable={false}
+                                        onChangeText={(text) => {
+                                        }}
+                                        theme={{
+                                            colors: {
+                                                placeholder: Palette.graytextinput,
+                                                text: Palette.graytextinput,
+                                                primary: Palette.primary,
+                                                underlineColor: 'transparent',
+                                                background: '#F2F2F2'
+                                            }
+                                        }}
+                                    />
+                                    </View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>County:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            label=''
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpTitle.location ? this.state.tmpTitle.location.district : null}
+                                            disabled={false}
+                                            editable={false}
+                                            onChangeText={(text) => {
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                    {/* <View style={{flexDirection: "row"}}> */}
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Condo/Unit/Apartment:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            // style={stylesOrderForm.formControl}
+                                            label=''
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpTitle.apartment}
+                                            onChangeText={(apartment) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpTitle: {...prevState.tmpTitle, apartment: apartment}
+                                                    }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                    {/* </View> */}
+                                </Card.Content>
+                            </Card>
+
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Company Name:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            label=""
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpCustomer.companyName}
+                                            onChangeText={(companyName) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpCustomer: {
+                                                            ...prevState.tmpCustomer,
+                                                            companyName: companyName
+                                                        }
+                                                    }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>File Number:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            label=""
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpCustomer.fileNumber ? String(this.state.tmpCustomer.fileNumber) : ''}
+                                            onChangeText={(fileNumber) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpCustomer: {
+                                                            ...prevState.tmpCustomer,
+                                                            fileNumber: fileNumber
+                                                        }
+                                                    }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Client Name:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            label=""
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpCustomer.name}
+                                            onChangeText={(name) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpCustomer: {
+                                                            ...prevState.tmpCustomer,
+                                                            name: name
+                                                        }
+                                                    }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Client File Number:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            label=""
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpCustomer.companyFileNumber}
+                                            onChangeText={(companyFileNumber) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpCustomer: {
+                                                            ...prevState.tmpCustomer,
+                                                            companyFileNumber: companyFileNumber
+                                                        }
+                                                    }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Client Address:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            label=""
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            value={this.state.tmpCustomer.clientAddress}
+                                            onChangeText={(clientAddress) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpCustomer: {
+                                                            ...prevState.tmpCustomer,
+                                                            clientAddress: clientAddress
+                                                        }
+                                                    }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </Card.Content>
+
+                            </Card>
+
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                    <TextTitle>
+                                        Buyers:
+                                    </TextTitle>
+                                    {this.state.tmpBuyerList.map((values, index) => {
+                                        return <View style={[(index <= 0) ? {marginRight: 30} : null]}>
+                                                <View style={stylesOrderForm.formRow}>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            mode= "flat"
+                                                            placeholder={"Buyers " + (index +1)}
+                                                            backgroundColor="#fff"
+                                                            underlineColor="none"
+                                                            style={styles.formControl}
+                                                            // label={"Buyer " + (index + 1)}
+                                                            value={this.state.tmpBuyerList[index].name}
+                                                            onChangeText={(name) => {
+                                                                let tmpBuyerList = this.state.tmpBuyerList;
+                                                                let tmpBuyer = tmpBuyerList[index];
+                                                                tmpBuyer.name = name;
+                                                                tmpBuyerList[index] = tmpBuyer;
+                                                                this.setState((prevState) => {
+                                                                    return {...prevState, tmpBuyerList: tmpBuyerList}
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
+                                                                }
+                                                            }}
+                                                        />
+                                                    </View>
+                                                    {
+                                                        (index > 0) ?
+                                                            <View>
+                                                                <TouchableRipple
+                                                                    onPress={() => this.removeTextInputBuyer(index)}>
+                                                                    <Icon name="remove-circle-outline" size={30}
+                                                                        color="red"/>
+                                                                </TouchableRipple>
+                                                            </View>
+                                                            : null
+                                                    }
+                                            </View>
+                                        </View>;
+                                    })}
+                                    <View style={{paddingTop: 10}}>
+                                        <Button
+                                            labelStyle={{fontWeight: 'bold'}}
+                                            style={stylesOrderForm.ButtonOrderForm}
+                                            mode="contained"
+                                            uppercase={false}
+                                            onPress={() => this.addTextInputBuyer(this.state.textInputBuyer.length)}>
+                                            Add more buyers
+                                        </Button>
+                                    </View>
+                                </Card.Content>
+
+                            </Card>
+
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                    <TextTitle>
+                                        Sellers:
+                                    </TextTitle>
+
+                                    {this.state.tmpSellerList.map((value, index) => {
+                                        return <View style={[(index <= 0) ? {marginRight: 30} : null]}>
+                                            <View style={stylesOrderForm.formRow}>
+                                                <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                    <TextInput
+                                                        mode= "flat"
+                                                        backgroundColor="#fff"
+                                                        underlineColor="none"
+                                                        style={styles.formControl}
+                                                        placeholder={"Sellers  " + (index +1)}
+                                                        value={this.state.tmpSellerList[index].name}
+                                                        onChangeText={(name) => {
+                                                            let tmpSellerList = this.state.tmpSellerList;
+                                                            let tmpSeller = tmpSellerList[index];
+                                                            tmpSeller.name = name;
+                                                            tmpSellerList[index] = tmpSeller;
+
+                                                            this.setState((prevState) => {
+                                                                return {...prevState, tmpSellerList: tmpSellerList}
+                                                            });
+                                                        }}
+                                                        theme={{
+                                                            colors: {
+                                                                placeholder: Palette.graytextinput,
+                                                                text: Palette.graytextinput,
+                                                                primary: Palette.primary,
+                                                                underlineColor: 'transparent',
+                                                                background: '#F2F2F2'
+                                                            }
+                                                        }}
+                                                    />
+                                                </View> 
+                                                    {
+                                                        (index > 0) ?
+                                                            <View>
+                                                                <TouchableRipple
+                                                                    onPress={() => this.removeTextInputSeller(index)}>
+                                                                    <Icon name="remove-circle-outline" size={30}
+                                                                        color="red"/>
+                                                                </TouchableRipple>
+                                                            </View>
+                                                            : null
+
+                                                    }          
+                                            </View>
+                                        </View>;
+                                    })}
+                                    <View style={{paddingTop: 10}}>
+                                        <Button
+                                            labelStyle={{fontWeight: 'bold'}}
+                                            style={stylesOrderForm.ButtonOrderForm}
+                                            mode="contained"
+                                            uppercase={false}
+                                            onPress={() => this.addTextInputSeller(this.state.textInputSeller.length)}>
+                                            Add more sellers
+                                        </Button>
+                                    </View>
+
+                                </Card.Content>
+                            </Card>
+
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                    <Text style={{marginBottom: 10, fontWeight: "bold"}}>Search Type :</Text>
+                                    <View style={{flexDirection: "row"}}>
+                                        <View style={{flex: 1}}>
+                                            <TouchableRipple
+                                                style={{alignItems: 'center'}}
+                                                onPress={() => {
+                                                    this.setState((prevState) => {
+                                                        return {
+                                                            ...prevState,
+                                                            tmpTitle: {...prevState.tmpTitle, searchType: 'commercial'}
+                                                        }
+                                                    });
+                                                }}>
+                                                <View
+                                                    style={{alignItems: 'center'}}>
+                                                    <Paragraph>Commercial</Paragraph>
+                                                    <View pointerEvents="none">
+                                                        <RadioButton
+                                                            value="commercial"
+                                                            color={Colors.blue100}
+                                                            status={
+                                                                this.state.tmpTitle.searchType === 'commercial' ? 'checked' : 'unchecked'
+                                                            }
+                                                        />
+                                                    </View>
+                                                </View>
+                                            </TouchableRipple>
+                                        </View>
+
+                                        <View style={{flex: 1}}>
+                                            <TouchableRipple
+                                                style={{alignItems: 'center'}}
+                                                onPress={() => {
+                                                    this.setState((prevState) => {
+                                                        return {
+                                                            ...prevState,
+                                                            tmpTitle: {...prevState.tmpTitle, searchType: 'residential'}
+                                                        }
+                                                    });
+                                                }}
+                                            >
+                                                <View style={{alignItems: 'center'}}>
+                                                    <Paragraph>Residential</Paragraph>
+                                                    <View pointerEvents="none">
+                                                        <RadioButton
+                                                            value="residential"
+                                                            color={Colors.blue100}
+                                                            status={
+                                                                this.state.tmpTitle.searchType === 'residential' ? 'checked' : 'unchecked'
+                                                            }
+                                                        />
+                                                    </View>
+                                                </View>
+                                            </TouchableRipple>
                                         </View>
                                     </View>
-                                </TouchableRipple>
-                                <Divider style={styles.divideForm}/>
-                                <View>
-                                    {this.state.tmpTitle.searchTypeDetail === 'update' ? (
-                                        <View>
-                                            <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
-                                                <Text style={styles.formLabel}>Date Title Updated From</Text>
+
+                                    <TouchableRipple
+                                        onPress={() => this.ShowHideComponentUpdate()}>
+                                        <View style={styles.groupRow}>
+                                            <Paragraph>Update</Paragraph>
+                                            <View pointerEvents="none">
+                                                <RadioButton
+                                                    value="update"
+                                                    color={Colors.blue100}
+                                                    status={
+                                                        this.state.tmpTitle.searchTypeDetail === 'update' ? 'checked' : 'unchecked'
+                                                    }
+                                                />
                                             </View>
-                                            <DatePicker
-                                                date={this.state.tmpTitle.searchTypeDetailValue}
-                                                style={[styles.formDatePicker, {marginBottom: 8, marginTop: 0}]}
-                                                mode="date"
-                                                placeholder=" "
-                                                format="YYYY-MM-DD"
-                                                confirmBtnText="Confirm"
-                                                cancelBtnText="Cancel"
-                                                iconComponent={
-                                                    <Icon style={{position: 'absolute', right: 0, marginRight: 10}}
-                                                          name="date-range"
-                                                          size={25} color="#757575"/>}
-                                                customStyles={this.props.theme.formDatePicker}
-                                                onDateChange={(searchTypeDetailValue) => {
+                                        </View>
+                                    </TouchableRipple>
+                                    <Divider style={styles.divideForm}/>
+                                    <View>
+                                        {this.state.tmpTitle.searchTypeDetail === 'update' ? (
+                                            <View>
+                                                <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
+                                                    <Text style={{fontWeight: 'bold', color: "#000"}}>Date Title Updated From:</Text>
+                                                </View>
+                                                <DatePicker
+                                                    date={this.state.tmpTitle.searchTypeDetailValue}
+                                                    style={[styles.formDatePicker, {marginBottom: 8, marginTop: 0}]}
+                                                    mode="date"
+                                                    placeholder=" "
+                                                    format="YYYY-MM-DD"
+                                                    confirmBtnText="Confirm"
+                                                    cancelBtnText="Cancel"
+                                                    iconComponent={
+                                                        <Icon style={{position: 'absolute', right: 0, marginRight: 10}}
+                                                            name="date-range"
+                                                            size={25} color="#757575"/>}
+                                                    customStyles={this.props.theme.formDatePicker}
+                                                    onDateChange={(searchTypeDetailValue) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpTitle: {
+                                                                    ...prevState.tmpTitle,
+                                                                    searchTypeDetail: 'update',
+                                                                    searchTypeDetailValue: moment(searchTypeDetailValue).format("YYYY/MM/DD")
+                                                                }
+                                                            }
+                                                        });
+                                                    }}
+                                                />
+                                            </View>
+                                        ) : null}
+                                    </View>
+
+                                    <TouchableRipple
+                                        onPress={() => {
+                                            if (this.state.tmpTitle.searchTypeDetail !== 'currentOwner') {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        showUpdate: false,
+                                                        showFull: false,
+                                                        tmpTitle: {
+                                                            ...prevState.tmpTitle,
+                                                            searchTypeDetail: 'currentOwner',
+                                                            searchTypeDetailValue: null
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }}>
+                                        <View style={styles.groupRow}>
+                                            <Paragraph>Current Owner</Paragraph>
+                                            <View pointerEvents="none">
+                                                <RadioButton
+                                                    value="currentOwner"
+                                                    color={Colors.blue100}
+                                                    status={
+                                                        this.state.tmpTitle.searchTypeDetail === 'currentOwner' ? 'checked' : 'unchecked'
+                                                    }
+                                                />
+                                            </View>
+                                        </View>
+                                    </TouchableRipple>
+                                    <Divider style={styles.divideForm}/>
+                                    <TouchableRipple
+                                        onPress={() => this.ShowHideComponentLimited()}>
+                                        <View style={styles.groupRow}>
+                                            <Paragraph>Limited</Paragraph>
+                                            <View pointerEvents="none">
+                                                <RadioButton
+                                                    value="limited"
+                                                    color={Colors.blue100}
+                                                    status={
+                                                        this.state.tmpTitle.searchTypeDetail === 'limited' ? 'checked' : 'unchecked'
+                                                    }
+                                                />
+                                            </View>
+                                        </View>
+                                    </TouchableRipple>
+                                    <Divider style={styles.divideForm}/>
+                                    <TouchableRipple
+                                        onPress={() => this.ShowHideComponentFull()}>
+                                        <View style={styles.groupRow}>
+                                            <Paragraph>Full</Paragraph>
+                                            <View pointerEvents="none">
+                                                <RadioButton
+                                                    value="full"
+                                                    color={Colors.blue100}
+                                                    status={
+                                                        this.state.tmpTitle.searchTypeDetail === 'full' ? 'checked' : 'unchecked'
+                                                    }
+                                                />
+                                            </View>
+                                        </View>
+                                    </TouchableRipple>
+                                    <Divider style={styles.divideForm}/>
+                                    {this.state.showFull ? (
+                                        <View>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Years Searched:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                style={styles.formControl}
+                                                label=""
+                                                mode= "flat"
+                                                backgroundColor="#fff"
+                                                underlineColor="none"
+                                                keyboardType="numeric"
+                                                maxLength={3}
+                                                value={this.state.tmpTitle.searchTypeDetailValue}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                                onChangeText={(searchTypeDetailValue) => {
                                                     this.setState((prevState) => {
                                                         return {
                                                             ...prevState,
                                                             tmpTitle: {
                                                                 ...prevState.tmpTitle,
-                                                                searchTypeDetail: 'update',
-                                                                searchTypeDetailValue: moment(searchTypeDetailValue).format("YYYY/MM/DD")
+                                                                searchTypeDetailValue: searchTypeDetailValue,
                                                             }
                                                         }
                                                     });
-                                                }}
-                                            />
+                                                }}>
+                                                    
+                                                </TextInput>
+                                            </View>
                                         </View>
+                                        
                                     ) : null}
-                                </View>
 
-                                <TouchableRipple
-                                    onPress={() => {
-                                        if (this.state.tmpTitle.searchTypeDetail !== 'currentOwner') {
+                                    <View style={{flexDirection: "row", marginVertical: 10}}>
+                                        <View style={[stylesOrderForm.textOrderForm, {paddingTop: 7}]}>
+                                            <Paragraph style={{fontWeight: 'bold', color:"#000"}}>Tax Information Requested:</Paragraph>
+                                        </View>
+                                        <View style={{flexDirection: "row", marginLeft: 3}}>
+                                            <View style={{marginRight: 20}}>
+                                                <TouchableRipple
+                                                    onPress={() => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpTitleDetail: {
+                                                                    ...prevState.tmpTitleDetail,
+                                                                    searchTypeTaxInformationRequest: true
+                                                                }
+                                                            }
+                                                        });
+                                                    }}>
+                                                    <View style={{alignItems: 'center'}}>
+                                                        <Paragraph>Yes</Paragraph>
+                                                        <View pointerEvents="none">
+                                                            <RadioButton
+                                                                value={true}
+                                                                color={Colors.blue100}
+                                                                status={
+                                                                    this.state.tmpTitleDetail.searchTypeTaxInformationRequest == true ? 'checked' : 'unchecked'
+                                                                }
+                                                            />
+                                                        </View>
+                                                    </View>
+                                                </TouchableRipple>
+                                            </View>
+
+                                            <View>
+                                                <TouchableRipple
+                                                    onPress={() => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpTitleDetail: {
+                                                                    ...prevState.tmpTitleDetail,
+                                                                    searchTypeTaxInformationRequest: false
+                                                                }
+                                                            }
+                                                        });
+                                                    }}>
+                                                    <View style={{alignItems: 'center'}}>
+                                                        <Paragraph>No</Paragraph>
+                                                        <View pointerEvents="none">
+                                                            <RadioButton
+                                                                value={false}
+                                                                color={Colors.blue100}
+                                                                status={
+                                                                    this.state.tmpTitleDetail.searchTypeTaxInformationRequest == false ? 'checked' : 'unchecked'
+                                                                }
+                                                            />
+                                                        </View>
+                                                    </View>
+                                                </TouchableRipple>
+                                            </View>
+                                        </View>
+                                    </View>
+
+                                    <Text style={{fontWeight: 'bold'}}>Copies Requested:</Text>
+                                    <TouchableRipple
+                                        onPress={() => {
                                             this.setState((prevState) => {
                                                 return {
                                                     ...prevState,
-                                                    showUpdate: false,
-                                                    showFull: false,
-                                                    tmpTitle: {
-                                                        ...prevState.tmpTitle,
-                                                        searchTypeDetail: 'currentOwner',
-                                                        searchTypeDetailValue: null
-                                                    }
+                                                    tmpTitleDetail: {
+                                                        ...prevState.tmpTitleDetail,
+                                                        searchTypeCopiesRequested: 'pertinent_pages_only'
+                                                    },
+                                                    titleOnly: 'pertinent_pages_only'
                                                 }
                                             });
-                                        }
-                                    }}>
-                                    <View style={styles.groupRow}>
-                                        <Paragraph>Current Owner</Paragraph>
-                                        <View pointerEvents="none">
-                                            <RadioButton
-                                                value="currentOwner"
-                                                color={Colors.blue100}
-                                                status={
-                                                    this.state.tmpTitle.searchTypeDetail === 'currentOwner' ? 'checked' : 'unchecked'
-                                                }
-                                            />
+                                        }}
+                                    >
+                                        <View style={styles.groupRow}>
+                                            <Paragraph>Pertinent Pages Only</Paragraph>
+                                            <View pointerEvents="none">
+                                                <RadioButton
+                                                    value="pertinent_pages_only"
+                                                    color={Colors.blue100}
+                                                    status={
+                                                        this.state.tmpTitleDetail.searchTypeCopiesRequested === 'pertinent_pages_only' ? 'checked' : 'unchecked'
+                                                    }
+                                                />
+                                            </View>
                                         </View>
-                                    </View>
-                                </TouchableRipple>
-                                <Divider style={styles.divideForm}/>
-                                <TouchableRipple
-                                    onPress={() => this.ShowHideComponentLimited()}>
-                                    <View style={styles.groupRow}>
-                                        <Paragraph>Limited</Paragraph>
-                                        <View pointerEvents="none">
-                                            <RadioButton
-                                                value="limited"
-                                                color={Colors.blue100}
-                                                status={
-                                                    this.state.tmpTitle.searchTypeDetail === 'limited' ? 'checked' : 'unchecked'
+                                    </TouchableRipple>
+                                    <Divider style={styles.divideForm}/>
+                                    <TouchableRipple
+                                        onPress={() => {
+                                            this.setState((prevState) => {
+                                                return {
+                                                    ...prevState,
+                                                    tmpTitleDetail: {
+                                                        ...prevState.tmpTitleDetail,
+                                                        searchTypeCopiesRequested: 'full_copies'
+                                                    },
+                                                    titleOnly: 'full_copies'
                                                 }
-                                            />
+                                            });
+                                        }}
+                                    >
+                                        <View style={styles.groupRow}>
+                                            <Paragraph>Full Copies</Paragraph>
+                                            <View pointerEvents="none">
+                                                <RadioButton
+                                                    value="full_copies"
+                                                    color={Colors.blue100}
+                                                    status={
+                                                        this.state.tmpTitleDetail.searchTypeCopiesRequested === 'full_copies' ? 'checked' : 'unchecked'
+                                                    }
+                                                />
+                                            </View>
                                         </View>
-                                    </View>
-                                </TouchableRipple>
-                                <Divider style={styles.divideForm}/>
-                                <TouchableRipple
-                                    onPress={() => this.ShowHideComponentFull()}>
-                                    <View style={styles.groupRow}>
-                                        <Paragraph>Full</Paragraph>
-                                        <View pointerEvents="none">
-                                            <RadioButton
-                                                value="full"
-                                                color={Colors.blue100}
-                                                status={
-                                                    this.state.tmpTitle.searchTypeDetail === 'full' ? 'checked' : 'unchecked'
-                                                }
-                                            />
-                                        </View>
-                                    </View>
-                                </TouchableRipple>
-                                <Divider style={styles.divideForm}/>
-                                {this.state.showFull ? (
+                                    </TouchableRipple>
+                                    <Divider style={styles.divideForm}/>
+
+                                </Card.Content>
+                            </Card>
+
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Special Instructions:</Text>
+                                </View>
+                                <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary,}}>
                                     <TextInput
+                                        multiline
                                         style={styles.formControl}
-                                        label="Years Searched"
-                                        keyboardType="numeric"
-                                        maxLength={3}
-                                        value={this.state.tmpTitle.searchTypeDetailValue}
-                                        onChangeText={(searchTypeDetailValue) => {
+                                        underlineColor="none"
+                                        mode="flat"
+                                        backgroundColor="#fff"
+                                        label=""
+                                        value={this.state.tmpTitleDetail.specialInstructions}
+                                        onChangeText={(specialInstructions) => {
+
+                                            this.setState((prevState) => {
+                                                return {
+                                                    ...prevState,
+                                                    tmpTitleDetail: {
+                                                        ...prevState.tmpTitleDetail,
+                                                        specialInstructions: specialInstructions
+                                                    }
+                                                }
+                                            });
+                                        }}
+                                        theme={{
+                                            colors: {
+                                                placeholder: Palette.graytextinput,
+                                                text: Palette.graytextinput,
+                                                primary: Palette.primary,
+                                                underlineColor: 'transparent',
+                                                background: '#F2F2F2'
+                                            }
+                                        }}
+
+                                    />
+                                </View>
+                                </Card.Content>
+                            </Card>
+
+
+                            <Card style={styles.card}>
+                                <Card.Content>
+                                    <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
+                                        <Text style={styles.formLabel}>Date Searched:</Text>
+                                    </View>
+                                    <DatePicker
+                                        date={this.state.tmpTitle.dateSearch}
+                                        style={[styles.formDatePicker, {marginBottom: 8, marginTop: 0}]}
+                                        mode="date"
+                                        placeholder=" "
+                                        format="YYYY-MM-DD"
+                                        confirmBtnText="Confirm"
+                                        cancelBtnText="Cancel"
+                                        iconComponent={
+                                            <Icon style={{position: 'absolute', right: 0, marginRight: 10}}
+                                                name="date-range"
+                                                size={25} color="#757575"/>}
+                                        customStyles={this.props.theme.formDatePicker}
+                                        onDateChange={(dateSearch) => {
                                             this.setState((prevState) => {
                                                 return {
                                                     ...prevState,
                                                     tmpTitle: {
                                                         ...prevState.tmpTitle,
-                                                        searchTypeDetailValue: searchTypeDetailValue,
+                                                        dateSearch: moment(dateSearch).format("YYYY/MM/DD")
                                                     }
                                                 }
                                             });
-                                        }}>
-                                    </TextInput>
-                                ) : null}
+                                        }}
+                                    />
 
-                                <View style={{flexDirection: "row", marginVertical: 10}}>
-                                    <View style={stylesOrderForm.textOrderForm}>
-                                        <Paragraph>Tax Information Requested:</Paragraph>
+                                    <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
+                                        <Text style={styles.formLabel}>Date Effective:</Text>
                                     </View>
-                                    <View style={{flexDirection: "row", marginLeft: 3}}>
-                                        <View style={{marginRight: 20}}>
-                                            <TouchableRipple
-                                                onPress={() => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpTitleDetail: {
-                                                                ...prevState.tmpTitleDetail,
-                                                                searchTypeTaxInformationRequest: true
-                                                            }
-                                                        }
-                                                    });
-                                                }}>
-                                                <View style={{alignItems: 'center'}}>
-                                                    <Paragraph>Yes</Paragraph>
-                                                    <View pointerEvents="none">
-                                                        <RadioButton
-                                                            value={true}
-                                                            color={Colors.blue100}
-                                                            status={
-                                                                this.state.tmpTitleDetail.searchTypeTaxInformationRequest == true ? 'checked' : 'unchecked'
-                                                            }
-                                                        />
-                                                    </View>
-                                                </View>
-                                            </TouchableRipple>
-                                        </View>
+                                    <DatePicker
+                                        date={this.state.tmpTitle.dateEffective}
+                                        style={[styles.formDatePicker, {marginBottom: 8, marginTop: 0}]}
+                                        mode="date"
+                                        placeholder=" "
+                                        format="YYYY-MM-DD"
+                                        confirmBtnText="Confirm"
+                                        cancelBtnText="Cancel"
+                                        iconComponent={
+                                            <Icon style={{position: 'absolute', right: 0, marginRight: 10}}
+                                                name="date-range"
+                                                size={25} color="#757575"/>}
+                                        customStyles={this.props.theme.formDatePicker}
+                                        onDateChange={(dateEffective) => {
+                                            this.setState((prevState) => {
+                                                return {
+                                                    ...prevState,
+                                                    tmpTitle: {
+                                                        ...prevState.tmpTitle,
+                                                        dateEffective: moment(dateEffective).format("YYYY/MM/DD")
+                                                    }
+                                                }
+                                            });
+                                        }}
+                                    />
+                                </Card.Content>
+                            </Card>
 
-                                        <View>
-                                            <TouchableRipple
-                                                onPress={() => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpTitleDetail: {
-                                                                ...prevState.tmpTitleDetail,
-                                                                searchTypeTaxInformationRequest: false
-                                                            }
-                                                        }
-                                                    });
-                                                }}>
-                                                <View style={{alignItems: 'center'}}>
-                                                    <Paragraph>No</Paragraph>
-                                                    <View pointerEvents="none">
-                                                        <RadioButton
-                                                            value={false}
-                                                            color={Colors.blue100}
-                                                            status={
-                                                                this.state.tmpTitleDetail.searchTypeTaxInformationRequest == false ? 'checked' : 'unchecked'
-                                                            }
-                                                        />
-                                                    </View>
-                                                </View>
-                                            </TouchableRipple>
-                                        </View>
-                                    </View>
-                                </View>
-
-                                <Text>Copies Requested:</Text>
-                                <TouchableRipple
-                                    onPress={() => {
+                            { (this.state.showModal) ?
+                                <ModalSave
+                                    visible={this.state.showModal}
+                                    onDismiss={() => {
                                         this.setState((prevState) => {
                                             return {
                                                 ...prevState,
-                                                tmpTitleDetail: {
-                                                    ...prevState.tmpTitleDetail,
-                                                    searchTypeCopiesRequested: 'pertinent_pages_only'
-                                                },
-                                                titleOnly: 'pertinent_pages_only'
+                                                showModal: false
                                             }
                                         });
                                     }}
-                                >
-                                    <View style={styles.groupRow}>
-                                        <Paragraph>Pertinent Pages Only</Paragraph>
-                                        <View pointerEvents="none">
-                                            <RadioButton
-                                                value="pertinent_pages_only"
-                                                color={Colors.blue100}
-                                                status={
-                                                    this.state.tmpTitleDetail.searchTypeCopiesRequested === 'pertinent_pages_only' ? 'checked' : 'unchecked'
-                                                }
-                                            />
-                                        </View>
-                                    </View>
-                                </TouchableRipple>
-                                <Divider style={styles.divideForm}/>
-                                <TouchableRipple
-                                    onPress={() => {
+                                    onSave={() => {
+                                        this.saveForm()
+                                    }}
+                                    onNoSave={() => {
                                         this.setState((prevState) => {
                                             return {
                                                 ...prevState,
-                                                tmpTitleDetail: {
-                                                    ...prevState.tmpTitleDetail,
-                                                    searchTypeCopiesRequested: 'full_copies'
-                                                },
-                                                titleOnly: 'full_copies'
+                                                showModal: false
                                             }
                                         });
+                                        this.props.navigation.goBack();
                                     }}
-                                >
-                                    <View style={styles.groupRow}>
-                                        <Paragraph>Full Copies</Paragraph>
-                                        <View pointerEvents="none">
-                                            <RadioButton
-                                                value="full_copies"
-                                                color={Colors.blue100}
-                                                status={
-                                                    this.state.tmpTitleDetail.searchTypeCopiesRequested === 'full_copies' ? 'checked' : 'unchecked'
-                                                }
-                                            />
-                                        </View>
-                                    </View>
-                                </TouchableRipple>
-                                <Divider style={styles.divideForm}/>
+                                /> : null
+                            }
 
-                            </Card.Content>
-                        </Card>
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <TextInput
-                                    multiline
-                                    style={styles.formControl}
-                                    label="Special Instructions"
-                                    value={this.state.tmpTitleDetail.specialInstructions}
-                                    onChangeText={(specialInstructions) => {
-
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpTitleDetail: {
-                                                    ...prevState.tmpTitleDetail,
-                                                    specialInstructions: specialInstructions
-                                                }
-                                            }
-                                        });
-                                    }}
-
-                                />
-
-                            </Card.Content>
-                        </Card>
-
-
-                        <Card style={styles.card}>
-                            <Card.Content>
-                                <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
-                                    <Text style={styles.formLabel}>Date Searched</Text>
-                                </View>
-                                <DatePicker
-                                    date={this.state.tmpTitle.dateSearch}
-                                    style={[styles.formDatePicker, {marginBottom: 8, marginTop: 0}]}
-                                    mode="date"
-                                    placeholder=" "
-                                    format="YYYY-MM-DD"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
-                                    iconComponent={
-                                        <Icon style={{position: 'absolute', right: 0, marginRight: 10}}
-                                              name="date-range"
-                                              size={25} color="#757575"/>}
-                                    customStyles={this.props.theme.formDatePicker}
-                                    onDateChange={(dateSearch) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpTitle: {
-                                                    ...prevState.tmpTitle,
-                                                    dateSearch: moment(dateSearch).format("YYYY/MM/DD")
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-
-                                <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
-                                    <Text style={styles.formLabel}>Date Effective</Text>
-                                </View>
-                                <DatePicker
-                                    date={this.state.tmpTitle.dateEffective}
-                                    style={[styles.formDatePicker, {marginBottom: 8, marginTop: 0}]}
-                                    mode="date"
-                                    placeholder=" "
-                                    format="YYYY-MM-DD"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
-                                    iconComponent={
-                                        <Icon style={{position: 'absolute', right: 0, marginRight: 10}}
-                                              name="date-range"
-                                              size={25} color="#757575"/>}
-                                    customStyles={this.props.theme.formDatePicker}
-                                    onDateChange={(dateEffective) => {
-                                        this.setState((prevState) => {
-                                            return {
-                                                ...prevState,
-                                                tmpTitle: {
-                                                    ...prevState.tmpTitle,
-                                                    dateEffective: moment(dateEffective).format("YYYY/MM/DD")
-                                                }
-                                            }
-                                        });
-                                    }}
-                                />
-                            </Card.Content>
-                        </Card>
-
-                        { (this.state.showModal) ?
-                            <ModalSave
-                                visible={this.state.showModal}
-                                onDismiss={() => {
-                                    this.setState((prevState) => {
-                                        return {
-                                            ...prevState,
-                                            showModal: false
-                                        }
-                                    });
+                            <Button
+                                labelStyle={{fontWeight: 'bold'}}
+                                style={[styles.screenButton, {marginBottom: 25}]} mode="contained"
+                                uppercase={false}
+                                onPress={() => {
+                                    this.saveForm();
                                 }}
-                                onSave={() => {
-                                    this.saveForm()
-                                }}
-                                onNoSave={() => {
-                                    this.setState((prevState) => {
-                                        return {
-                                            ...prevState,
-                                            showModal: false
-                                        }
-                                    });
-                                    this.props.navigation.goBack();
-                                }}
-                            /> : null
-                        }
-
-                        <Button
-                            style={styles.screenButton} mode="contained"
-                            onPress={() => {
-                                this.saveForm();
-                            }}
-                        >{this.state.saveFlag?'Saving...':'Continue'}</Button>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
+                            >{this.state.saveFlag?'Saving...':'Continue'}</Button>
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </BackgroundImage>
+           
         );
     }
 }
@@ -1206,8 +1481,7 @@ class OrderForm extends Component {
 export default withTheme(OrderForm);
 
 
-const
-    stylesOrderForm = StyleSheet.create({
+const stylesOrderForm = StyleSheet.create({
 
         formControl: {
             flex: 1,
@@ -1215,15 +1489,18 @@ const
             margin: 5
         },
         ButtonOrderForm: {
-            marginTop: 16,
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
             flex: 1,
+            borderRadius: 12
         },
         textOrderForm: {
             margin: 25,
             marginRight: 20,
-            marginLeft: 0
-
-        }, formRow: {
+            marginLeft: 0,
+        },
+        formRow: {
             flexDirection: "row",
             alignItems: "center",
             marginTop: 0,
@@ -1239,6 +1516,11 @@ const
             elevation: 2,
             marginVertical: 5,
             backgroundColor: '#d9534f',
+        },
+        imageStartScreen: {
+            height: '100%',
+        },
+        imageStartScreen2: {
+            resizeMode: 'cover'
         }
-
     });

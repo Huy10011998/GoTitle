@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from "react";
 import {NavigationEvents} from "react-navigation";
-import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, SafeAreaView, StyleSheet, Text, View, ImageBackground, Button} from "react-native";
 import {IconButton, Searchbar, ActivityIndicator} from "react-native-paper";
 
 import {Palette} from "src/Style/app.theme";
@@ -11,6 +11,25 @@ import {Title, User, TitleDetail as TitleDetailEntity} from "src/entities/index"
 import SyncService from 'src/services/SyncService';
 import AsyncStorage from "@react-native-community/async-storage";
 import NetInfo from "@react-native-community/netinfo";
+
+import photoStarScreen from '../../images/bg.jpg'
+import { ScrollView } from "react-native-gesture-handler";
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={styles.imageStartScreen}
+            imageStyle={styles.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 const moment = require('moment');
 
@@ -25,7 +44,7 @@ export default class continueTitle extends React.Component {
 
         this.state = {
             open: false,
-            isShowSearchBar: true,
+            isShowSearchBar: false,
             list: [],
             tmpList: [],
             searchText: '',
@@ -37,8 +56,37 @@ export default class continueTitle extends React.Component {
         this.props.navigation.setParams({showSearchBar: this.showSearchBar});
     };
 
-    static navigationOptions = ({navigation}) => {
+    static navigationOptions = ({navigation, navigation :{goBack}}) => {
         return {
+            headerLeft: (
+                (Platform.OS == "ios") ?
+
+                <TouchableOpacity onPress={() => goBack()}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View style={styles.iconView}>
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                         <Text style={{color: '#fff', fontSize: 17}}>
+                                                 Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
             title: 'continueTitle',
             headerStyle: {
                 backgroundColor: '#006eaf',
@@ -149,64 +197,72 @@ export default class continueTitle extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <SafeAreaView style={{flex: 1}}>
-                <NavigationEvents
-                    onDidFocus={payload => this.loadTitleList()}
-                />
-                {
-                    (this.state.isShowSearchBar) ?
-                        <Searchbar
-                            placeholder="Search your title... "
-                            onChangeText={query => this.searchTitle(query)}
-                            value={ this.state.searchText }
-                            onIconPress={() => {
-                                this.showSearchBar()
-                            }}
+            <BackgroundImage style={{flex: 1}}>
+                <View>
+                        
+                        <NavigationEvents
+                            onDidFocus={payload => this.loadTitleList()}
                         />
-                        : null
-                }
-                <FlatList
-                    keyExtractor={this.keyExtractor}
-                    data={this.state.tmpList}
-                    contentContainerStyle={styles.listContent}
-                    style={styles.containerFlat}
-                    refreshing={this.state.refreshing}
-                    onRefresh={() => {
-                        this.setState({refreshing: true});
-                        this.loadTitleList();
-                    }}
-                    renderItem={
-                        ({item}) => <TouchableOpacity style={[styles.card]}
-                                                      onPress={() => navigate('BuildMyTitle', {
-                                                          title: item,
-                                                          titleDetail: item.titleDetail
-                                                      })}>
-                            <View style={styles.cardContent}>
-                                <View style={ styles.cardHeader}>
-                                    <Text style={ styles.name }>{moment(item.dateEffective).format('LL')}</Text>
-                                    <Text style={ styles.price }>{ item.price } $us</Text>
-                                </View>
-                                <Text style={ styles.description }>{item.legalAddress}</Text>
-                                <View style={ styles.cardHeader}>
-                                    <Text
-                                        style={ [styles.status, (item.status === 'published') ? {color: Palette.accent} : null] }>{ item.status }</Text>
-                                    <Text
-                                        style={ this.state.syncFlag ? styles.pending : item.apiId ? styles.synced : styles.pending }
-                                    >{this.state.syncFlag ? 'Syncing' : item.apiId ? 'Synced' : 'Pending'}</Text>
-                                    {(this.state.syncFlag) ?
-                                        <ActivityIndicator
-                                            color={Palette.lightGray}
-                                            size={15}
-                                            style={{paddingHorizontal: 5}}
-                                        /> : null
+                        {
+                            (this.state.isShowSearchBar) ?
+                                <Searchbar
+                                    placeholder="Search your title... "
+                                    onChangeText={query => this.searchTitle(query)}
+                                    value={ this.state.searchText }
+                                    onIconPress={() => {
+                                        this.showSearchBar()
+                                    }}
+                                />
+                                : null
+                        }
+                        <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 25}}>
+                            <FlatList
+                                    keyExtractor={this.keyExtractor}
+                                    data={this.state.tmpList}
+                                    // contentContainerStyle={ this.state.refreshing ? styles.listContent : styles.listContentState}
+                                    style={styles.containerFlat}
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => {
+                                        this.setState({refreshing: true});
+                                        this.loadTitleList();
+                                    }}
+                                    renderItem={
+                                        ({item}) => <TouchableOpacity style={[styles.card]}
+                                                                    onPress={() => navigate('BuildMyTitle', {
+                                                                        title: item,
+                                                                        titleDetail: item.titleDetail
+                                                                    })}>
+                                            <View>
+                                                <View style={styles.cardContent}>
+                                                    <View style={ styles.cardHeader}>
+                                                        <Text style={ styles.name }>{moment(item.dateEffective).format('LL')}</Text>
+                                                        <Text style={ styles.price }>{ item.price } $us</Text>
+                                                    </View>
+                                                    <Text style={ styles.description }>{item.legalAddress}</Text>
+                                                    <View style={ styles.cardHeader}>
+                                                        <Text
+                                                            style={ [styles.status, (item.status === 'published') ? {color: Palette.accent} : null] }>{ item.status }
+                                                        </Text>
+                                                        <Text
+                                                            style={ this.state.syncFlag ? styles.pending : item.apiId ? styles.synced : styles.pending }
+                                                        >{this.state.syncFlag ? 'Syncing' : item.apiId ? 'Synced' : 'Pending'}</Text>
+                                                        {(this.state.syncFlag) ?
+                                                            <ActivityIndicator
+                                                                color={Palette.lightGray}
+                                                                size={15}
+                                                                style={{paddingHorizontal: 5}}
+                                                            /> : null
+                                                        }
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
                                     }
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    }
-
-                />
-            </SafeAreaView>
+                                />
+                        </ScrollView>
+                            
+                </View>
+            </BackgroundImage>
         );
     }
 };
@@ -216,11 +272,21 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 20,
         right: 20,
-        backgroundColor: Palette.info
+        backgroundColor: Palette.info,
     },
     listContent: {
         paddingBottom: 100,
-        backgroundColor: Palette.gray
+        backgroundColor: Palette.light,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: Palette.primary
+    },
+    listContentState: {
+        paddingBottom: 0,
+        backgroundColor: Palette.light,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: Palette.primary
     },
     card: {
         shadowColor: '#00000021',
@@ -242,6 +308,7 @@ const styles = StyleSheet.create({
     cardContent: {
         marginLeft: 10,
         marginTop: 10,
+      
     },
     cardHeader: {
         flex: 1,
@@ -283,4 +350,13 @@ const styles = StyleSheet.create({
         color: Palette.accent,
         textAlign: "right"
     },
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
+    },
+    containerFlat: {
+        paddingTop: 10,
+    }
 });

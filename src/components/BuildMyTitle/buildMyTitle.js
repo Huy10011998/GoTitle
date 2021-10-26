@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavigationEvents} from 'react-navigation';
-import {View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, ActivityIndicator,RefreshControl} from 'react-native';
+import {View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator,RefreshControl,ImageBackground} from 'react-native';
 import {Text, Card, Button, Searchbar, IconButton, List} from 'react-native-paper';
 import {styles} from 'src/Style/app.style';
 import {Palette} from 'src/Style/app.theme';
@@ -26,6 +26,25 @@ import {
     DbImageRepository
 } from 'src/repositories/index';
 import SyncService from 'src/services/SyncService';
+
+import photoStarScreen from '../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesBuildMyTitle.imageStartScreen}
+            imageStyle={stylesBuildMyTitle.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 export default class BuildMyTitle extends Component {
     constructor(props) {
@@ -57,6 +76,7 @@ export default class BuildMyTitle extends Component {
             isShowSearchBar: false,
             searchText: '',
             list: [],
+            syncFlag: 0,
             documentList: [],
             tmpDocumentList: [],
             keyNavigation: [
@@ -117,6 +137,35 @@ export default class BuildMyTitle extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
+            headerLeft: (
+                (Platform.OS == "ios") ?
+
+                <TouchableOpacity onPress={()=>navigation.navigate('continueTitle')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View style={styles.iconView}>
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                         <Text style={{color: '#fff', fontSize: 17}}>
+                                                 Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
             headerRight: () =>
                 <IconButton
                     icon="magnify" color="white" size={30}
@@ -680,207 +729,192 @@ export default class BuildMyTitle extends Component {
     render() {
         const {title, titleDetail} = this.state;
         return (
-            <SafeAreaView style={{flex: 1}}>
-                <NavigationEvents
-                    onDidFocus={payload => this.loadToCloud()}
-                />
-                {
-                    (this.state.isShowSearchBar) ?
-                        <Searchbar
-                            placeholder="Search your document..."
-                            onChangeText={query => this.searchDocument(query)}
-                            value={ this.state.searchText }
-                            onIconPress={() => {
-                                this.showSearchBar()
-                            }}
-                        />
-                        : null
-                }
-                <View style={styles.containerFlat}>
-                    <View style={{flexDirection: "row", justifyContent: 'space-between', marginVertical: 5}}>
-
-                        <Card style={[styles.card, stylesBuildMyTitle.card]}>
-                            <Card.Content>
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('NewTitle', {
-                                        title: {...this.state.title},
-                                        titleDetail: {...this.state.titleDetail},
-                                        isResetNavigation: true,
-                                    })}
-                                >
-                                    <View>
-                                        <Text style={stylesBuildMyTitle.formTextTitle}>
-                                            Order Form
-                                        </Text>
-                                        {(title.location && title.location.district != null) ?
-                                            <View>
-                                                <Text style={stylesBuildMyTitle.formTextContent}>
-                                                    {title.location.district} {( title.location.district.toLowerCase().indexOf('county') < 0) ? 'County' : null}
-                                                </Text>
-                                                <Text style={stylesBuildMyTitle.formTextContent}>
-                                                    {title.location.name}
-                                                </Text>
-                                            </View> :
-                                            <View style={{flexDirection: "row"}}>
-                                                <Text
-                                                    style={stylesBuildMyTitle.formTextContent}> {title.location?title.location.name || 'XXX':''} </Text>
-                                                <Text style={stylesBuildMyTitle.formTextContent}>
-                                                    County
-                                                </Text>
-                                            </View>
-                                        }
-
-                                        {(title.searchTypeDetail !== 'currentOwner' && title.searchTypeDetail !== 'update') ?
-                                            <View>
-                                                <Text style={stylesBuildMyTitle.formTextContentCapitalize}>
-                                                    {(title.searchType)} {title.searchTypeDetail}
-                                                </Text>
-                                                <Text style={stylesBuildMyTitle.formTextContent}>
-                                                    {title.searchTypeDetailValue}YR
-                                                </Text>
-                                            </View>
-                                            :
-                                            null
-                                        }
-                                    </View>
-                                </TouchableOpacity>
-                            </Card.Content>
-                        </Card>
-
-                        <Card style={ [styles.card, stylesBuildMyTitle.card] }>
-                            <Card.Content >
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('LegalDescriptionForm', {
-                                        title: {...this.state.title},
-                                        titleDetail: {...this.state.titleDetail}
-                                    })}
-                                >
-                                    <View>
-                                        <Text style={stylesBuildMyTitle.formTextTitle}>
-                                            Legal Description
-                                        </Text>
-                                        {
-
-                                            (titleDetail == null || titleDetail.isOpenSection == null || !titleDetail.isOpenSection) ?
-                                                <View>
-                                                    <Text
-                                                        style={stylesBuildMyTitle.formTextContent}>
-                                                        District: {title.district}</Text>
-                                                    <Text style={stylesBuildMyTitle.formTextContent}>
-                                                        LandLot: {title.landLot}</Text>
-                                                    <View
-                                                        style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                                        {
-                                                            (title.lot !== null) ?
-                                                                <Text style={stylesBuildMyTitle.formTextContent}>
-                                                                    Lot: {title.lot}
-                                                                </Text> : null
-                                                        }
-                                                        {
-                                                            (title.block !== null) ?
-                                                                <Text style={stylesBuildMyTitle.formTextContent}>
-                                                                    Block: {title.block}
-                                                                </Text> : null
-                                                        }
-
-
-                                                    </View>
-
-                                                </View>
-                                                :
-                                                <View>
-                                                    <Text
-                                                        style={stylesBuildMyTitle.formTextContent}>Section: {title.section}</Text>
-                                                    <Text
-                                                        style={stylesBuildMyTitle.formTextContent}>Township: {title.township}</Text>
-                                                    <Text style={{
-                                                        fontSize: 12,
-                                                        marginRight: 8
-                                                    }}>Range:{title.range}</Text>
-                                                </View>
-                                        }
-                                        {
-                                            (title.condoName != null) ?
-                                                <View>
-                                                    <Text
-                                                        style={stylesBuildMyTitle.formTextContentCapitalize}
-                                                        numberOfLines={1}>{title.condoName}</Text>
-                                                </View> : null
-                                        }
-                                    </View>
-                                </TouchableOpacity>
-
-                            </Card.Content>
-                        </Card>
-
+          
+                <BackgroundImage  style={{flex: 1}}>
+                    <NavigationEvents
+                        onDidFocus={payload => this.loadToCloud()}
+                    />
+                    {
+                        (this.state.isShowSearchBar) ?
+                            <Searchbar
+                                placeholder="Search your document..."
+                                onChangeText={query => this.searchDocument(query)}
+                                value={ this.state.searchText }
+                                onIconPress={() => {
+                                    this.showSearchBar()
+                                }}
+                            />
+                            : null
+                    }
+                     
+                    <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#000'}}>
+                        <Text style={{color: '#fff'}}>
+                            {
+                                this.state.cloudRefreshing ?  "Sync" : null
+                            }
+                            {console.log("========cloudRefreshing", this.state.cloudRefreshing)}
+                        </Text>
                     </View>
 
-                    <ScrollView style={{marginBottom: 10}}
-                                refreshControl={ <RefreshControl refreshing={this.state.cloudRefreshing} onRefresh={() => {
-                                    this.loadToCloud();
-                                }}
-                                />}
-                    >
-                        <List.Section>
-                            {
-                                this.state.documentList.map((item, index) => {
-                                    return <Card
-                                        style={[styles.card, (item.deedType.scope === 'secondary') ? {marginLeft: 15} : null]}>
-                                        <Card.Content>
-                                            <TouchableOpacity
-                                                onPress={() => {
-                                                    this.navigate(item);
-                                                }}>
-                                                {
-                                                    (item.deedType.docType === 'tax' ) ?
-                                                        <View>
-                                                            <Text style={{
-                                                                fontWeight: 'bold',
-                                                                marginVertical: 5
-                                                            }}>{item.deedType.name}</Text>
-                                                            <Text style={{fontSize: 12}}
-                                                                  numberOfLines={1}>County: {item.county}</Text>
-                                                            <Text
-                                                                style={{fontSize: 12}}
-                                                                numberOfLines={1}>Municipality: {item.municipality}</Text>
-                                                        </View> :
-                                                        (item.deedType.docType === 'plat_floor_plan') ?
+                    { this.state.cloudRefreshing ? 
+                        <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#000'}}>
+                        <Text style={{color: '#fff'}}>
+                        <Text>Syncing</Text>
+                    <ActivityIndicator
+                        color={Palette.lightGray}
+                        size={15}
+                        style={{paddingHorizontal: 5}}
+                    />
+                        </Text>
+                    </View> : null
+                    }
+                    
+                    <View style={{flex: 1, padding: 15}}>
+                        <View style={{flexDirection: "row", justifyContent: 'space-between', marginVertical: 5}}>
+
+                            <Card style={[styles.card, stylesBuildMyTitle.card]}>
+                                <Card.Content>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.navigation.navigate('NewTitle', {
+                                            title: {...this.state.title},
+                                            titleDetail: {...this.state.titleDetail},
+                                            isResetNavigation: true,
+                                        })}
+                                    >
+                                        <View>
+                                            <Text style={stylesBuildMyTitle.formTextTitle}>
+                                                Order Form
+                                            </Text>
+                                            {(title.location && title.location.district != null) ?
+                                                <View>
+                                                    <Text style={stylesBuildMyTitle.formTextContent}>
+                                                        {title.location.district} {( title.location.district.toLowerCase().indexOf('county') < 0) ? 'County' : null}
+                                                    </Text>
+                                                    <Text style={stylesBuildMyTitle.formTextContent}>
+                                                        {title.location.name}
+                                                    </Text>
+                                                </View> :
+                                                <View style={{flexDirection: "row"}}>
+                                                    <Text
+                                                        style={stylesBuildMyTitle.formTextContent}> {title.location?title.location.name || 'XXX':''} 
+                                                    </Text>
+                                                    <Text style={stylesBuildMyTitle.formTextContent}>
+                                                        County:
+                                                    </Text>
+                                                </View>
+                                            }
+
+                                            {(title.searchTypeDetail !== 'currentOwner' && title.searchTypeDetail !== 'update') ?
+                                                <View>
+                                                    <Text style={stylesBuildMyTitle.formTextContentCapitalize}>
+                                                        {(title.searchType)} {title.searchTypeDetail}
+                                                    </Text>
+                                                    <Text style={stylesBuildMyTitle.formTextContent}>
+                                                        {title.searchTypeDetailValue}YR
+                                                    </Text>
+                                                </View>
+                                                :
+                                                null
+                                            }
+                                        </View>
+                                    </TouchableOpacity>
+                                </Card.Content>
+                            </Card>
+
+                            <Card style={ [styles.card, stylesBuildMyTitle.card] }>
+                                <Card.Content >
+                                    <TouchableOpacity
+                                        onPress={() => this.props.navigation.navigate('LegalDescriptionForm', {
+                                            title: {...this.state.title},
+                                            titleDetail: {...this.state.titleDetail}
+                                        })}
+                                    >
+                                        <View>
+                                            <Text style={stylesBuildMyTitle.formTextTitle}>
+                                                Legal Description
+                                            </Text>
+                                            {
+
+                                                (titleDetail == null || titleDetail.isOpenSection == null || !titleDetail.isOpenSection) ?
+                                                    <View>
+                                                        <Text
+                                                            style={stylesBuildMyTitle.formTextContent}>
+                                                            District: {title.district}</Text>
+                                                        <Text style={stylesBuildMyTitle.formTextContent}>
+                                                            LandLot: {title.landLot}</Text>
+                                                        <View
+                                                            style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                                            {
+                                                                (title.lot !== null) ?
+                                                                    <Text style={stylesBuildMyTitle.formTextContent}>
+                                                                        Lot: {title.lot}
+                                                                    </Text> : null
+                                                            }
+                                                            {
+                                                                (title.block !== null) ?
+                                                                    <Text style={stylesBuildMyTitle.formTextContent}>
+                                                                        Block: {title.block}
+                                                                    </Text> : null
+                                                            }
+
+
+                                                        </View>
+
+                                                    </View>
+                                                    :
+                                                    <View>
+                                                        <Text
+                                                            style={stylesBuildMyTitle.formTextContent}>Section: {title.section}</Text>
+                                                        <Text
+                                                            style={stylesBuildMyTitle.formTextContent}>Township: {title.township}</Text>
+                                                        <Text style={{
+                                                            fontSize: 12,
+                                                            marginRight: 8
+                                                        }}>Range:{title.range}</Text>
+                                                    </View>
+                                            }
+                                            {
+                                                (title.condoName != null) ?
+                                                    <View>
+                                                        <Text
+                                                            style={stylesBuildMyTitle.formTextContentCapitalize}
+                                                            numberOfLines={1}>{title.condoName}</Text>
+                                                    </View> : null
+                                            }
+                                        </View>
+                                    </TouchableOpacity>
+
+                                </Card.Content>
+                            </Card>
+
+                        </View>
+
+                        <ScrollView style={{marginBottom: 10}}
+                                    refreshControl={<RefreshControl refreshing={this.state.cloudRefreshing} onRefresh={() => {this.loadToCloud();}}/>}>
+                            <List.Section>
+                                {
+                                    this.state.documentList.map((item, index) => {
+                                        return <Card
+                                            style={[styles.card, (item.deedType.scope === 'secondary') ? {marginLeft: 15} : null]}>
+                                            <Card.Content>
+                                                <TouchableOpacity
+                                                    onPress={() => {
+                                                        this.navigate(item);
+                                                    }}>
+                                                    {
+                                                        (item.deedType.docType === 'tax' ) ?
                                                             <View>
                                                                 <Text style={{
                                                                     fontWeight: 'bold',
                                                                     marginVertical: 5
                                                                 }}>{item.deedType.name}</Text>
-                                                                <View style={{
-                                                                    flexDirection: 'row',
-                                                                    alignContent: 'space-between'
-                                                                }}>
-                                                                    <Text style={{
-                                                                        fontSize: 12,
-                                                                        width: "75%"
-                                                                    }}>{(item.deedType.scope == 'secondary') ? 'Revised ' : null}
-                                                                        Plat Without a Book and PageInfo:</Text>
-                                                                    <Text style={{
-                                                                        fontSize: 12,
-                                                                        flex: 1,
-                                                                    }}>Book: {item.platBook}</Text>
-                                                                </View>
-                                                                <View style={{
-                                                                    flexDirection: 'row',
-                                                                    alignContent: 'space-between',
-
-                                                                }}>
-                                                                    <Text style={{
-                                                                        fontSize: 12,
-                                                                        width: "75%",
-                                                                    }}
-                                                                          numberOfLines={1}>{item.withoutBookPageInfo}</Text>
-                                                                    <Text style={{
-                                                                        fontSize: 12,
-                                                                        flex: 1,
-                                                                    }}>Page: {item.platPage}</Text>
-                                                                </View>
+                                                                <Text style={{fontSize: 12}}
+                                                                    numberOfLines={1}>County: {item.county}</Text>
+                                                                <Text
+                                                                    style={{fontSize: 12}}
+                                                                    numberOfLines={1}>Municipality: {item.municipality}</Text>
                                                             </View> :
-                                                            (item.deedType.docType === 'misc_civil_probate') ?
+                                                            (item.deedType.docType === 'plat_floor_plan') ?
                                                                 <View>
                                                                     <Text style={{
                                                                         fontWeight: 'bold',
@@ -890,12 +924,15 @@ export default class BuildMyTitle extends Component {
                                                                         flexDirection: 'row',
                                                                         alignContent: 'space-between'
                                                                     }}>
-                                                                        <Text style={{fontSize: 12, width: "75%"}}
-                                                                              numberOfLines={1}>InstrumentType: {item.instrumentType}</Text>
+                                                                        <Text style={{
+                                                                            fontSize: 12,
+                                                                            width: "75%"
+                                                                        }}>{(item.deedType.scope == 'secondary') ? 'Revised ' : null}
+                                                                            Plat Without a Book and PageInfo:</Text>
                                                                         <Text style={{
                                                                             fontSize: 12,
                                                                             flex: 1,
-                                                                        }}>Book: {item.book}</Text>
+                                                                        }}>Book: {item.platBook}</Text>
                                                                     </View>
                                                                     <View style={{
                                                                         flexDirection: 'row',
@@ -905,43 +942,26 @@ export default class BuildMyTitle extends Component {
                                                                         <Text style={{
                                                                             fontSize: 12,
                                                                             width: "75%",
-                                                                        }}>FileNumber: {item.fileNumber}</Text>
+                                                                        }}
+                                                                            numberOfLines={1}>{item.withoutBookPageInfo}</Text>
                                                                         <Text style={{
                                                                             fontSize: 12,
                                                                             flex: 1,
-                                                                        }}>Page: {item.page}</Text>
+                                                                        }}>Page: {item.platPage}</Text>
                                                                     </View>
                                                                 </View> :
-                                                                (item.deedType.docType === 'lien') ?
+                                                                (item.deedType.docType === 'misc_civil_probate') ?
                                                                     <View>
-                                                                        <Text
-                                                                            style={{
-                                                                                fontWeight: 'bold',
-                                                                                marginVertical: 5
-                                                                            }}>
-                                                                            {item.deedType.name}
-                                                                        </Text>
+                                                                        <Text style={{
+                                                                            fontWeight: 'bold',
+                                                                            marginVertical: 5
+                                                                        }}>{item.deedType.name}</Text>
                                                                         <View style={{
                                                                             flexDirection: 'row',
                                                                             alignContent: 'space-between'
                                                                         }}>
-                                                                            {
-                                                                                (item.lienor) ?
-                                                                                    <Text style={{
-                                                                                        fontSize: 12,
-                                                                                        width: "75%"
-                                                                                    }} numberOfLines={1}>Lienor/Plaintiff: {item.lienor}</Text>
-                                                                                    :
-                                                                                    (item.assignedTransferred) ?
-                                                                                        <Text style={{
-                                                                                            fontSize: 12,
-                                                                                            width: "75%",
-                                                                                        }}>To: {item.assignedTransferred}</Text>
-                                                                                        : <Text style={{
-                                                                                        fontSize: 12,
-                                                                                        width: "75%",
-                                                                                    }}></Text>
-                                                                            }
+                                                                            <Text style={{fontSize: 12, width: "75%"}}
+                                                                                numberOfLines={1}>InstrumentType: {item.instrumentType}</Text>
                                                                             <Text style={{
                                                                                 fontSize: 12,
                                                                                 flex: 1,
@@ -952,130 +972,189 @@ export default class BuildMyTitle extends Component {
                                                                             alignContent: 'space-between',
 
                                                                         }}>
-                                                                            {
-                                                                                (item.debtor) ?
-                                                                                    <Text style={{
-                                                                                        fontSize: 12,
-                                                                                        width: "75%",
-                                                                                    }} numberOfLines={1}>Debtor/Defendant: {item.debtor}</Text>
-                                                                                    :
-                                                                                    <Text style={{
-                                                                                        fontSize: 12,
-                                                                                        width: "75%",
-                                                                                    }}></Text>
-                                                                            }
+                                                                            <Text style={{
+                                                                                fontSize: 12,
+                                                                                width: "75%",
+                                                                            }}>FileNumber: {item.fileNumber}</Text>
                                                                             <Text style={{
                                                                                 fontSize: 12,
                                                                                 flex: 1,
                                                                             }}>Page: {item.page}</Text>
                                                                         </View>
-                                                                    </View>
-                                                                    :
-                                                                    <View>
-                                                                        <View style={{
-                                                                            flexDirection: 'row',
-                                                                            alignContent: 'space-between'
-                                                                        }}>
-
-                                                                            <Text style={{
-                                                                                fontWeight: 'bold',
-                                                                                marginVertical: 5, width: "70%"
-                                                                            }}>{item.deedType.name}</Text>
-
-                                                                            <Text style={{
-                                                                                fontWeight: 'bold',
-                                                                                marginVertical: 5,
-                                                                                color: Palette.secondary
-                                                                            }}>
-                                                                                {(item.currentOwner != null && item.currentOwner) ? "Current Owner" : ""}
+                                                                    </View> :
+                                                                    (item.deedType.docType === 'lien') ?
+                                                                        <View>
+                                                                            <Text
+                                                                                style={{
+                                                                                    fontWeight: 'bold',
+                                                                                    marginVertical: 5
+                                                                                }}>
+                                                                                {item.deedType.name}
                                                                             </Text>
-                                                                        </View>
+                                                                            <View style={{
+                                                                                flexDirection: 'row',
+                                                                                alignContent: 'space-between'
+                                                                            }}>
+                                                                                {
+                                                                                    (item.lienor) ?
+                                                                                        <Text style={{
+                                                                                            fontSize: 12,
+                                                                                            width: "75%"
+                                                                                        }} numberOfLines={1}>Lienor/Plaintiff: {item.lienor}</Text>
+                                                                                        :
+                                                                                        (item.assignedTransferred) ?
+                                                                                            <Text style={{
+                                                                                                fontSize: 12,
+                                                                                                width: "75%",
+                                                                                            }}>To: {item.assignedTransferred}</Text>
+                                                                                            : <Text style={{
+                                                                                            fontSize: 12,
+                                                                                            width: "75%",
+                                                                                        }}></Text>
+                                                                                }
+                                                                                <Text style={{
+                                                                                    fontSize: 12,
+                                                                                    flex: 1,
+                                                                                }}>Book: {item.book}</Text>
+                                                                            </View>
+                                                                            <View style={{
+                                                                                flexDirection: 'row',
+                                                                                alignContent: 'space-between',
 
-
-                                                                        <View style={{
-                                                                            flexDirection: 'row',
-                                                                            alignContent: 'space-between'
-                                                                        }}>
-                                                                            {
-                                                                                (item.grantee) ?
-                                                                                    <Text style={{
-                                                                                        fontSize: 12,
-                                                                                        width: "75%",
-                                                                                    }}
-                                                                                          numberOfLines={1}>Grantor: {item.grantor}</Text>
-                                                                                    :
-                                                                                    (item.assignedTransfer) ?
+                                                                            }}>
+                                                                                {
+                                                                                    (item.debtor) ?
                                                                                         <Text style={{
                                                                                             fontSize: 12,
                                                                                             width: "75%",
-                                                                                        }}>To: {item.assignedTransfer}</Text>
+                                                                                        }} numberOfLines={1}>Debtor/Defendant: {item.debtor}</Text>
                                                                                         :
                                                                                         <Text style={{
                                                                                             fontSize: 12,
                                                                                             width: "75%",
                                                                                         }}></Text>
-                                                                            }
-                                                                            <Text style={{
-                                                                                fontSize: 12,
-                                                                                flex: 1,
-                                                                            }}>Book:{item.deedBook}</Text>
-                                                                        </View>
-                                                                        <View style={{
-                                                                            flexDirection: 'row',
-                                                                            alignContent: 'space-between',
-
-                                                                        }}>
-                                                                            {(item.grantee) ?
+                                                                                }
                                                                                 <Text style={{
                                                                                     fontSize: 12,
-                                                                                    width: "75%",
-                                                                                }}
-                                                                                      numberOfLines={1}>Grantee: {item.grantee}</Text>
-                                                                                : <Text style={{
-                                                                                    fontSize: 12,
-                                                                                    width: "75%",
-                                                                                }}></Text>
-                                                                            }
-                                                                            <Text style={{
-                                                                                fontSize: 12,
-                                                                                flex: 1,
-                                                                            }}>Page: {item.deedPage}</Text>
+                                                                                    flex: 1,
+                                                                                }}>Page: {item.page}</Text>
+                                                                            </View>
                                                                         </View>
-                                                                    </View>
-                                                }
-                                            </TouchableOpacity>
-                                        </Card.Content>
-                                    </Card>;
-                                })
-                            }
-                        </List.Section>
-                    </ScrollView>
+                                                                        :
+                                                                        <View>
+                                                                            <View style={{
+                                                                                flexDirection: 'row',
+                                                                                alignContent: 'space-between'
+                                                                            }}>
 
-                    <View style={[styles.buttonRow, {flexDirection: "row", align: 'center'}]}>
-                        <Button
-                            style={{flex: 1, marginHorizontal: 5}}
-                            mode="contained"
-                            uppercase={false}
-                            color={Palette.primary}
-                            onPress={() => this.props.navigation.navigate('ChooseADocument', {title: {...this.state.title}})}>
-                            Add New Document
-                        </Button>
-                        <Button
-                            color={Palette.success}
-                            style={{flex: 1, marginHorizontal: 5}}
-                            mode="contained"
-                            uppercase={false}
-                            onPress={() => {
-                                this.loadToCloud();
-                                this.props.navigation.navigate('CovenantsForm', {title: {...this.state.title}});
-                            }}>
-                            Complete My Title
-                        </Button>
-                    </View>
+                                                                                <Text style={{
+                                                                                    fontWeight: 'bold',
+                                                                                    marginVertical: 5, width: "70%"
+                                                                                }}>{item.deedType.name}</Text>
 
-                </View>
+                                                                                <Text style={{
+                                                                                    fontWeight: 'bold',
+                                                                                    marginVertical: 5,
+                                                                                    color: Palette.secondary
+                                                                                }}>
+                                                                                    {(item.currentOwner != null && item.currentOwner) ? "Current Owner" : ""}
+                                                                                </Text>
+                                                                            </View>
 
-            </SafeAreaView>
+
+                                                                            <View style={{
+                                                                                flexDirection: 'row',
+                                                                                alignContent: 'space-between'
+                                                                            }}>
+                                                                                {
+                                                                                    (item.grantee) ?
+                                                                                        <Text style={{
+                                                                                            fontSize: 12,
+                                                                                            width: "75%",
+                                                                                        }}
+                                                                                            numberOfLines={1}>Grantor: {item.grantor}</Text>
+                                                                                        :
+                                                                                        (item.assignedTransfer) ?
+                                                                                            <Text style={{
+                                                                                                fontSize: 12,
+                                                                                                width: "75%",
+                                                                                            }}>To: {item.assignedTransfer}</Text>
+                                                                                            :
+                                                                                            <Text style={{
+                                                                                                fontSize: 12,
+                                                                                                width: "75%",
+                                                                                            }}></Text>
+                                                                                }
+                                                                                <Text style={{
+                                                                                    fontSize: 12,
+                                                                                    flex: 1,
+                                                                                }}>Book: {item.deedBook}</Text>
+                                                                            </View>
+                                                                            <View style={{
+                                                                                flexDirection: 'row',
+                                                                                alignContent: 'space-between',
+
+                                                                            }}>
+                                                                                {(item.grantee) ?
+                                                                                    <Text style={{
+                                                                                        fontSize: 12,
+                                                                                        width: "75%",
+                                                                                    }}
+                                                                                        numberOfLines={1}>Grantee: {item.grantee}</Text>
+                                                                                    : <Text style={{
+                                                                                        fontSize: 12,
+                                                                                        width: "75%",
+                                                                                    }}></Text>
+                                                                                }
+                                                                                <Text style={{
+                                                                                    fontSize: 12,
+                                                                                    flex: 1,
+                                                                                }}>Page: {item.deedPage}</Text>
+                                                                            </View>
+                                                                        </View>
+                                                    }
+                                                </TouchableOpacity>
+                                            </Card.Content>
+                                        </Card>;
+                                    })
+                                }
+                            </List.Section>
+                        </ScrollView>
+
+                        <View style={[styles.buttonRow, {flexDirection: "row", align: 'center'}, {paddingBottom :50}]}>
+                            <View style={{paddingRight: 5}}>
+                                <Button
+                                    style={{flex: 0, borderRadius: 12}}
+                                    mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase={false}
+                                    color={Palette.primary}
+                                    onPress={() => this.props.navigation.navigate('ChooseADocument', {title: {...this.state.title}})}>
+                                    Add New Document
+                                </Button>
+                            </View>
+
+                            <View>
+                                <Button
+                                    color={Palette.success}
+                                    style={{flex: 0, borderRadius: 12}}
+                                    mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase={false}
+                                    onPress={() => {
+                                        this.loadToCloud();
+                                        this.props.navigation.navigate('CovenantsForm', {title: {...this.state.title}});
+                                    }}>
+                                    Complete My Title
+                                </Button>
+                            </View>
+                        </View> 
+
+                     </View>
+               
+
+                </  BackgroundImage >
+        
         );
     }
 }
@@ -1116,6 +1195,12 @@ const
             backgroundColor: Palette.light,
             padding: 10,
         },
+        imageStartScreen: {
+            height: '100%',
+        },
+        imageStartScreen2: {
+            resizeMode: 'cover'
+        }
     });
 
 

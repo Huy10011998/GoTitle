@@ -8,11 +8,12 @@ import {
     CustomerRepository
 } from 'src/repositories/index';
 
-import {TitleTest} from 'src/tests/TitleTest'
+import {TitleTest} from 'src/tests/TitleTest';
+import AntIcon from "react-native-vector-icons/AntDesign";
 import React, {Component} from 'react';
-import {View, SafeAreaView, StyleSheet, ImageBackground} from 'react-native';
+import {View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpacity} from 'react-native';
 import {Button, Appbar} from 'react-native-paper';
-import photoStarScreen from 'src/images/ATLANTA_GOTITLE_PIC.jpg'
+import photoStarScreen from '../../images/bg.jpg'
 
 import {getConnection, getManager, getCustomRepository} from "typeorm";
 import SyncService from 'src/services/SyncService';
@@ -20,13 +21,15 @@ import {Title, User} from "src/entities/index";
 import AsyncStorage from "@react-native-community/async-storage";
 import {AuthService} from 'src/services/index';
 
-class BackgroundImage extends Component {
+import {Palette} from 'src/Style/app.theme';
 
+class BackgroundImage extends Component {
     render() {
         return (
-            <ImageBackground source={photoStarScreen}
-                             style={stylesStart.imageStartScreen}
-                             imageStyle={stylesStart.imageStartScreen2}
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesStart.imageStartScreen}
+            imageStyle={stylesStart.imageStartScreen2}
             >
                 {this.props.children}
             </ImageBackground>
@@ -87,7 +90,7 @@ export default class StartScreen extends React.Component {
                         newUserSave = {
                             apiId: newUser.id,
                             name: newUser.name,
-                            lastName: newUser.lastName,
+                            lastName: newUser.lastName,                  
                             email: newUser.email
                         };
 
@@ -139,57 +142,81 @@ export default class StartScreen extends React.Component {
         AsyncStorage.setItem('user-id', id.toString())
             .then(() => {
             }, err => console.error("error", err));
-    }
+        }
+
+    static navigationOptions = ({navigation}) => {
+        return {
+            headerLeft: (
+                <Button
+                        uppercase={false}
+                        color={'#eee'}
+                        onPress={() => {
+                            navigation.openDrawer();
+                        }}
+                    >
+                        <AntIcon name="bars" size={30} color={Palette.light}/>
+                    </Button>
+            )
+        }
+    };
+
 
     render() {
         return (
 
-            <SafeAreaView>
-                <Appbar style={stylesStart.navbarColor}>
+            // <SafeAreaView style={{flex: 1}}>
+            <View>
+                 {/* <Appbar style={stylesStart.navbarColor}>
 
-                    <Appbar.Action
-                        icon="menu"
-                        color="#9c9c9c"
-                        onPress={() => {
-                            this.props.navigation.toggleDrawer();
-                        }}
+                        <Appbar.Action
+                            icon="menu"
+                            color="#fff"
+                            onPress={() => {
+                                this.props.navigation.toggleDrawer();
+                            }}
 
-                    />
-                    <Appbar.Content
-                        color="#006eaf"
-                        title="GoTitle"
-                    />
+                        />
+                        <Appbar.Content
+                            color="#fff"
+                            title="GoTitle"
+                        />
 
-                </Appbar>
+                </Appbar> */}
 
                 <View>
-                    <BackgroundImage>
+                    <BackgroundImage >
                         <View style={stylesStart.viewContainer}>
-                            <Button
-                                style={stylesStart.button}
-                                icon="plus-circle-outline"
-                                mode="contained"
-                                onPress={() => this.props.navigation.navigate('NewTitle')}
-                            >
-                                Start a New Title
-                            </Button>
-
-
-                            <Button
-                                style={stylesStart.button}
-                                icon="pencil"
-                                mode="contained"
-                                onPress={() => this.props.navigation.navigate('continueTitle')}
-                            >
-                                Continue a Title
-                            </Button>
+                            <TouchableOpacity  onPress={() => this.props.navigation.navigate('NewTitle')}>
+                                <Button
+                                    style={stylesStart.button}
+                                    icon="plus-circle-outline"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    mode="contained"
+                                    textStyle="borderColor"
+                                    uppercase={false}
+                                    color={Palette.light}>
+                                    Start a New Title
+                                </Button>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('continueTitle')}>
+                                <Button
+                                    style={stylesStart.button}
+                                    icon="pencil"
+                                    uppercase={false}
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    mode="contained"
+                                    textStyle="borderColor"
+                                    color={Palette.light}>
+                                    Continue a Title
+                                </Button>
+                            </TouchableOpacity>
                         </View>
-
                     </BackgroundImage>
                 </View>
-
-
-            </SafeAreaView>
+            </View>
+               
+            // </SafeAreaView>
         );
     }
 }
@@ -199,26 +226,28 @@ const stylesStart = StyleSheet.create({
     button: {
         marginLeft: 60,
         marginRight: 60,
-    },
+        borderRadius: 12,
+        borderColor: Palette.primary,
+        borderWidth: 1,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        },
     viewContainer: {
         alignContent: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         marginTop: '30%',
         width: '100%',
         height: '50%',
     },
     navbarColor: {
-        backgroundColor: '#fff',
+        // backgroundColor: '#006eaf',
+        marginTop: 50
     },
     imageStartScreen: {
-        resizeMode: 'center',
         height: '100%',
     },
     imageStartScreen2: {
-        height: '100%',
-        width: '245%',
-        left: -375,
-        resizeMode: 'stretch'
+        resizeMode: 'cover'
     }
-
 });

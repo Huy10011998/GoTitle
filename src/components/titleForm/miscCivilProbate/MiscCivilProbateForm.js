@@ -4,7 +4,8 @@ import {
     Text,
     View,
     SafeAreaView,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {Header} from "react-navigation-stack";
 import {Button, Card, IconButton, TextInput, withTheme} from "react-native-paper";
@@ -19,7 +20,25 @@ import {MiscCivilProbate, DeedType, DbImage} from 'src/entities/index';
 import SyncService from 'src/services/SyncService';
 import ModalSave from 'src/components/reusable/ModalSave';
 
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 const moment = require("moment");
+
+import photoStarScreen from '../../../images/bg.jpg'
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={styles.imageStartScreen}
+            imageStyle={styles.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class MiscCivilProbateForm extends Component {
 
@@ -75,16 +94,33 @@ class MiscCivilProbateForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity  onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -280,58 +316,110 @@ class MiscCivilProbateForm extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                       behavior={Platform.OS == "ios" ? "padding" : null}
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                         keyboardShouldPersistTaps="handled">
 
                         <View style={ styles.containerFlat }>
                             <Card style={ styles.card }>
                                 <Card.Content>
-
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Instrument Type:</Text>
+                                    </View>
+                                   
                                     <View style={styles.formRow}>
-                                        <TextInput
-                                            label="Instrument Type"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpMiscCivilProbate.instrumentType }
-                                            onChangeText={ (instrumentType) => {
-                                                let tmpMiscCivilProbate = {...this.state.tmpMiscCivilProbate};
-                                                tmpMiscCivilProbate.instrumentType = instrumentType;
-                                                this.setState({tmpMiscCivilProbate: tmpMiscCivilProbate});
-                                            }}
-                                        />
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpMiscCivilProbate.instrumentType }
+                                                onChangeText={ (instrumentType) => {
+                                                    let tmpMiscCivilProbate = {...this.state.tmpMiscCivilProbate};
+                                                    tmpMiscCivilProbate.instrumentType = instrumentType;
+                                                    this.setState({tmpMiscCivilProbate: tmpMiscCivilProbate});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    < View style={styles.formRow}>
-                                        <TextInput
-                                            label="File Number"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpMiscCivilProbate.fileNumber ? String(this.state.tmpMiscCivilProbate.fileNumber) : null }
-                                            onChangeText={ (fileNumber) => {
-                                                let tmpMiscCivilProbate = {...this.state.tmpMiscCivilProbate};
-                                                tmpMiscCivilProbate.fileNumber = fileNumber;
-                                                this.setState({tmpMiscCivilProbate: tmpMiscCivilProbate});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>File Number:</Text>
+                                    </View>
+                                   
+                                    <View style={styles.formRow}>
+                                        <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                            <TextInput
+                                                label=""
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
+                                                style={styles.formControl}
+                                                value={ this.state.tmpMiscCivilProbate.fileNumber ? String(this.state.tmpMiscCivilProbate.fileNumber) : null }
+                                                onChangeText={ (fileNumber) => {
+                                                    let tmpMiscCivilProbate = {...this.state.tmpMiscCivilProbate};
+                                                    tmpMiscCivilProbate.fileNumber = fileNumber;
+                                                    this.setState({tmpMiscCivilProbate: tmpMiscCivilProbate});
+                                                }}
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
+                                                }}
+                                            />
+                                        </View>
                                     </View>
 
-                                    < View style={styles.formRow}>
-                                        <TextInput
-                                            label="Book Type"
-                                            style={styles.formControl}
-                                            value={ this.state.tmpMiscCivilProbate.bookType }
-                                            onChangeText={ (bookType) => {
-                                                let tmpMiscCivilProbate = {...this.state.tmpMiscCivilProbate};
-                                                tmpMiscCivilProbate.bookType = bookType;
-                                                this.setState({tmpMiscCivilProbate: tmpMiscCivilProbate});
-                                            }}
-                                        />
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Book Type:</Text>
                                     </View>
-
+                                
+                                    <View style={styles.formRow}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    style={styles.formControl}
+                                                    value={ this.state.tmpMiscCivilProbate.bookType }
+                                                    onChangeText={ (bookType) => {
+                                                        let tmpMiscCivilProbate = {...this.state.tmpMiscCivilProbate};
+                                                        tmpMiscCivilProbate.bookType = bookType;
+                                                        this.setState({tmpMiscCivilProbate: tmpMiscCivilProbate});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                    </View>
 
                                     <View style={ styles.formRow }>
                                         <Text style={styles.formLabel}> Book + Page </Text>
@@ -349,11 +437,13 @@ class MiscCivilProbateForm extends Component {
                                     </View>
                                     <Button
                                         icon="camera-outline"
+                                        labelStyle={{fontWeight: 'bold'}}
                                         mode="contained"
+                                        uppercase={false}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Page Images</Button>
+                                        style={{marginVertical: 10, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}>Add Page Images</Button>
 
                                     { (this.state.showModal) ?
                                         <ModalSave
@@ -387,39 +477,58 @@ class MiscCivilProbateForm extends Component {
 
                             <Card style={ styles.card }>
                                 <Card.Content>
-                                    <TextInput
-                                        multiline
-                                        scrollEnabled={false}
-                                        style={styles.formControl}
-                                        label="Note"
-                                        value={this.state.tmpMiscCivilProbate.note}
-                                        onChangeText={ (note) => {
-                                            this.setState((prevState) => {
-                                                return {
-                                                    ...prevState,
-                                                    tmpMiscCivilProbate: {
-                                                        ...prevState.tmpMiscCivilProbate,
-                                                        note: note
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Note:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            multiline
+                                            backgroundColor="#fff"
+                                            mode= "flat"
+                                            underlineColor="none"
+                                            scrollEnabled={false}
+                                            style={styles.formControl}
+                                            label=""
+                                            value={this.state.tmpMiscCivilProbate.note}
+                                            onChangeText={ (note) => {
+                                                this.setState((prevState) => {
+                                                    return {
+                                                        ...prevState,
+                                                        tmpMiscCivilProbate: {
+                                                            ...prevState.tmpMiscCivilProbate,
+                                                            note: note
+                                                        }
                                                     }
+                                                });
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
                                                 }
-                                            });
-                                        }}
+                                            }}
 
-                                    />
+                                        />
+                                    </View>
 
                                 </Card.Content>
                             </Card>
 
                         </View>
-                        <View style={[styles.formBottomButton]}>
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
                             <Button style={styles.screenButton}
+                                    uppercase={false}
+                                    labelStyle={{fontWeight: 'bold'}}
                                     mode="contained"
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : (this.state.tmpMiscCivilProbate.id) ? 'Save Document' : 'Add Document to Title'}</Button>
                         </View>
 
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage>
         );
     }
 }

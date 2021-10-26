@@ -4,7 +4,8 @@ import {
     Text,
     View,
     SafeAreaView,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {Header} from "react-navigation-stack";
 import {Button, Card, IconButton, TextInput, withTheme, Switch, Divider} from "react-native-paper";
@@ -24,6 +25,24 @@ import {Deed, DeedType, Title, DbImage} from 'src/entities/index';
 import SyncService from "src/services/SyncService";
 
 const moment = require("moment");
+
+import photoStarScreen from '../../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={styles.imageStartScreen}
+            imageStyle={styles.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class DeedForm extends Component {
 
@@ -74,7 +93,6 @@ class DeedForm extends Component {
         let tmpDeed = navigation.getParam('deed');
         let headerTitle = ((tmpDeed && tmpDeed.id) ? '' : 'Add ') + ' Chain of Title';
         return {
-
             headerRight: (
                 <IconButton
                     icon="check" color="white" size={25}
@@ -84,16 +102,33 @@ class DeedForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -333,13 +368,13 @@ class DeedForm extends Component {
     render() {
 
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                       behavior={Platform.OS == "ios" ? "padding" : null}
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                         keyboardShouldPersistTaps="handled">
 
                         <View style={styles.containerFlat}>
@@ -348,36 +383,35 @@ class DeedForm extends Component {
 
                                     <View style={styles.formRow}>
                                         <Text style={styles.formLabel}>
-                                            Deed Type
+                                            Deed Type:
                                         </Text>
                                     </View>
 
                                     <View>
                                         <View style={styles.formRow}>
-                                            <RNPicker
-                                                dataSource={this.state.deedTypeList}
-                                                dummyDataSource={this.state.deedTypeList}
-                                                defaultValue={true}
-                                                pickerTitle={'Select Deed Type'}
-                                                showSearchBar={false}
-                                                disablePicker={false}
-                                                changeAnimation={"fade"}
-                                                searchBarPlaceHolder={"Search....."}
-                                                showPickerTitle={false}
-                                                searchBarContainerStyle={this.props.searchBarContainerStyle}
-                                                pickerStyle={stylesRNPicker.pickerStyle}
-                                                pickerItemTextStyle={stylesRNPicker.listTextViewStyle}
-                                                selectedLabel={this.state.labelSelected}
-                                                placeHolderLabel='Select Deed Type'
-                                                selectLabelTextStyle={stylesRNPicker.selectLabelTextStyle}
-                                                placeHolderTextStyle={stylesRNPicker.placeHolderTextStyle}
-                                                dropDownImageStyle={stylesRNPicker.dropDownImageStyle}
-                                                // dropDownImage={require("./res/ic_drop_down.png")}
-                                                selectedValue={(index, item) => {
-                                                    this.selectDeedType(item);
-                                                }}
-                                            />
-
+                                                <RNPicker
+                                                    dataSource={this.state.deedTypeList}
+                                                    dummyDataSource={this.state.deedTypeList}
+                                                    defaultValue={true}
+                                                    pickerTitle={'Select Deed Type'}
+                                                    showSearchBar={false}
+                                                    disablePicker={false}
+                                                    changeAnimation={"fade"}
+                                                    searchBarPlaceHolder={"Search....."}
+                                                    showPickerTitle={false}
+                                                    searchBarContainerStyle={this.props.searchBarContainerStyle}
+                                                    pickerStyle={stylesRNPicker.pickerStyle}
+                                                    pickerItemTextStyle={stylesRNPicker.listTextViewStyle}
+                                                    selectedLabel={this.state.labelSelected}
+                                                    placeHolderLabel='Select Deed Type'
+                                                    selectLabelTextStyle={stylesRNPicker.selectLabelTextStyle}
+                                                    placeHolderTextStyle={stylesRNPicker.placeHolderTextStyle}
+                                                    dropDownImageStyle={stylesRNPicker.dropDownImageStyle}
+                                                    // dropDownImage={require("./res/ic_drop_down.png")}
+                                                    selectedValue={(index, item) => {
+                                                        this.selectDeedType(item);
+                                                    }}
+                                                />
                                         </View>
                                         <View>
                                             <View style={{
@@ -409,7 +443,7 @@ class DeedForm extends Component {
 
                                         <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                             <Text style={styles.formLabel}>
-                                                Deed Date
+                                                Deed Date:
                                             </Text>
                                         </View>
                                         <DatePicker
@@ -435,7 +469,7 @@ class DeedForm extends Component {
 
                                         <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                             <Text style={styles.formLabel}>
-                                                Date Recorded
+                                                Date Recorded:
                                             </Text>
                                         </View>
                                         <DatePicker
@@ -457,59 +491,96 @@ class DeedForm extends Component {
                                                 tmpDeed.recDate = moment(date).format("YYYY/MM/DD");
                                                 this.setState({tmpDeed: tmpDeed});
                                             }}
-                                        />
-
+                                            />
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Grantor:</Text>
+                                        </View>
+                                       
                                         <View style={styles.formRow}>
-                                            <TextInput
-                                                label="Grantor"
-                                                style={styles.formControl}
-                                                value={this.state.tmpDeed.grantor}
-                                                onChangeText={(grantor) => {
-                                                    let tmpDeed = {...this.state.tmpDeed};
-                                                    tmpDeed.grantor = grantor;
-                                                    this.setState({tmpDeed: tmpDeed});
-                                                }}
-                                            />
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    style={styles.formControl}
+                                                    value={this.state.tmpDeed.grantor}
+                                                    onChangeText={(grantor) => {
+                                                        let tmpDeed = {...this.state.tmpDeed};
+                                                        tmpDeed.grantor = grantor;
+                                                        this.setState({tmpDeed: tmpDeed});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
                                         </View>
-
-                                        < View style={styles.formRow}>
-                                            <TextInput
-                                                label="Grantee"
-                                                style={styles.formControl}
-                                                value={this.state.tmpDeed.grantee}
-                                                onChangeText={(grantee) => {
-                                                    let tmpDeed = {...this.state.tmpDeed};
-                                                    tmpDeed.grantee = grantee;
-                                                    this.setState({tmpDeed: tmpDeed});
-                                                }}
-                                            />
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Grantee:</Text>
                                         </View>
-
+                                      
+                                        <View style={styles.formRow}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=""
+                                                    backgroundColor="#fff"      
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    style={styles.formControl}
+                                                    value={this.state.tmpDeed.grantee}
+                                                    onChangeText={(grantee) => {
+                                                        let tmpDeed = {...this.state.tmpDeed};
+                                                        tmpDeed.grantee = grantee;
+                                                        this.setState({tmpDeed: tmpDeed});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                        </View>
                                     </View>
 
-                                    <View style={styles.formRow}>
+                                    <View style={[styles.formRow, {paddingTop: 10}]}>
                                         <Text style={styles.formLabel}>
-                                            Deed Book + Page
+                                            Deed Book + Page:
                                         </Text>
                                     </View>
-                                    <View style={styles.formRow}>
-                                        <BookPageForm
-                                            item={this.state.tmpDeed}
-                                            bookName="deedBook"
-                                            pageName="deedPage"
-                                            onChange={item => {
-                                                this.setState({tmpDeed: item})
-                                            }}
-                                            removeButton={false}
-                                            onImagePress={item => this.showGallery()}/>
-                                    </View>
+                                    
+                                        <View style={styles.formRow}>
+                                            <BookPageForm
+                                                item={this.state.tmpDeed}
+                                                bookName="deedBook"
+                                                pageName="deedPage"
+                                                onChange={item => {
+                                                    this.setState({tmpDeed: item})
+                                                }}
+                                                removeButton={false}
+                                                onImagePress={item => this.showGallery()}/>
+                                        </View>
+            
                                     <Button
+                                        labelStyle={{fontWeight: 'bold'}}
                                         icon="camera-outline"
                                         mode="contained"
+                                        uppercase= {false}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Page Images</Button>
+                                        style={{marginVertical: 10, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}>Add Page Images</Button>
 
                                     { (this.state.showModal) ?
                                         <ModalSave
@@ -541,16 +612,18 @@ class DeedForm extends Component {
 
 
                         </View>
-                        <View style={[styles.formBottomButton]}>
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
                             <Button style={styles.screenButton}
                                     mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase= {false}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : ((this.state.tmpDeed.id) ? 'Save Document' : 'Add Document to Title')}</Button>
                         </View>
 
 
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage>
         );
     }
 }

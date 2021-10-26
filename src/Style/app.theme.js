@@ -3,12 +3,14 @@ import {DefaultTheme} from 'react-native-paper';
 const Palette = {
     primary: "#006eaf",
     secondary: "#7293BC",
+    button: "#4169e1",
     accent: "#00D2A5",
     light: "#fff",
-    dark: "#333",
+    dark: "#000",
     gray: "#eee",
     darkGray: "#696969",
     lightGray: "#d2d2d2",
+    graytextinput: "#696969",
     success: "#007C32",
     successLight: "#00cb2e",
     danger: "#BB3C3F",
@@ -64,9 +66,13 @@ const Theme = {
     },
     formGooglePlace: {
         textInputContainer: {
-            backgroundColor: 'transparent',
-            borderTopWidth: 0,
-            borderBottomWidth: 0
+            // backgroundColor: 'transparent',
+            // marginLeft: 10,
+            // borderRadius: 12,
+            // borderWidth: 1,
+            // height: 50,
+            borderColor: Palette.primary,
+            // marginTop: 10
         },
         textInput: {
             marginLeft: 0,

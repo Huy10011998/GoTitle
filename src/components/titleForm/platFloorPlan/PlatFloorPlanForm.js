@@ -4,10 +4,10 @@ import {
     Text,
     View,
     SafeAreaView,
-    TouchableOpacity,
     StyleSheet,
     FlatList,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {Header} from "react-navigation-stack";
 import {Button, Card, IconButton, TextInput, withTheme, Dialog, Portal} from "react-native-paper";
@@ -23,6 +23,24 @@ import SyncService from 'src/services/SyncService';
 import ModalSave from 'src/components/reusable/ModalSave';
 
 const moment = require("moment");
+
+import photoStarScreen from '../../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesPlatFloorPlan.imageStartScreen}
+            imageStyle={stylesPlatFloorPlan.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class PlatFloorPlanForm extends Component {
 
@@ -87,16 +105,33 @@ class PlatFloorPlanForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity  onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -348,13 +383,13 @@ class PlatFloorPlanForm extends Component {
     render() {
         const {masterDocList} = this.state;
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                       behavior={Platform.OS == "ios" ? "padding" : null}
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                         keyboardShouldPersistTaps="handled">
 
                         <View style={ styles.containerFlat }>
@@ -419,6 +454,7 @@ class PlatFloorPlanForm extends Component {
                                                                             <Button
                                                                                 style={stylesPlatFloorPlan.button}
                                                                                 color={Palette.light}
+                                                                                labelStyle={{fontWeight: 'bold'}}
                                                                                 mode="contained"
                                                                                 onPress={() => {
                                                                                     this.closeDialog();
@@ -462,7 +498,7 @@ class PlatFloorPlanForm extends Component {
                                     }
                                     <View style={ styles.formRow }>
                                         <Text style={styles.formLabel}>
-                                            {(this.state.deedType.scope === 'master') ? 'Plat' : 'Deed'} Book + Page
+                                            {(this.state.deedType.scope === 'master') ? 'Plat' : 'Deed'} Book + Page:
                                         </Text>
                                     </View>
                                     <View style={styles.formRow}>
@@ -482,25 +518,41 @@ class PlatFloorPlanForm extends Component {
                                             {(this.state.deedType.scope === 'master') ? 'Enter Plat without a Book and Page here:' : 'Enter Revised Plat without a Book and Page here:'}
                                         </Text>
                                     </View>
-                                    <View style={[styles.formRow, {marginTop: -15}]}>
-                                        <TextInput
-                                            label=''
-                                            style={styles.formControl}
-                                            value={this.state.tmpPlatFloorPlan.withoutBookPageInfo ? String(this.state.tmpPlatFloorPlan.withoutBookPageInfo) : null}
-                                            onChangeText={ (withoutBookPageInfo) => {
-                                                let tmpPlatFloorPlan = {...this.state.tmpPlatFloorPlan};
-                                                tmpPlatFloorPlan.withoutBookPageInfo = withoutBookPageInfo;
-                                                this.setState({tmpPlatFloorPlan: tmpPlatFloorPlan});
-                                            }}
-                                        />
-                                    </View>
+                                        <View style={[styles.formRow,]}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    style={styles.formControl}
+                                                    value={this.state.tmpPlatFloorPlan.withoutBookPageInfo ? String(this.state.tmpPlatFloorPlan.withoutBookPageInfo) : null}
+                                                    onChangeText={ (withoutBookPageInfo) => {
+                                                        let tmpPlatFloorPlan = {...this.state.tmpPlatFloorPlan};
+                                                        tmpPlatFloorPlan.withoutBookPageInfo = withoutBookPageInfo;
+                                                        this.setState({tmpPlatFloorPlan: tmpPlatFloorPlan});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                        </View>
                                     <Button
                                         icon="camera-outline"
                                         mode="contained"
+                                        labelStyle={{fontWeight: 'bold'}}
+                                        uppercase= {false}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Page Images</Button>
+                                        style={{marginVertical: 10, borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}>Add Page Images</Button>
 
                                     { (this.state.showModal) ?
                                         <ModalSave
@@ -536,24 +588,41 @@ class PlatFloorPlanForm extends Component {
                                 (this.state.deedType.scope == 'master') ?
                                     <Card style={ styles.card }>
                                         <Card.Content>
-                                            <TextInput
-                                                multiline
-                                                style={styles.formControl}
-                                                label="Note"
-                                                value={this.state.tmpPlatFloorPlan.note}
-                                                onChangeText={ (note) => {
-                                                    this.setState((prevState) => {
-                                                        return {
-                                                            ...prevState,
-                                                            tmpPlatFloorPlan: {
-                                                                ...prevState.tmpPlatFloorPlan,
-                                                                note: note
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Note:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    multiline
+                                                    style={styles.formControl}
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={this.state.tmpPlatFloorPlan.note}
+                                                    onChangeText={ (note) => {
+                                                        this.setState((prevState) => {
+                                                            return {
+                                                                ...prevState,
+                                                                tmpPlatFloorPlan: {
+                                                                    ...prevState.tmpPlatFloorPlan,
+                                                                    note: note
+                                                                }
                                                             }
+                                                        });
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
                                                         }
-                                                    });
-                                                }}
+                                                    }}
 
-                                            />
+                                                />
+                                            </View>
 
                                         </Card.Content>
                                     </Card>
@@ -561,15 +630,17 @@ class PlatFloorPlanForm extends Component {
                             }
 
                         </View>
-                        <View style={styles.formBottomButton}>
-                            <Button styles={styles.screenButton}
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
+                            <Button style={{borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}
                                     mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase= {false}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag?'Saving...':(this.state.tmpPlatFloorPlan.id) ? 'Save Document' : 'Add Document to Title'}</Button>
                         </View>
 
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage>
         );
     }
 }
@@ -616,4 +687,10 @@ const stylesPlatFloorPlan = StyleSheet.create({
         color: Palette.primary,
         textAlign: 'center'
     },
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
+    }
 });

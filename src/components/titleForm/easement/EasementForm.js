@@ -4,7 +4,8 @@ import {
     Text,
     View,
     SafeAreaView,
-    KeyboardAvoidingView, Platform
+    KeyboardAvoidingView, Platform,
+    ImageBackground
 } from "react-native";
 import {Header} from "react-navigation-stack";
 import {Button, Card, IconButton, TextInput, withTheme} from "react-native-paper";
@@ -24,6 +25,24 @@ import {Easement, DeedType, DbImage} from 'src/entities/index';
 import SyncService from 'src/services/SyncService';
 import ModalSave from 'src/components/reusable/ModalSave';
 const moment = require("moment");
+
+import photoStarScreen from '../../../images/bg.jpg'
+
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={styles.imageStartScreen}
+            imageStyle={styles.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 
 class EasementForm extends Component {
 
@@ -80,16 +99,33 @@ class EasementForm extends Component {
             headerTitle: headerTitle,
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
-                    <IconButton
-                        icon="arrow-left" color="white" size={25}
-                        onPress={navigation.getParam('showModalSave')}/>
 
-            )
+                <TouchableOpacity onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View >
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}}/>
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                        <Text style={{color: '#fff', fontSize: 17}}>
+                                                Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17}}>Back</Text></Button> 
+                    :
+                    <IconButton
+                        icon="arrow-left" color="white" size={30}
+                        onPress={navigation.getParam('showModalSave')}/>
+            ),
         }
     };
 
@@ -286,13 +322,13 @@ class EasementForm extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <BackgroundImage style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                       behavior={Platform.OS == "ios" ? "padding" : null}
                                       enabled={Platform.OS == "ios" ? true : false}
                                       keyboardVerticalOffset={Header.HEIGHT + 20}>
                     <ScrollView
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', backgroundColor: Palette.gray}}
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                         keyboardShouldPersistTaps="handled">
 
                         <View style={ styles.containerFlat }>
@@ -301,7 +337,7 @@ class EasementForm extends Component {
 
                                     <View style={ styles.formRow }>
                                         <Text style={styles.formLabel}>
-                                            Deed Type
+                                            Deed Type:
                                         </Text>
                                     </View>
 
@@ -335,7 +371,7 @@ class EasementForm extends Component {
 
                                         <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                             <Text style={styles.formLabel}>
-                                                Deed Date
+                                                Deed Date:
                                             </Text>
                                         </View>
                                         <DatePicker
@@ -361,7 +397,7 @@ class EasementForm extends Component {
 
                                         <View style={[styles.formRow, styles.divideForm, {marginBottom: 0}]}>
                                             <Text style={styles.formLabel}>
-                                                Date Recorded
+                                                Date Recorded:
                                             </Text>
                                         </View>
                                         <DatePicker
@@ -384,38 +420,72 @@ class EasementForm extends Component {
                                                 this.setState({tmpEasement: tmpEasement});
                                             }}
                                         />
-
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Grantor:</Text>
+                                        </View>
+                                      
                                         <View style={styles.formRow}>
-                                            <TextInput
-                                                label="Grantor"
-                                                style={styles.formControl}
-                                                value={ this.state.tmpEasement.grantor }
-                                                onChangeText={ (grantor) => {
-                                                    let tmpEasement = {...this.state.tmpEasement};
-                                                    tmpEasement.grantor = grantor;
-                                                    this.setState({tmpEasement: tmpEasement});
-                                                }}
-                                            />
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    style={styles.formControl}
+                                                    value={ this.state.tmpEasement.grantor }
+                                                    onChangeText={ (grantor) => {
+                                                        let tmpEasement = {...this.state.tmpEasement};
+                                                        tmpEasement.grantor = grantor;
+                                                        this.setState({tmpEasement: tmpEasement});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
                                         </View>
-
-                                        < View style={styles.formRow}>
-                                            <TextInput
-                                                label="Grantee"
-                                                style={styles.formControl}
-                                                value={ this.state.tmpEasement.grantee }
-                                                onChangeText={ (grantee) => {
-                                                    let tmpEasement = {...this.state.tmpEasement};
-                                                    tmpEasement.grantee = grantee;
-                                                    this.setState({tmpEasement: tmpEasement});
-                                                }}
-                                            />
+                                                    
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Grantee:</Text>
                                         </View>
-
+                                       
+                                        <View style={styles.formRow}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=""
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    style={styles.formControl}
+                                                    value={ this.state.tmpEasement.grantee }
+                                                    onChangeText={ (grantee) => {
+                                                        let tmpEasement = {...this.state.tmpEasement};
+                                                        tmpEasement.grantee = grantee;
+                                                        this.setState({tmpEasement: tmpEasement});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                        </View>
                                     </View>
 
-                                    <View style={ styles.formRow }>
+                                    <View style={ [styles.formRow, {paddingTop: 10} ]}>
                                         <Text style={styles.formLabel}>
-                                            Deed Book + Page
+                                            Deed Book + Page:
                                         </Text>
                                     </View>
                                     <View style={styles.formRow}>
@@ -431,11 +501,13 @@ class EasementForm extends Component {
                                     </View>
                                     <Button
                                         icon="camera-outline"
+                                        labelStyle={{fontWeight: 'bold'}}
                                         mode="contained"
+                                        uppercase= {false}
                                         onPress={() => {
                                             this.showGallery();
                                         }}
-                                        style={{marginVertical: 10}}>Add Page Images</Button>
+                                        style={{marginVertical: 10,borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}}>Add Page Images</Button>
 
                                     { (this.state.showModal) ?
                                         <ModalSave
@@ -469,15 +541,17 @@ class EasementForm extends Component {
                             </Card>
 
                         </View>
-                        <View style={[styles.formBottomButton]}>
-                            <Button style={styles.screenButton}
+                        <View style={[styles.formBottomButton, {marginBottom: 25}]}>
+                            <Button style={[styles.screenButton, {borderRadius: 12, borderWidth: 1, height: 50, justifyContent: 'center'}]}
                                     mode="contained"
+                                    labelStyle={{fontWeight: 'bold'}}
+                                    uppercase= {false}
                                     onPress={() => this.saveForm()}>{this.state.saveFlag ? 'Saving...' : (this.state.tmpEasement.id) ? 'Save Document' : 'Add Document to Title'}</Button>
                         </View>
 
                     </ScrollView>
                 </KeyboardAvoidingView>
-            </SafeAreaView>
+            </BackgroundImage>
         );
     }
 }

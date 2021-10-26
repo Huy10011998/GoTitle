@@ -41,6 +41,7 @@ class CustomDrawerContentComponent extends Component {
 
                     <Button icon='exit-to-app' mode='text'
                             visible="false"
+                            uppercase={false}
                             onPress={() => {
                                 this.logout();
                             }}

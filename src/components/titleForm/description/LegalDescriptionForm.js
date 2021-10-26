@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ScrollView, View, StyleSheet, KeyboardAvoidingView, Platform} from "react-native";
+import {ScrollView, View, StyleSheet, KeyboardAvoidingView, Platform, ImageBackground} from "react-native";
 import {Header} from "react-navigation-stack";
 import {
     Card,
@@ -26,7 +26,25 @@ import {
     TitleBookPageRepository
 } from 'src/repositories/index';
 
+import {Palette} from "src/Style/app.theme";
 
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import photoStarScreen from '../../../images/bg.jpg'
+class BackgroundImage extends Component {
+    render() {
+        return (
+            <ImageBackground 
+            source={photoStarScreen}
+            style={stylesLegalDescriptionForm.imageStartScreen}
+            imageStyle={stylesLegalDescriptionForm.imageStartScreen2}
+            >
+                {this.props.children}
+            </ImageBackground>
+        )
+    }
+}
 export default class LegalDescriptionForm extends Component {
 
     constructor(props) {
@@ -106,13 +124,30 @@ export default class LegalDescriptionForm extends Component {
 
             headerLeft: (
                 (Platform.OS == "ios") ?
-                    <Button
-                        uppercase={false}
-                        color={'#eee'}
-                        onPress={navigation.getParam('showModalSave')}
-                    ><Text style={{fontSize: 17}}>Back</Text></Button> :
+                <TouchableOpacity onPress={navigation.getParam('showModalSave')}>
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <View style={styles.iconView}>
+                                        <FeatherIcon name="chevron-left" size={33} color={Palette.light} style={{marginLeft: 5}} />
+                                    </View >
+
+                                    {/* <View style={{justifyContent: 'center', fontWeight: '600'}}>
+                                         <Text style={{color: '#fff', fontSize: 17}}>
+                                                 Back
+                                        </Text>
+                                    </View> */}
+                                                
+                                </View>
+                                        
+                </TouchableOpacity>
+                    // <Button
+                    //     uppercase={false}
+                    //     color={'#fff'}
+                    //     onPress={navigation.getParam('showModalSave')}
+                    // ><Text style={{fontSize: 17, color: '#fff'}}>Back</Text></Button> 
+                    :
                     <IconButton
-                        icon="arrow-left" color="white" size={25}
+                        icon="arrow-left" color="white" size={30}
                         onPress={navigation.getParam('showModalSave')}/>
 
             )
@@ -505,186 +540,422 @@ export default class LegalDescriptionForm extends Component {
             <View>
                 {this.state.showMaster ? (
                     <View>
-                        <View style={styles.formRow}>
-                            <TextInput
-                                label='Lot/Condo Unit'
-                                value={tmpTitle.lot}
-                                style={styles.formControl}
-                                onChangeText={(lot) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.lot = lot;
-                                    this.setState(newState)
-                                }}
-                            />
-
+                         <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>Lot/Condo Unit:</Text>
+                        </View>
+                            <View style={styles.formRow}>
+                                <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                <TextInput
+                                    label=''
+                                    value={tmpTitle.lot}
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    style={styles.formControl}
+                                    onChangeText={(lot) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.lot = lot;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
+                        <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>Block + Building:</Text>
+                        </View>
+                              
                         <View style={styles.formRow}>
-                            <TextInput
-                                label='Block'
-                                value={tmpTitle.block}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(block) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.block = block;
-                                    this.setState(newState)
-                                }}
-                            />
-                            <TextInput
-                                label='Building'
-                                value={tmpTitleDetail.building}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(building) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitleDetail.building = building;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary,marginLeft: 0}}>
+                                <TextInput
+                                    placeholder='Block'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.block}
+                                    style={[styles.formControl]}
+                                    onChangeText={(block) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.block = block;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
+                            
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                <TextInput
+                                    placeholder='Building'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitleDetail.building}
+                                    style={[styles.formControl]}
+                                    onChangeText={(building) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitleDetail.building = building;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
+                              
+                        <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>POD + Phase:</Text>
+                        </View>  
                         <View style={styles.formRow}>
-                            <TextInput
-                                label='POD'
-                                value={tmpTitle.pod}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(pod) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.pod = pod;
-                                    this.setState(newState)
-                                }}
-                            />
-                            <TextInput
-                                label='Phase'
-                                value={tmpTitle.phase}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(phase) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.phase = phase;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 0}}>
+                                <TextInput
+                                    placeholder='POD'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.pod}
+                                    style={[styles.formControl]}
+                                    onChangeText={(pod) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.pod = pod;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                <TextInput
+                                    placeholder='Phase'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.phase}
+                                    style={[styles.formControl,]}
+                                    onChangeText={(phase) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.phase = phase;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
+                        <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>Subdivision Section + Unit:</Text>
+                        </View> 
                         <View style={styles.formRow}>
-                            <TextInput
-                                label='Subdivision Section'
-                                value={tmpTitle.subdivisionSection}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(subdivisionSection) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.subdivisionSection = subdivisionSection;
-                                    this.setState(newState)
-                                }}
-                            />
-                            <TextInput
-                                label='Unit'
-                                value={tmpTitle.unit}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(unit) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.unit = unit;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 0}}>
+                                <TextInput
+                                    placeholder='Subdivision Section'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.subdivisionSection}
+                                    style={[styles.formControl, ]}
+                                    onChangeText={(subdivisionSection) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.subdivisionSection = subdivisionSection;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                <TextInput
+                                    placeholder='Unit'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.unit}
+                                    style={[styles.formControl]}
+                                    onChangeText={(unit) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.unit = unit;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
+                        <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>Parking + Storage:</Text>
+                        </View> 
                         <View style={styles.formRow}>
-                            <TextInput
-                                label='Parking'
-                                value={tmpTitle.parking}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(parking) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.parking = parking;
-                                    this.setState(newState)
-                                }}
-                            />
-                            <TextInput
-                                label='Storage'
-                                value={tmpTitle.storage}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(storage) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.storage = storage;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 0}}>
+                                <TextInput
+                                    placeholder='Parking'
+                                    value={tmpTitle.parking}
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    style={[styles.formControl]}
+                                    onChangeText={(parking) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.parking = parking;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                <TextInput
+                                    placeholder='Storage'
+                                    value={tmpTitle.storage}
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    style={[styles.formControl]}
+                                    onChangeText={(storage) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.storage = storage;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
+                        <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>Garage + Wine:</Text>
+                        </View> 
                         <View style={styles.formRow}>
-                            <TextInput
-                                label='Garage'
-                                value={tmpTitle.garage}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(garage) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.garage = garage;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 0}}>
+                                <TextInput
+                                    placeholder='Garage'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.garage}
+                                    style={[styles.formControl]}
+                                    onChangeText={(garage) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.garage = garage;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
 
-                            <TextInput
-                                label='Wine'
-                                value={tmpTitle.wine}
-                                style={[styles.formControl, {marginLeft: 5}]}
-                                onChangeText={(wine) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.wine = wine;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                <TextInput
+                                    placeholder='Wine'
+                                    value={tmpTitle.wine}
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    style={[styles.formControl]}
+                                    onChangeText={(wine) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.wine = wine;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
+                        <View style={[styles.formRow, styles.divideForm]}>
+                            <Text style={styles.formLabel}>% Common Elements + Residential Elements:</Text>
+                        </View> 
+                        
                         <View style={styles.formRow}>
-                            <TextInput
-                                label='% Interest In Common Elements'
-                                value={tmpTitle.interestCommon}
-                                style={styles.formControl}
-                                onChangeText={(interestCommon) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitle.interestCommon = interestCommon;
-                                    this.setState(newState)
-                                }}
-                            />
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                <TextInput
+                                    placeholder='% Interest In Common Elements'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitle.interestCommon}
+                                    style={styles.formControl}
+                                    onChangeText={(interestCommon) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitle.interestCommon = interestCommon;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
-                        <View style={styles.formRow}>
-                            <TextInput
-                                label='% Interest In Residential Elements'
-                                value={tmpTitleDetail.interestResidential}
-                                style={styles.formControl}
-                                onChangeText={(interestResidential) => {
-                                    let newState = {...this.state};
-                                    newState.tmpTitleDetail.interestResidential = interestResidential;
-                                    this.setState(newState)
-                                }}
-                            />
+                        <View style={[styles.formRow, {paddingTop: 10}]}>
+                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                <TextInput
+                                    placeholder='% Interest In Residential Elements'
+                                    backgroundColor="#fff"
+                                    mode= "flat"
+                                    underlineColor="none"
+                                    value={tmpTitleDetail.interestResidential}
+                                    style={styles.formControl}
+                                    onChangeText={(interestResidential) => {
+                                        let newState = {...this.state};
+                                        newState.tmpTitleDetail.interestResidential = interestResidential;
+                                        this.setState(newState)
+                                    }}
+                                    theme={{
+                                        colors: {
+                                            placeholder: Palette.graytextinput,
+                                            text: Palette.graytextinput,
+                                            primary: Palette.primary,
+                                            underlineColor: 'transparent',
+                                            background: '#F2F2F2'
+                                        }
+                                    }}
+                                />
+                            </View>
                         </View>
 
                     </View>
                 ) : null}
-
+                <View style={[styles.formRow, styles.divideForm]}>
+                    <Text style={styles.formLabel}>Tract + Acres:</Text>
+                </View>
                 <View style={styles.formRow}>
-                    <TextInput
-                        label='Tract'
-                        value={tmpTitleDetail.tract}
-                        style={[styles.formControl, {marginLeft: 5}]}
-                        onChangeText={(tract) => {
-                            let newState = {...this.state};
-                            newState.tmpTitleDetail.tract = tract;
-                            this.setState(newState)
-                        }}
-                    />
-                    <TextInput
-                        label='Acres'
-                        value={tmpTitleDetail.acres}
-                        style={[styles.formControl, {marginLeft: 5}]}
-                        onChangeText={(acres) => {
-                            let newState = {...this.state};
-                            newState.tmpTitleDetail.acres = acres;
-                            this.setState(newState)
-                        }}
-                    />
+                     <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                        <TextInput
+                            placeholder='Tract'
+                            mode='flat'
+                            backgroundColor= '#fff'
+                            underlineColor= "none"
+                            value={tmpTitleDetail.tract}
+                            style={[styles.formControl, {marginLeft: 10}]}
+                            onChangeText={(tract) => {
+                                let newState = {...this.state};
+                                newState.tmpTitleDetail.tract = tract;
+                                this.setState(newState)
+                            }}
+                            theme={{
+                                colors: {
+                                    placeholder: Palette.graytextinput,
+                                    text: Palette.graytextinput,
+                                    primary: Palette.primary,
+                                    underlineColor: 'transparent',
+                                    background: '#F2F2F2'
+                                }
+                            }}
+                        />
+                    </View>
+                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                        <TextInput
+                            placeholder='Acres'
+                            mode='flat'
+                            backgroundColor= '#fff'
+                            underlineColor= "none"
+                            value={tmpTitleDetail.acres}
+                            style={[styles.formControl, ]}
+                            onChangeText={(acres) => {
+                                let newState = {...this.state};
+                                newState.tmpTitleDetail.acres = acres;
+                                this.setState(newState)
+                            }}
+                            theme={{
+                                colors: {
+                                    placeholder: Palette.graytextinput,
+                                    text: Palette.graytextinput,
+                                    primary: Palette.primary,
+                                    underlineColor: 'transparent',
+                                    background: '#F2F2F2'
+                                }
+                            }}
+                        />
+                    </View>
                 </View>
 
 
@@ -738,7 +1009,8 @@ export default class LegalDescriptionForm extends Component {
         let {tmpTitle} = this.state;
         let {tmpTitleDetail} = this.state;
         return (
-            <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
+            <BackgroundImage>
+                <KeyboardAvoidingView style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
                                   behavior={Platform.OS == "ios" ? "padding" : null}
                                   enabled={Platform.OS == "ios" ? true : false}
                                   keyboardVerticalOffset={Header.HEIGHT + 20}>
@@ -747,7 +1019,7 @@ export default class LegalDescriptionForm extends Component {
                     <View style={styles.containerFlat}>
                         <View style={stylesLegalDescriptionForm.textSwitchForm}>
                             <View>
-                                <Text>
+                                <Text style={{fontWeight: 'bold'}}>
                                     Open Section | Township | Range
                                 </Text>
                             </View>
@@ -769,7 +1041,7 @@ export default class LegalDescriptionForm extends Component {
 
                         <Card style={styles.card}>
                             <Card.Content>
-                                <Text>Property Type :</Text>
+                                <Text style={{fontWeight: 'bold'}}>Property Type :</Text>
                                 <View style={{flexDirection: "row", justifyContent: 'space-around'}}>
                                     <View style={stylesLegalDescriptionForm.radioButtonTextForm}>
                                         <TouchableRipple
@@ -815,8 +1087,7 @@ export default class LegalDescriptionForm extends Component {
                                             onPress={() => {
                                                 this.state.showTractAcres = true;
                                                 this.setType("metes_and_bounds", false)
-                                            }}
-                                        >
+                                            }}>
                                             <View style={{alignItems: 'center'}}>
                                                 <Text style={stylesLegalDescriptionForm.formLabel}>Metes &
                                                     Bounds</Text>
@@ -834,19 +1105,39 @@ export default class LegalDescriptionForm extends Component {
                                             </View>
                                         </TouchableRipple>
                                     </View>
-
+                                
                                 </View>
-                                {this.state.showMaster ? (<View style={styles.formRow}>
-                                    <TextInput
-                                        label='Subdivision/Condo Name'
-                                        value={tmpTitle.condoName}
-                                        style={styles.formControl}
-                                        onChangeText={(condoName) => {
-                                            let newState = {...this.state};
-                                            newState.tmpTitle.condoName = condoName;
-                                            this.setState(newState)
-                                        }}
-                                    />
+                                {this.state.showMaster ? (
+                                <View>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Subdivision/Condo Name:</Text>
+                                    </View>
+                                        <View style={styles.formRow}>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    value={tmpTitle.condoName}
+                                                    style={styles.formControl}
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    onChangeText={(condoName) => {
+                                                        let newState = {...this.state};
+                                                        newState.tmpTitle.condoName = condoName;
+                                                        this.setState(newState)
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                        </View>
                                 </View>) : null}
 
                             </Card.Content>
@@ -856,63 +1147,167 @@ export default class LegalDescriptionForm extends Component {
                                 {
                                     (this.state.tmpTitleDetail.isOpenSection) ?
                                         <View>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Section:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={tmpTitle.section ? String(tmpTitle.section) : null}
+                                                    style={styles.formControl}
+                                                    onChangeText={(section) => {
+                                                        tmpTitle.section = section;
+                                                        this.setState({tmpTitle: tmpTitle, edited: true});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Township:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
                                             <TextInput
-                                                label='Section'
-                                                value={tmpTitle.section ? String(tmpTitle.section) : null}
-                                                style={styles.formControl}
-                                                onChangeText={(section) => {
-                                                    tmpTitle.section = section;
-                                                    this.setState({tmpTitle: tmpTitle, edited: true});
-                                                }}
-                                            />
-                                            <TextInput
-                                                label='Township'
+                                                label=''
+                                                backgroundColor="#fff"
+                                                mode= "flat"
+                                                underlineColor="none"
                                                 value={tmpTitle.township ? String(tmpTitle.township) : null}
                                                 style={styles.formControl}
                                                 onChangeText={(township) => {
                                                     tmpTitle.township = township;
                                                     this.setState({tmpTitle: tmpTitle, edited: true});
                                                 }}
-                                            />
-                                            <TextInput
-                                                label='Range'
-                                                value={tmpTitle.range ? String(tmpTitle.range) : null}
-                                                style={styles.formControl}
-                                                onChangeText={(range) => {
-                                                    tmpTitle.range = range;
-                                                    this.setState({tmpTitle: tmpTitle, edited: true});
+                                                theme={{
+                                                    colors: {
+                                                        placeholder: Palette.graytextinput,
+                                                        text: Palette.graytextinput,
+                                                        primary: Palette.primary,
+                                                        underlineColor: 'transparent',
+                                                        background: '#F2F2F2'
+                                                    }
                                                 }}
                                             />
+                                            </View>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Range:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={tmpTitle.range ? String(tmpTitle.range) : null}
+                                                    style={styles.formControl}
+                                                    onChangeText={(range) => {
+                                                        tmpTitle.range = range;
+                                                        this.setState({tmpTitle: tmpTitle, edited: true});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
                                         </View>
                                         :
                                         <View>
-                                            <TextInput
-                                                label='District'
-                                                value={tmpTitle.district ? String(tmpTitle.district) : null}
-                                                style={styles.formControl}
-                                                onChangeText={(district) => {
-                                                    tmpTitle.district = district;
-                                                    this.setState({tmpTitle: tmpTitle, edited: true});
-                                                }}
-                                            />
-                                            <TextInput
-                                                label='Land Lot'
-                                                value={tmpTitle.landLot ? String(tmpTitle.landLot) : null}
-                                                style={styles.formControl}
-                                                onChangeText={(landLot) => {
-                                                    tmpTitle.landLot = landLot;
-                                                    this.setState({tmpTitle: tmpTitle, edited: true});
-                                                }}
-                                            />
-                                            <TextInput
-                                                label='Section'
-                                                value={tmpTitle.section ? String(tmpTitle.section) : null}
-                                                style={styles.formControl}
-                                                onChangeText={(section) => {
-                                                    tmpTitle.section = section;
-                                                    this.setState({tmpTitle: tmpTitle, edited: true});
-                                                }}
-                                            />
+                                             <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>District:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={tmpTitle.district ? String(tmpTitle.district) : null}
+                                                    style={styles.formControl}
+                                                    onChangeText={(district) => {
+                                                        tmpTitle.district = district;
+                                                        this.setState({tmpTitle: tmpTitle, edited: true});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Land Lot:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={tmpTitle.landLot ? String(tmpTitle.landLot) : null}
+                                                    style={styles.formControl}
+                                                    onChangeText={(landLot) => {
+                                                        tmpTitle.landLot = landLot;
+                                                        this.setState({tmpTitle: tmpTitle, edited: true});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Section:</Text>
+                                            </View>
+                                            <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                <TextInput
+                                                    label=''
+                                                    backgroundColor="#fff"
+                                                    mode= "flat"
+                                                    underlineColor="none"
+                                                    value={tmpTitle.section ? String(tmpTitle.section) : null}
+                                                    style={styles.formControl}
+                                                    onChangeText={(section) => {
+                                                        tmpTitle.section = section;
+                                                        this.setState({tmpTitle: tmpTitle, edited: true});
+                                                    }}
+                                                    theme={{
+                                                        colors: {
+                                                            placeholder: Palette.graytextinput,
+                                                            text: Palette.graytextinput,
+                                                            primary: Palette.primary,
+                                                            underlineColor: 'transparent',
+                                                            background: '#F2F2F2'
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
                                         </View>
                                 }
                             </Card.Content>
@@ -938,48 +1333,74 @@ export default class LegalDescriptionForm extends Component {
 
                                 <Card style={styles.card}>
                                     <Card.Content>
-                                        <View>
-                                            <Text style={stylesLegalDescriptionForm.formText}>
-                                                Plat Book + Page
-                                            </Text>
+                                        <View style={[styles.formRow, styles.divideForm]}>
+                                            <Text style={styles.formLabel}>Plat Book + Page:</Text>
                                         </View>
                                         {this.state.tmpPlatBookPageList.map((value, index) => {
                                             return <View style={styles.divideForm}>
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label='Book'
-                                                        value={this.state.tmpPlatBookPageList[index].book}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(book) => {
-                                                            let tmpPlatBookPageList = this.state.tmpPlatBookPageList;
-                                                            let tmpPlatBookPage = tmpPlatBookPageList[index];
-                                                            tmpPlatBookPage.book = book;
-                                                            tmpPlatBookPageList[index] = tmpPlatBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpPlatBookPageList: tmpPlatBookPageList
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder='Book'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpPlatBookPageList[index].book}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(book) => {
+                                                                let tmpPlatBookPageList = this.state.tmpPlatBookPageList;
+                                                                let tmpPlatBookPage = tmpPlatBookPageList[index];
+                                                                tmpPlatBookPage.book = book;
+                                                                tmpPlatBookPageList[index] = tmpPlatBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpPlatBookPageList: tmpPlatBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
-                                                    <TextInput
-                                                        label='Page'
-                                                        value={this.state.tmpPlatBookPageList[index].page}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(page) => {
-                                                            let tmpPlatBookPageList = this.state.tmpPlatBookPageList;
-                                                            let tmpPlatBookPage = tmpPlatBookPageList[index];
-                                                            tmpPlatBookPage.page = page;
-                                                            tmpPlatBookPageList[index] = tmpPlatBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpPlatBookPageList: tmpPlatBookPageList
+                                                            }}
+                                                        />
+                                                    </View>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                                        <TextInput
+                                                            placeholder='Page'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpPlatBookPageList[index].page}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(page) => {
+                                                                let tmpPlatBookPageList = this.state.tmpPlatBookPageList;
+                                                                let tmpPlatBookPage = tmpPlatBookPageList[index];
+                                                                tmpPlatBookPage.page = page;
+                                                                tmpPlatBookPageList[index] = tmpPlatBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpPlatBookPageList: tmpPlatBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
                                                     {
                                                         (index > 0) ?
                                                             <View style={stylesLegalDescriptionForm.iconView}>
@@ -993,24 +1414,41 @@ export default class LegalDescriptionForm extends Component {
                                                     }
 
                                                 </View>
+                                                <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Enter Plat without a Book and Page here:</Text>
+                                                </View>
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label='Enter Plat without a Book and Page here'
-                                                        value={this.state.tmpPlatBookPageList[index].withoutBookPageInfo}
-                                                        style={[styles.formControl]}
-                                                        onChangeText={(withoutBookPageInfo) => {
-                                                            let tmpPlatBookPageList = this.state.tmpPlatBookPageList;
-                                                            let tmpPlatBookPage = tmpPlatBookPageList[index];
-                                                            tmpPlatBookPage.withoutBookPageInfo = withoutBookPageInfo;
-                                                            tmpPlatBookPageList[index] = tmpPlatBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpPlatBookPageList: tmpPlatBookPageList
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder=''
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpPlatBookPageList[index].withoutBookPageInfo}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(withoutBookPageInfo) => {
+                                                                let tmpPlatBookPageList = this.state.tmpPlatBookPageList;
+                                                                let tmpPlatBookPage = tmpPlatBookPageList[index];
+                                                                tmpPlatBookPage.withoutBookPageInfo = withoutBookPageInfo;
+                                                                tmpPlatBookPageList[index] = tmpPlatBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpPlatBookPageList: tmpPlatBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
                                             </View>;
                                         })}
@@ -1032,50 +1470,76 @@ export default class LegalDescriptionForm extends Component {
 
                                 <Card style={styles.card}>
                                     <Card.Content>
-
                                         <View>
-                                            <Text style={stylesLegalDescriptionForm.formText}>
-                                                Revised Plat at book + Page
-                                            </Text>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                    <Text style={styles.formLabel}>Revised Plat at book + Page:</Text>
+                                            </View>
                                         </View>
                                         {this.state.tmpRevisedBookPageList.map((value, index) => {
-                                            return <View>
+                                            return <View style={styles.divideForm}>
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label='Book'
-                                                        value={this.state.tmpRevisedBookPageList[index].book}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(book) => {
-                                                            let tmpRevisedBookPageList = this.state.tmpRevisedBookPageList;
-                                                            let tmpRevisedBookPage = tmpRevisedBookPageList[index];
-                                                            tmpRevisedBookPage.book = book;
-                                                            tmpRevisedBookPageList[index] = tmpRevisedBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpRevisedBookPageList: tmpRevisedBookPageList
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder='Book'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpRevisedBookPageList[index].book}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(book) => {
+                                                                let tmpRevisedBookPageList = this.state.tmpRevisedBookPageList;
+                                                                let tmpRevisedBookPage = tmpRevisedBookPageList[index];
+                                                                tmpRevisedBookPage.book = book;
+                                                                tmpRevisedBookPageList[index] = tmpRevisedBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpRevisedBookPageList: tmpRevisedBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-
-                                                        }}
-                                                    />
-                                                    <TextInput
-                                                        label='Page'
-                                                        value={this.state.tmpRevisedBookPageList[index].page}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(page) => {
-                                                            let tmpRevisedBookPageList = this.state.tmpRevisedBookPageList;
-                                                            let tmpRevisedBookPage = tmpRevisedBookPageList[index];
-                                                            tmpRevisedBookPage.page = page;
-                                                            tmpRevisedBookPageList[index] = tmpRevisedBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpRevisedBookPageList: tmpRevisedBookPageList
+                                                            }}
+                                                        />
+                                                    </View>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                                        <TextInput
+                                                            placeholder='Page'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpRevisedBookPageList[index].page}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(page) => {
+                                                                let tmpRevisedBookPageList = this.state.tmpRevisedBookPageList;
+                                                                let tmpRevisedBookPage = tmpRevisedBookPageList[index];
+                                                                tmpRevisedBookPage.page = page;
+                                                                tmpRevisedBookPageList[index] = tmpRevisedBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpRevisedBookPageList: tmpRevisedBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
                                                     {
                                                         (index > 0) ?
                                                             <View style={stylesLegalDescriptionForm.iconView}>
@@ -1089,23 +1553,40 @@ export default class LegalDescriptionForm extends Component {
                                                     }
                                                 </View>
                                                 <View>
-                                                    <TextInput
-                                                        label='Enter Revised Plat without a Book and Page here'
-                                                        value={this.state.tmpRevisedBookPageList[index].withoutBookPageInfo}
-                                                        style={[styles.formControl]}
-                                                        onChangeText={(withoutBookPageInfo) => {
-                                                            let tmpRevisedBookPageList = this.state.tmpRevisedBookPageList;
-                                                            let tmpRevisedBookPage = tmpRevisedBookPageList[index];
-                                                            tmpRevisedBookPage.withoutBookPageInfo = withoutBookPageInfo;
-                                                            tmpRevisedBookPageList[index] = tmpRevisedBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpRevisedBookPageList: tmpRevisedBookPageList
+                                                    <View style={[styles.formRow, styles.divideForm]}>
+                                                        <Text style={styles.formLabel}>Enter Revised Plat without a Book and Page here:</Text>
+                                                    </View>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder=''
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpRevisedBookPageList[index].withoutBookPageInfo}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(withoutBookPageInfo) => {
+                                                                let tmpRevisedBookPageList = this.state.tmpRevisedBookPageList;
+                                                                let tmpRevisedBookPage = tmpRevisedBookPageList[index];
+                                                                tmpRevisedBookPage.withoutBookPageInfo = withoutBookPageInfo;
+                                                                tmpRevisedBookPageList[index] = tmpRevisedBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpRevisedBookPageList: tmpRevisedBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
                                             </View>
                                         })}
@@ -1128,35 +1609,52 @@ export default class LegalDescriptionForm extends Component {
                                     <Card.Content>
 
                                         <View>
-                                            <Text style={stylesLegalDescriptionForm.formText}>
-                                                Floor Plans Book + Page
-                                            </Text>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Floor Plans Book + Page:</Text>
+                                            </View>
                                         </View>
                                         {this.state.tmpFloorBookPageList.map((value, index) => {
-                                            return <View>
+                                            return <View style={styles.divideForm}>
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label='Book'
-                                                        value={this.state.tmpFloorBookPageList[index].book}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(book) => {
-                                                            let tmpFloorBookPageList = this.state.tmpFloorBookPageList;
-                                                            let tmpFloorBookPage = tmpFloorBookPageList[index];
-                                                            tmpFloorBookPage.book = book;
-                                                            tmpFloorBookPageList[index] = tmpFloorBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpFloorBookPageList: tmpFloorBookPageList
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder='Book'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpFloorBookPageList[index].book}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(book) => {
+                                                                let tmpFloorBookPageList = this.state.tmpFloorBookPageList;
+                                                                let tmpFloorBookPage = tmpFloorBookPageList[index];
+                                                                tmpFloorBookPage.book = book;
+                                                                tmpFloorBookPageList[index] = tmpFloorBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpFloorBookPageList: tmpFloorBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
+                                                <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
                                                     <TextInput
-                                                        label='Page'
+                                                        placeholder='Page'
+                                                        mode='flat'
+                                                        backgroundColor= '#fff'
+                                                        underlineColor='none'
                                                         value={this.state.tmpFloorBookPageList[index].page}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
+                                                        style={[styles.formControl]}
                                                         onChangeText={(page) => {
                                                             let tmpFloorBookPageList = this.state.tmpFloorBookPageList;
                                                             let tmpFloorBookPage = tmpFloorBookPageList[index];
@@ -1169,7 +1667,17 @@ export default class LegalDescriptionForm extends Component {
                                                                 }
                                                             });
                                                         }}
+                                                        theme={{
+                                                            colors: {
+                                                                placeholder: Palette.graytextinput,
+                                                                text: Palette.graytextinput,
+                                                                primary: Palette.primary,
+                                                                underlineColor: 'transparent',
+                                                                background: '#F2F2F2'
+                                                            }
+                                                        }}
                                                     />
+                                                </View>
                                                     {
                                                         (index > 0) ?
                                                             <View style={stylesLegalDescriptionForm.iconView}>
@@ -1183,23 +1691,40 @@ export default class LegalDescriptionForm extends Component {
                                                     }
                                                 </View>
                                                 <View>
-                                                    <TextInput
-                                                        label='Enter Floor Plans without a Book and Page here:'
-                                                        value={this.state.tmpFloorBookPageList[index].withoutBookPageInfo}
-                                                        style={[styles.formControl]}
-                                                        onChangeText={(withoutBookPageInfo) => {
-                                                            let tmpFloorBookPageList = this.state.tmpFloorBookPageList;
-                                                            let tmpFloorBookPage = tmpFloorBookPageList[index];
-                                                            tmpFloorBookPage.withoutBookPageInfo = withoutBookPageInfo;
-                                                            tmpFloorBookPageList[index] = tmpFloorBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpFloorBookPageList: tmpFloorBookPageList
+                                                    <View style={[styles.formRow, styles.divideForm]}>
+                                                        <Text style={styles.formLabel}>Enter Floor Plans without a Book and Page here:</Text>
+                                                    </View>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder=''
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpFloorBookPageList[index].withoutBookPageInfo}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(withoutBookPageInfo) => {
+                                                                let tmpFloorBookPageList = this.state.tmpFloorBookPageList;
+                                                                let tmpFloorBookPage = tmpFloorBookPageList[index];
+                                                                tmpFloorBookPage.withoutBookPageInfo = withoutBookPageInfo;
+                                                                tmpFloorBookPageList[index] = tmpFloorBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpFloorBookPageList: tmpFloorBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                </View>
                                                 </View>
                                             </View>
                                         })}
@@ -1221,48 +1746,75 @@ export default class LegalDescriptionForm extends Component {
                                 <Card style={styles.card}>
                                     <Card.Content>
                                         <View>
-                                            <Text style={stylesLegalDescriptionForm.formText}>
-                                                Revised Floor Plans at Book + Page
-                                            </Text>
+                                            <View style={[styles.formRow, styles.divideForm]}>
+                                                <Text style={styles.formLabel}>Revised Floor Plans at Book + Page:</Text>
+                                            </View>
                                         </View>
                                         {this.state.tmpFloorRevisedBookPageList.map((value, index) => {
-                                            return <View>
+                                            return <View style={styles.divideForm}>
                                                 <View style={styles.formRow}>
-                                                    <TextInput
-                                                        label='Book'
-                                                        value={this.state.tmpFloorRevisedBookPageList[index].book}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(book) => {
-                                                            let tmpFloorRevisedBookPageList = this.state.tmpFloorRevisedBookPageList;
-                                                            let tmpFloorRevisedBookPage = tmpFloorRevisedBookPageList[index];
-                                                            tmpFloorRevisedBookPage.book = book;
-                                                            tmpFloorRevisedBookPageList[index] = tmpFloorRevisedBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpFloorRevisedBookPageList: tmpFloorRevisedBookPageList
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            placeholder='Book'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpFloorRevisedBookPageList[index].book}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(book) => {
+                                                                let tmpFloorRevisedBookPageList = this.state.tmpFloorRevisedBookPageList;
+                                                                let tmpFloorRevisedBookPage = tmpFloorRevisedBookPageList[index];
+                                                                tmpFloorRevisedBookPage.book = book;
+                                                                tmpFloorRevisedBookPageList[index] = tmpFloorRevisedBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpFloorRevisedBookPageList: tmpFloorRevisedBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-
-                                                        }}
-                                                    />
-                                                    <TextInput
-                                                        label='Page'
-                                                        value={this.state.tmpFloorRevisedBookPageList[index].page}
-                                                        style={[styles.formControl, {marginLeft: 5}]}
-                                                        onChangeText={(page) => {
-                                                            let tmpFloorRevisedBookPageList = this.state.tmpFloorRevisedBookPageList;
-                                                            let tmpFloorRevisedBookPage = tmpFloorRevisedBookPageList[index];
-                                                            tmpFloorRevisedBookPage.page = page;
-                                                            tmpFloorRevisedBookPageList[index] = tmpFloorRevisedBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpFloorRevisedBookPageList: tmpFloorRevisedBookPageList
+                                                            }}
+                                                        />
+                                                    </View>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary, marginLeft: 10}}>
+                                                        <TextInput
+                                                            placeholder='Page'
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpFloorRevisedBookPageList[index].page}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(page) => {
+                                                                let tmpFloorRevisedBookPageList = this.state.tmpFloorRevisedBookPageList;
+                                                                let tmpFloorRevisedBookPage = tmpFloorRevisedBookPageList[index];
+                                                                tmpFloorRevisedBookPage.page = page;
+                                                                tmpFloorRevisedBookPageList[index] = tmpFloorRevisedBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpFloorRevisedBookPageList: tmpFloorRevisedBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
                                                     {
                                                         (index > 0) ?
                                                             <View style={stylesLegalDescriptionForm.iconView}>
@@ -1276,23 +1828,40 @@ export default class LegalDescriptionForm extends Component {
                                                     }
                                                 </View>
                                                 <View>
-                                                    <TextInput
-                                                        label='Enter Revised Floor Plans without a Book and Page here'
-                                                        value={this.state.tmpFloorRevisedBookPageList[index].withoutBookPageInfo}
-                                                        style={[styles.formControl]}
-                                                        onChangeText={(withoutBookPageInfo) => {
-                                                            let tmpFloorRevisedBookPageList = this.state.tmpFloorRevisedBookPageList;
-                                                            let tmpFloorRevisedBookPage = tmpFloorRevisedBookPageList[index];
-                                                            tmpFloorRevisedBookPage.withoutBookPageInfo = withoutBookPageInfo;
-                                                            tmpFloorRevisedBookPageList[index] = tmpFloorRevisedBookPage;
-                                                            this.setState((prevState) => {
-                                                                return {
-                                                                    ...prevState,
-                                                                    tmpFloorRevisedBookPageList: tmpFloorRevisedBookPageList
+                                                    <View style={[styles.formRow, styles.divideForm]}>
+                                                        <Text style={styles.formLabel}>Enter Revised Floor Plans without a Book and Page here:</Text>
+                                                    </View>
+                                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                                        <TextInput
+                                                            label=''
+                                                            mode='flat'
+                                                            backgroundColor= '#fff'
+                                                            underlineColor='none'
+                                                            value={this.state.tmpFloorRevisedBookPageList[index].withoutBookPageInfo}
+                                                            style={[styles.formControl]}
+                                                            onChangeText={(withoutBookPageInfo) => {
+                                                                let tmpFloorRevisedBookPageList = this.state.tmpFloorRevisedBookPageList;
+                                                                let tmpFloorRevisedBookPage = tmpFloorRevisedBookPageList[index];
+                                                                tmpFloorRevisedBookPage.withoutBookPageInfo = withoutBookPageInfo;
+                                                                tmpFloorRevisedBookPageList[index] = tmpFloorRevisedBookPage;
+                                                                this.setState((prevState) => {
+                                                                    return {
+                                                                        ...prevState,
+                                                                        tmpFloorRevisedBookPageList: tmpFloorRevisedBookPageList
+                                                                    }
+                                                                });
+                                                            }}
+                                                            theme={{
+                                                                colors: {
+                                                                    placeholder: Palette.graytextinput,
+                                                                    text: Palette.graytextinput,
+                                                                    primary: Palette.primary,
+                                                                    underlineColor: 'transparent',
+                                                                    background: '#F2F2F2'
                                                                 }
-                                                            });
-                                                        }}
-                                                    />
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
                                             </View>
                                         })}
@@ -1316,19 +1885,35 @@ export default class LegalDescriptionForm extends Component {
                         ) :
                             <Card style={styles.card}>
                                 <Card.Content>
-                                    <TextInput
-                                        style={styles.formControl}
-                                        label='Metes and Bounds:'
-                                        multiline={true}
-                                        numberOfLines={4}
-                                        value={tmpTitle.longLegal}
-                                        onChangeText={(longLegal) => {
-                                            let newState = {...this.state};
-                                            newState.tmpTitle.longLegal = longLegal;
-                                            this.setState(newState);
-                                        }}
-                                    >
-                                    </TextInput>
+                                    <View style={[styles.formRow, styles.divideForm]}>
+                                        <Text style={styles.formLabel}>Metes and Bounds:</Text>
+                                    </View>
+                                    <View style={{flex: 1,borderRadius: 12,borderWidth: 1,borderColor: Palette.primary}}>
+                                        <TextInput
+                                            style={styles.formControl}
+                                            placeholder=''
+                                            backgroundColor="#fff"
+                                            mode='flat'
+                                            underlineColor="none"
+                                            multiline={true}
+                                            numberOfLines={4}
+                                            value={tmpTitle.longLegal}
+                                            onChangeText={(longLegal) => {
+                                                let newState = {...this.state};
+                                                newState.tmpTitle.longLegal = longLegal;
+                                                this.setState(newState);
+                                            }}
+                                            theme={{
+                                                colors: {
+                                                    placeholder: Palette.graytextinput,
+                                                    text: Palette.graytextinput,
+                                                    primary: Palette.primary,
+                                                    underlineColor: 'transparent',
+                                                    background: '#F2F2F2'
+                                                }
+                                            }}>
+                                         </TextInput>
+                                    </View>
                                 </Card.Content>
                             </Card>
                         }
@@ -1362,8 +1947,10 @@ export default class LegalDescriptionForm extends Component {
                         }
 
                         <Button
-                            style={styles.screenButton}
+                            style={[styles.screenButton, {marginBottom: 25}]}
+                            labelStyle={{fontWeight: 'bold'}}
                             mode="contained"
+                            uppercase={false}
                             onPress={() => {
                                 this.saveForm();
                             }}>
@@ -1371,8 +1958,9 @@ export default class LegalDescriptionForm extends Component {
                         </Button>
                     </View>
 
-                </ScrollView>
-            </KeyboardAvoidingView>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </BackgroundImage>
         );
     }
 }
@@ -1415,7 +2003,12 @@ const stylesLegalDescriptionForm = StyleSheet.create({
     formLabel: {
         marginTop: 5,
         color: '#000'
+    },
+    imageStartScreen: {
+        height: '100%',
+    },
+    imageStartScreen2: {
+        resizeMode: 'cover'
     }
-
 });
 
